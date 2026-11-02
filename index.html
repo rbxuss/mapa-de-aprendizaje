@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Mapa de Aprendizaje · Desarrollo Web</title>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="6" cy="6" r="2.4"/><circle cx="18" cy="12" r="2.4"/><circle cx="7" cy="18" r="2.4"/>
+        <path d="M8.2 7.1 15.8 11M8.5 16.7l7.2-3.3"/>
+      </svg>
+    </div>
+    <div class="brand-text">
+      <h1>Mapa de Aprendizaje</h1>
+      <p>Nivel 1 · Fundamentos de desarrollo web</p>
+    </div>
+  </div>
+
+  <nav class="views" role="tablist" aria-label="Vistas">
+    <button data-view="route" class="active">Ruta</button>
+    <button data-view="map">Mapa</button>
+    <button data-view="review">Repaso</button>
+  </nav>
+
+  <div class="top-right">
+    <div class="progress" title="Conceptos dominados">
+      <svg class="ring" viewBox="0 0 36 36" width="36" height="36" aria-hidden="true">
+        <circle cx="18" cy="18" r="15" class="ring-bg"/>
+        <circle cx="18" cy="18" r="15" id="ring-fg" class="ring-fg"/>
+      </svg>
+      <div class="progress-txt"><strong id="progress-pct">0%</strong><span id="progress-text">0/0</span></div>
+    </div>
+    <button id="btn-menu" class="icon-btn" title="Más opciones" aria-label="Más opciones">⋯</button>
+    <div id="menu" class="menu" hidden>
+      <button data-act="export">Exportar progreso y datos</button>
+      <button data-act="import">Importar JSON</button>
+      <hr/>
+      <button data-act="reset-progress">Borrar solo el progreso</button>
+      <button data-act="reset-all" class="danger">Restaurar contenido original</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <aside class="sidebar">
+    <div class="side-block">
+      <label class="field-label" for="search">Buscar concepto</label>
+      <input id="search" type="search" placeholder="URL, cookies, JSON…" autocomplete="off"/>
+      <select id="status-filter" aria-label="Filtrar por estado">
+        <option value="all">Todos los estados</option>
+        <option value="pendiente">Pendiente</option>
+        <option value="estudiando">Estudiando</option>
+        <option value="dominado">Dominado</option>
+        <option value="repasar">Repasar</option>
+      </select>
+    </div>
+
+    <details class="side-block" open>
+      <summary>Añadir concepto</summary>
+      <form id="add-form" autocomplete="off">
+        <label class="field-label" for="add-title">Título</label>
+        <input id="add-title" required placeholder="Ej. Qué es un webhook"/>
+        <label class="field-label" for="add-module">Módulo</label>
+        <select id="add-module"></select>
+        <input id="add-newmodule" placeholder="Nombre del nuevo módulo" hidden/>
+        <label class="field-label" for="add-desc">Explicación</label>
+        <textarea id="add-desc" rows="3" placeholder="Escribe la idea y menciona otros conceptos: se enlazarán solos."></textarea>
+        <label class="field-label">Necesitas antes</label>
+        <div id="req-chips" class="chips"></div>
+        <select id="add-req"><option value="">+ Añadir requisito…</option></select>
+        <button type="submit" class="primary block">Añadir a la ruta</button>
+      </form>
+    </details>
+
+    <div class="side-block hint">
+      <p><strong>Cómo se usa</strong></p>
+      <p>Abre un concepto en la <em>Ruta</em>. Las palabras subrayadas llevan a otros conceptos, así puedes resolver una duda sin perder el hilo. Cuando marcas algo como <em>Dominado</em> se desbloquea lo que dependía de ello.</p>
+      <p>Si algo se te complica, márcalo como <em>Repasar</em>: aparecerá en la vista <em>Repaso</em> con lo que necesitas volver a mirar.</p>
+    </div>
+  </aside>
+
+  <section class="stage">
+    <div id="stage-head" class="stage-head"></div>
+
+    <div id="routeview" class="route" hidden>
+      <div class="route-inner" id="route-inner"></div>
+    </div>
+
+    <div id="pathview" class="path-view" hidden>
+      <div class="path-inner" id="path-inner"></div>
+    </div>
+
+    <div id="canvas-wrap" class="canvas-wrap" hidden>
+      <svg id="canvas" xmlns="http://www.w3.org/2000/svg" aria-label="Diagrama de dependencias">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0 1 L9 5 L0 9 z" fill="#33475e"/>
+          </marker>
+          <marker id="arrow-anc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0 1 L9 5 L0 9 z" fill="#f5b942"/>
+          </marker>
+          <marker id="arrow-desc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0 1 L9 5 L0 9 z" fill="#4da3ff"/>
+          </marker>
+        </defs>
+        <g id="viewport"></g>
+      </svg>
+      <div class="zoom-controls">
+        <button id="zoom-in" title="Acercar">+</button>
+        <button id="zoom-out" title="Alejar">−</button>
+        <button id="zoom-fit" title="Ajustar a pantalla">⤢</button>
+      </div>
+      <div id="empty-state" class="empty-state" hidden></div>
+    </div>
+  </section>
+</main>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<input id="file-import" type="file" accept="application/json,.json" hidden/>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
