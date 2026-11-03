@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Mapa de Aprendizaje · Desarrollo Web</title>
-<link rel="stylesheet" href="styles.css"/>
+<link rel="stylesheet" href="styles.css?v=6"/>
 </head>
 <body>
 
@@ -97,7 +97,7 @@
     </div>
 
     <div id="canvas-wrap" class="canvas-wrap" hidden>
-      <svg id="canvas" xmlns="http://www.w3.org/2000/svg" aria-label="Diagrama de dependencias">
+      <svg id="canvas" xmlns="http://www.w3.org/2000/svg" aria-label="Diagrama de dependencias" tabindex="0">
         <defs>
           <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
             <path d="M0 1 L9 5 L0 9 z" fill="#33475e"/>
@@ -111,6 +111,7 @@
         </defs>
         <g id="viewport"></g>
       </svg>
+      <div class="map-hint" id="map-hint">Arrastra para mover · Rueda para desplazar · Ctrl + rueda para zoom · Flechas para moverte</div>
       <div class="zoom-controls">
         <button id="zoom-in" title="Acercar">+</button>
         <button id="zoom-out" title="Alejar">−</button>
@@ -124,7 +125,7 @@
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 <input id="file-import" type="file" accept="application/json,.json" hidden/>
 
-<script src="data.js"></script>
-<script src="app.js"></script>
+<script src="data.js?v=6"></script>
+<script src="app.js?v=6"></script>
 </body>
 </html>

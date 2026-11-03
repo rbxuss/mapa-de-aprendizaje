@@ -132,6 +132,9 @@ function moduleProgress(mid) {
 const ALIASES = {
   't1-2': ['Internet'], 't1-3': ['WWW'], 't1-5': ['aplicación web', 'aplicaciones web'],
   't1-6': ['página web', 'sitio web'], 't1-7': ['SPA', 'MPA'],
+  't1-8': ['TCP/IP', 'TCP', 'protocolo TCP'],
+  't1-9': ['UDP', 'TCP vs. UDP', 'TCP vs UDP'],
+  't1-10': ['paquete', 'paquetes', 'paquete de datos', 'paquetes de datos'],
   't2-1': ['Frontend', 'front-end', 'frontends'], 't2-2': ['Backend', 'back-end', 'backends'],
   't2-6': ['Full Stack'], 't2-8': ['Node.js', 'PHP', 'Python', 'tecnologías web'],
   't2-9': ['lógica de negocio'],
@@ -194,28 +197,30 @@ function linkify(text, selfId) {
   if (!GLOSSARY.length) GLOSSARY = buildGlossary();
   const hits = [];
   for (const g of GLOSSARY) {
-    if (g.id === selfId) continue;
     let re;
     try {
       re = new RegExp('(?<![\\p{L}\\p{N}])(' + g.term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')(?![\\p{L}\\p{N}])', 'giu');
     } catch (e) { continue; }
-    let m, guard = 0;
-    while ((m = re.exec(raw)) && guard++ < 12) {
+    let m;
+    while ((m = re.exec(raw))) {
       hits.push({ start: m.index, end: m.index + m[0].length, id: g.id, text: m[0] });
     }
   }
   hits.sort((a, b) => (a.start - b.start) || ((b.end - b.start) - (a.end - a.start)));
   const out = [];
-  let last = 0, used = 0;
-  const usedIds = new Set();
+  let cursor = 0;
   for (const h of hits) {
-    if (h.start < last || used >= 4) continue;
-    if (usedIds.has(h.id)) continue;
-    out.push(esc(raw.slice(last, h.start)));
+    if (h.start < cursor) continue;
+    if (h.id === selfId) {
+      out.push(esc(raw.slice(cursor, h.end)));
+      cursor = h.end;
+      continue;
+    }
+    out.push(esc(raw.slice(cursor, h.start)));
     out.push('<button type="button" class="term" data-jump="' + h.id + '" title="Ir a: ' + esc((topicById(h.id) || {}).title || '') + '">' + esc(h.text) + '</button>');
-    last = h.end; used++; usedIds.add(h.id);
+    cursor = h.end;
   }
-  out.push(esc(raw.slice(last)));
+  out.push(esc(raw.slice(cursor)));
   return out.join('');
 }
 
@@ -961,8 +966,12 @@ function renderMap() {
   }).join('');
   viewport.innerHTML = html;
 
-  if (UI.fitNext) { UI.fitNext = false; requestAnimationFrame(fit); }
-  else applyTransform();
+  if (UI.fitNext) {
+    UI.fitNext = false;
+    fit();
+  } else {
+    applyTransform();
+  }
 }
 function applyTransform() {
   const g = $('#viewport');
@@ -995,24 +1004,28 @@ function wireMap() {
   const viewport = $('#viewport');
   let pan = null, lastDrag = 0;
 
+  const isMapView = () => UI.view === 'map' && !$('#canvas-wrap').hidden;
+
   canvas.addEventListener('pointerdown', e => {
-    if (e.button !== 0) return;
-    pan = { x: e.clientX, y: e.clientY, vx: UI.vt.x, vy: UI.vt.y, moved: false };
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    if (!e.isPrimary) return;
+    pan = { id: e.pointerId, x: e.clientX, y: e.clientY, vx: UI.vt.x, vy: UI.vt.y, moved: false };
     try { canvas.setPointerCapture(e.pointerId); } catch (err) {}
     canvas.classList.add('grabbing');
+    try { canvas.focus({ preventScroll: true }); } catch (err) { canvas.focus(); }
   });
   canvas.addEventListener('pointermove', e => {
-    if (!pan) return;
+    if (!pan || e.pointerId !== pan.id) return;
     const dx = e.clientX - pan.x, dy = e.clientY - pan.y;
-    if (Math.abs(dx) > 3 || Math.abs(dy) > 3) pan.moved = true;
-    if (pan.moved) {
-      UI.vt.x = pan.vx + dx;
-      UI.vt.y = pan.vy + dy;
-      applyTransform();
-    }
+    if (!pan.moved && Math.hypot(dx, dy) > 3) pan.moved = true;
+    if (!pan.moved) return;
+    UI.vt.x = pan.vx + dx;
+    UI.vt.y = pan.vy + dy;
+    applyTransform();
   });
   const endPan = e => {
     if (!pan) return;
+    if (e.pointerId != null && e.pointerId !== pan.id) return;
     if (pan.moved) lastDrag = Date.now();
     pan = null;
     canvas.classList.remove('grabbing');
@@ -1020,16 +1033,47 @@ function wireMap() {
   };
   canvas.addEventListener('pointerup', endPan);
   canvas.addEventListener('pointercancel', endPan);
+  canvas.addEventListener('lostpointercapture', endPan);
+
   canvas.addEventListener('wheel', e => {
+    if (!isMapView()) return;
     e.preventDefault();
-    const r = canvas.getBoundingClientRect();
-    const mx = e.clientX - r.left, my = e.clientY - r.top;
-    const k2 = clamp(UI.vt.k * Math.exp(-e.deltaY * 0.0016), 0.12, 2.6);
-    UI.vt.x = mx - (mx - UI.vt.x) * (k2 / UI.vt.k);
-    UI.vt.y = my - (my - UI.vt.y) * (k2 / UI.vt.k);
-    UI.vt.k = k2;
+    if (e.ctrlKey || e.metaKey) {
+      const r = canvas.getBoundingClientRect();
+      const mx = e.clientX - r.left, my = e.clientY - r.top;
+      const k2 = clamp(UI.vt.k * Math.exp(-e.deltaY * 0.0018), 0.12, 3);
+      UI.vt.x = mx - (mx - UI.vt.x) * (k2 / UI.vt.k);
+      UI.vt.y = my - (my - UI.vt.y) * (k2 / UI.vt.k);
+      UI.vt.k = k2;
+      applyTransform();
+      return;
+    }
+    let dx = e.deltaX, dy = e.deltaY;
+    if (e.shiftKey && !dx) { dx = dy; dy = 0; }
+    UI.vt.x -= dx;
+    UI.vt.y -= dy;
     applyTransform();
   }, { passive: false });
+
+  canvas.addEventListener('keydown', e => {
+    if (!isMapView()) return;
+    const step = e.shiftKey ? 180 : 70;
+    let handled = true;
+    switch (e.key) {
+      case 'ArrowLeft': UI.vt.x += step; break;
+      case 'ArrowRight': UI.vt.x -= step; break;
+      case 'ArrowUp': UI.vt.y += step; break;
+      case 'ArrowDown': UI.vt.y -= step; break;
+      case '+': case '=': zoomBy(1.2); break;
+      case '-': case '_': zoomBy(0.8); break;
+      case '0': fit(); break;
+      default: handled = false;
+    }
+    if (handled) {
+      e.preventDefault();
+      applyTransform();
+    }
+  });
 
   viewport.addEventListener('click', e => {
     if (Date.now() - lastDrag < 250) return;

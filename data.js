@@ -1,6 +1,6 @@
 /* Contenido inicial: Nivel 1 · Fundamentos de desarrollo web.
    La app guarda tus cambios en localStorage; este archivo solo es la semilla. */
-window.SEED_VERSION = 2;
+window.SEED_VERSION = 4;
 window.SEED = {
   "version": 1,
   "modules": [
@@ -9,7 +9,7 @@ window.SEED = {
       "order": 1,
       "title": "Introducción al desarrollo web",
       "priority": "alta",
-      "desc": "El entorno donde vive la web: qué es Internet, qué es la Web y qué tipos de aplicaciones existen."
+      "desc": "El entorno donde vive la web: qué es Internet, cómo viajan los datos con TCP/IP y qué tipos de aplicaciones existen."
     },
     {
       "id": "m2",
@@ -121,9 +121,40 @@ window.SEED = {
       "req": []
     },
     {
-      "id": "t1-3",
+      "id": "t1-8",
       "m": "m1",
       "order": 3,
+      "title": "¿Qué es TCP/IP?",
+      "desc": "TCP/IP es la familia de protocolos que hace funcionar Internet. IP se encarga de direccionar y encaminar los paquetes entre dispositivos; TCP se coloca encima para ordenarlos, comprobar que llegan completos y reenviar lo que se pierde. Juntos permiten que dos máquinas intercambien datos de forma fiable aunque la red no lo sea. La Web, el correo o las descargas se apoyan en esta base.",
+      "req": [
+        "t1-2"
+      ]
+    },
+    {
+      "id": "t1-9",
+      "m": "m1",
+      "order": 4,
+      "title": "TCP vs. UDP",
+      "desc": "TCP y UDP son dos formas de transportar datos sobre IP. TCP abre una conexión, numera los paquetes, confirma la recepción y reenvía lo perdido: es fiable pero más lento. UDP no establece conexión ni garantiza la entrega: es más rápido y ligero, ideal para vídeo en vivo, voz o juegos donde llegar tarde es peor que perder un paquete. HTTP usa TCP; DNS y el streaming suelen usar UDP.",
+      "req": [
+        "t1-8"
+      ]
+    },
+    {
+      "id": "t1-10",
+      "m": "m1",
+      "order": 5,
+      "title": "¿Qué es un paquete de datos?",
+      "desc": "Un paquete es una unidad pequeña de información que viaja por la red. Los datos se dividen en paquetes, y cada uno lleva la dirección IP de origen y destino y un número de secuencia. Los routers los envían por caminos distintos, así que pueden llegar desordenados o perderse; TCP los reordena y recupera, mientras que IP solo se encarga de encaminarlos y UDP no comprueba si llegan. Así muchas comunicaciones comparten la misma red.",
+      "req": [
+        "t1-2",
+        "t1-8"
+      ]
+    },
+    {
+      "id": "t1-3",
+      "m": "m1",
+      "order": 6,
       "title": "Internet vs. la Web (WWW)",
       "desc": "Internet es la infraestructura de red; la Web (WWW) es un servicio que funciona sobre ella. La Web usa HTTP, URL y navegadores para acceder a documentos enlazados. Puedes tener Internet sin Web (correo, juegos en línea, FTP) y la Web no existiría sin Internet. Es la diferencia entre la carretera y los vehículos que circulan por ella.",
       "req": [
@@ -133,7 +164,7 @@ window.SEED = {
     {
       "id": "t1-4",
       "m": "m1",
-      "order": 4,
+      "order": 7,
       "title": "¿Qué es un sitio web?",
       "desc": "Un sitio web es un conjunto de páginas y recursos relacionados que se identifican con un mismo dominio y suelen compartir diseño y navegación. Puede ser estático, si entrega archivos tal cual, o dinámico, si genera el contenido en el servidor o en el navegador. Ejemplos: una web corporativa, un blog o una tienda en línea.",
       "req": [
@@ -143,7 +174,7 @@ window.SEED = {
     {
       "id": "t1-5",
       "m": "m1",
-      "order": 5,
+      "order": 8,
       "title": "¿Qué es una aplicación web?",
       "desc": "Una aplicación web es un programa que se ejecuta en el navegador y se comunica con un servidor para leer o modificar datos. A diferencia de una página informativa, permite acciones: iniciar sesión, comprar, publicar o filtrar. El navegador actúa como cliente y el servidor expone una API que la aplicación consume.",
       "req": [
@@ -153,7 +184,7 @@ window.SEED = {
     {
       "id": "t1-6",
       "m": "m1",
-      "order": 6,
+      "order": 9,
       "title": "Página, sitio y aplicación web",
       "desc": "Una página web es un documento individual; un sitio web es el conjunto de páginas bajo un mismo dominio; una aplicación web es un sitio con lógica interactiva que procesa datos. La frontera no siempre es estricta: una tienda puede ser un sitio con muchas páginas y a la vez una aplicación. Lo importante es si el usuario solo lee o también opera.",
       "req": [
@@ -164,7 +195,7 @@ window.SEED = {
     {
       "id": "t1-7",
       "m": "m1",
-      "order": 7,
+      "order": 10,
       "title": "Tipos de aplicaciones web",
       "desc": "Las aplicaciones web pueden ser estáticas (HTML y CSS sin lógica), dinámicas (el servidor genera cada página), SPA (una sola página que actualiza el contenido con JavaScript) o MPA (varias páginas que recargan el navegador). Cada modelo cambia la velocidad, el SEO y la complejidad. Hoy lo común es combinar renderizado en servidor con interactividad en el cliente.",
       "req": [

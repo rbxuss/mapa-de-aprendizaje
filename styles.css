@@ -144,8 +144,16 @@ details[open] summary::before{content:"–"}
   background-image:radial-gradient(circle at 1px 1px,#16212e 1px,transparent 0);
   background-size:26px 26px;
 }
-#canvas{position:absolute;inset:0;width:100%;height:100%;cursor:grab;touch-action:none}
+#canvas{position:absolute;inset:0;width:100%;height:100%;cursor:grab;touch-action:none;user-select:none}
+#canvas:focus{outline:none}
+#canvas:focus-visible{outline:2px solid rgba(77,163,255,.55);outline-offset:-2px}
 #canvas.grabbing{cursor:grabbing}
+.map-hint{
+  position:absolute;left:16px;bottom:16px;z-index:5;pointer-events:none;
+  padding:7px 11px;border-radius:9px;background:rgba(10,17,25,.82);
+  border:1px solid var(--line2);color:var(--faint);font-size:11.5px;line-height:1.35;
+  backdrop-filter:blur(4px);max-width:calc(100% - 90px);
+}
 .zoom-controls{
   position:absolute;right:16px;bottom:16px;display:flex;flex-direction:column;gap:6px;z-index:5;
 }
@@ -345,4 +353,5 @@ details[open] summary::before{content:"–"}
   .route-inner,.path-inner{padding:18px 14px 60px}
   .stage-head{padding:11px 14px}
   .legend{display:none}
+  .map-hint{left:10px;bottom:10px;font-size:10.5px;padding:6px 9px;max-width:calc(100% - 70px)}
 }

@@ -6,13 +6,13 @@ No necesita instalación, dependencias ni proceso de build: es HTML, CSS y JavaS
 
 ## Características
 
-- **Ruta principal** con 14 módulos y 120 conceptos ordenados.
+- **Ruta principal** con 14 módulos y 123 conceptos ordenados.
 - **Explicaciones completas** para cada concepto, con términos enlazados automáticamente.
 - **Navegación entre conceptos** sin perder el punto de partida: cada enlace interno permite volver.
 - **Prerrequisitos**: avisa cuando falta dominar un concepto anterior y muestra qué desbloquea cada uno.
 - **Estados de estudio**: pendiente, estudiando, dominado y repasar.
 - **Vista Repaso**: calcula qué puedes estudiar ahora, qué está bloqueado y qué conviene repasar.
-- **Mapa de dependencias** en SVG, con zoom, arrastre y detalle por módulo.
+- **Mapa de dependencias** en SVG, con arrastre, rueda para desplazarse, `Ctrl` + rueda para zoom, flechas y detalle por módulo.
 - **Notas personales** por concepto.
 - **Búsqueda y filtros** por título, explicación y estado.
 - **Alta y edición de conceptos**, con gestión de prerrequisitos y protección contra ciclos.
@@ -48,7 +48,7 @@ También puedes abrir `index.html` directamente en el navegador.
 
 El contenido inicial cubre:
 
-1. Introducción al desarrollo web
+1. Introducción al desarrollo web (incluye Internet, TCP/IP, TCP vs. UDP y paquetes de datos)
 2. Frontend y Backend
 3. Cliente y servidor
 4. Arquitectura cliente-servidor
