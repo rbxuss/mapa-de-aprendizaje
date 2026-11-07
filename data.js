@@ -1,6 +1,6 @@
 /* Contenido inicial: Nivel 1 · Fundamentos de desarrollo web.
    La app guarda tus cambios en localStorage; este archivo solo es la semilla. */
-window.SEED_VERSION = 7;
+window.SEED_VERSION = 8;
 window.SEED = {
   "version": 1,
   "modules": [
@@ -191,9 +191,19 @@ window.SEED = {
       "req": []
     },
     {
-      "id": "t1-8",
+      "id": "t1-11",
       "m": "m1",
       "order": 3,
+      "title": "ISP, backbone y routers",
+      "desc": "Internet no es una nube invisible: es una red física de cables, fibra, antenas y equipos conectados entre sí. Tu casa llega a Internet a través de un ISP (proveedor de servicios de Internet), que puede ser una operadora de fibra, cable, móvil o satélite.\n\nEl ISP conecta tu red con el backbone, la gran red troncal de fibra que une ciudades y países. Los distintos proveedores intercambian tráfico en puntos de interconexión (IXP). Los routers deciden por qué camino sale cada paquete; tu router doméstico hace NAT y Wi-Fi, mientras los routers del backbone eligen rutas entre redes.\n\nCuando pides una página, el paquete pasa por tu router, el ISP, posiblemente varios backbones y el servidor de destino. Cada salto añade latencia, y una avería o saturación en cualquiera de ellos puede afectar aunque tu Wi-Fi funcione.",
+      "req": [
+        "t1-2"
+      ]
+    },
+    {
+      "id": "t1-8",
+      "m": "m1",
+      "order": 4,
       "title": "¿Qué es TCP/IP?",
       "desc": "TCP/IP es la familia de protocolos que hace funcionar Internet. Se llama familia porque no es un solo protocolo, sino un conjunto organizado en capas que se reparten el trabajo.\n\n• IP (capa de red): direcciona y encamina los paquetes entre redes. No garantiza que lleguen, solo intenta llevarlos al destino correcto.\n• TCP (capa de transporte): coloca encima de IP y convierte esa red poco fiable en un canal fiable. Numera los segmentos, confirma la recepción, reordena y reenvía lo que se pierde.\n• Aplicación: HTTP, DNS, correo o SSH usan los servicios de las capas inferiores.\n• Acceso al medio: Ethernet, Wi-Fi o fibra transportan físicamente los datos.\n\nCuando abres una página, el navegador resuelve el dominio con DNS, abre una conexión TCP al servidor (normalmente al puerto 443), envía una petición HTTP y recibe la respuesta. IP se encarga del camino y TCP de que las piezas lleguen completas y en orden.",
       "req": [
@@ -203,7 +213,7 @@ window.SEED = {
     {
       "id": "t1-9",
       "m": "m1",
-      "order": 4,
+      "order": 5,
       "title": "TCP vs. UDP",
       "desc": "TCP y UDP son dos formas de transportar datos sobre IP. La diferencia está en cuánto garantizan y a qué coste.\n\n• TCP abre una conexión con un saludo a tres pasos, numera los segmentos, confirma la recepción, reordena lo que llega desordenado y reenvía lo perdido. También ajusta el ritmo para no saturar la red. Es fiable, pero añade latencia y estado.\n• UDP no establece conexión ni confirma nada: envía datagramas y olvida. Es más ligero y rápido, pero puede perder, duplicar o desordenar paquetes.\n\nTCP encaja cuando cada byte importa: páginas web, correo, transferencias de archivos, bases de datos. UDP encaja cuando llegar tarde es peor que perder un paquete: vídeo en vivo, voz, juegos multijugador, DNS o telemetría.\n\nHTTP/1.1 y HTTP/2 usan TCP; HTTP/3 usa QUIC sobre UDP y añade fiabilidad y cifrado en la propia capa de transporte. Por eso “UDP es malo” es una simplificación: depende de lo que necesite la aplicación.",
       "req": [
@@ -211,9 +221,20 @@ window.SEED = {
       ]
     },
     {
+      "id": "t1-12",
+      "m": "m1",
+      "order": 6,
+      "title": "Handshake TCP: cómo se abre una conexión",
+      "desc": "Antes de enviar datos, TCP abre una conexión con un saludo a tres pasos o three-way handshake. El cliente envía SYN, el servidor responde SYN-ACK y el cliente confirma con ACK. Solo entonces empiezan a viajar los datos.\n\nEn ese intercambio se acuerdan los números de secuencia iniciales y el tamaño máximo de segmento. Eso permite numerar los paquetes, detectar pérdidas y reordenarlos. Al terminar, la conexión se cierra con otro intercambio de mensajes.\n\nEl handshake añade un viaje de ida y vuelta antes de la primera petición, lo que se nota en conexiones lejanas. Por eso existen reutilización de conexiones (keep-alive), TLS 1.3 más rápido y HTTP/3 sobre QUIC, que reduce los viajes iniciales. Un ataque SYN flood abusa justamente de esta fase.",
+      "req": [
+        "t1-8",
+        "t1-9"
+      ]
+    },
+    {
       "id": "t1-10",
       "m": "m1",
-      "order": 5,
+      "order": 7,
       "title": "¿Qué es un paquete de datos?",
       "desc": "Un paquete es una unidad pequeña de información que viaja por la red. Los datos grandes no se envían de golpe: se dividen en paquetes para que puedan compartir la red, recuperarse de fallos y encaminarse por caminos distintos.\n\nCada paquete lleva una cabecera con la dirección IP de origen y destino, el protocolo, el número de secuencia y otra información de control; el resto es la carga útil. Los routers leen la dirección de destino y lo envían hacia el siguiente salto, sin conocer necesariamente la ruta completa.\n\nComo cada paquete puede tomar un camino diferente, pueden llegar desordenados, duplicarse o perderse. TCP los reordena y pide los que faltan; IP solo se encarga de encaminarlos y UDP no comprueba si llegan. Este diseño es lo que permite que millones de comunicaciones compartan la misma infraestructura.",
       "req": [
@@ -224,7 +245,7 @@ window.SEED = {
     {
       "id": "t1-3",
       "m": "m1",
-      "order": 6,
+      "order": 8,
       "title": "Internet vs. la Web (WWW)",
       "desc": "Internet es la infraestructura: los cables, routers, proveedores y protocolos que conectan dispositivos de todo el mundo. La Web (WWW) es un servicio que funciona sobre esa infraestructura y usa HTTP, HTML, URL y navegadores para acceder a documentos enlazados entre sí.\n\nLa distinción importa porque no todo lo que usa Internet es la Web: el correo electrónico, las videollamadas, los juegos en línea, la sincronización de archivos o el DNS también viajan por Internet sin ser páginas web. Del mismo modo, la Web no existiría sin Internet, igual que una aplicación no funciona sin el sistema operativo.\n\nLa analogía clásica: Internet es la carretera y la Web son los vehículos que circulan por ella. Puedes usar la carretera para otras cosas (correo, FTP, VoIP) y puedes tener carretera sin ese tipo de vehículo concreto.",
       "req": [
@@ -234,7 +255,7 @@ window.SEED = {
     {
       "id": "t1-4",
       "m": "m1",
-      "order": 7,
+      "order": 9,
       "title": "¿Qué es un sitio web?",
       "desc": "Un sitio web es un conjunto de páginas y recursos relacionados que se identifican con un mismo dominio y suelen compartir diseño y navegación. Puede ser estático, si entrega archivos tal cual, o dinámico, si genera el contenido en el servidor o en el navegador. Ejemplos: una web corporativa, un blog o una tienda en línea.",
       "req": [
@@ -244,7 +265,7 @@ window.SEED = {
     {
       "id": "t1-5",
       "m": "m1",
-      "order": 8,
+      "order": 10,
       "title": "¿Qué es una aplicación web?",
       "desc": "Una aplicación web es un programa que se ejecuta en el navegador y se comunica con un servidor para leer o modificar datos. A diferencia de una página informativa, permite acciones: iniciar sesión, comprar, publicar, filtrar, enviar un formulario o colaborar en tiempo real.\n\nLa forman dos mitades que trabajan juntas: el frontend, que muestra la interfaz y responde a los eventos, y el backend, que aplica reglas de negocio, valida permisos y guarda la información en una base de datos. Se comunican mediante una API, normalmente con peticiones HTTP que intercambian JSON.\n\nLo que la define no es el número de páginas ni el diseño, sino que procesa datos y mantiene estado: recuerda quién eres, qué has hecho y qué puedes ver. Un blog estático no es una aplicación; un correo web, un banco online o esta misma app de estudio sí lo son.",
       "req": [
@@ -254,7 +275,7 @@ window.SEED = {
     {
       "id": "t1-6",
       "m": "m1",
-      "order": 9,
+      "order": 11,
       "title": "Página, sitio y aplicación web",
       "desc": "Una página web es un documento individual, como una noticia o una página de contacto. Un sitio web es el conjunto de páginas y recursos que viven bajo un mismo dominio y comparten identidad. Una aplicación web es un sitio con lógica interactiva que procesa datos y responde a acciones del usuario.\n\nEjemplo: una página con la historia de una empresa es una página; el conjunto de esa página, sus servicios y su blog forman el sitio; si además tiene un portal de clientes donde se inicia sesión y se consultan facturas, esa parte es una aplicación.\n\nLa frontera no siempre es estricta. Una tienda puede ser un sitio con muchas páginas y, al mismo tiempo, una aplicación con carrito, pagos y cuentas. Lo importante es preguntarse si el usuario solo lee o también opera con datos.",
       "req": [
@@ -265,7 +286,7 @@ window.SEED = {
     {
       "id": "t1-7",
       "m": "m1",
-      "order": 10,
+      "order": 12,
       "title": "Tipos de aplicaciones web",
       "desc": "Hay varios modelos para construir una aplicación web. La elección cambia la velocidad, el SEO, la complejidad y la forma de desplegar.\n\n• Estática: HTML y CSS sin lógica; el servidor solo entrega archivos. Es rápida y barata, pero no personaliza ni guarda datos.\n• Dinámica: el servidor genera el HTML en cada petición consultando la base de datos. Es el modelo clásico de PHP, Rails o Django.\n• SPA (Single Page Application): se carga una sola página y JavaScript cambia el contenido sin recargar. La navegación es fluida, pero la primera carga y el SEO requieren cuidado.\n• MPA (Multi Page Application): cada enlace pide una página nueva al servidor. Es simple y predecible, aunque cada navegación recarga la interfaz.\n• Híbrida: renderizado en servidor (SSR o SSG) para la primera carga y JavaScript en el cliente para la interactividad. Es lo habitual hoy con Next.js, Nuxt o SvelteKit.\n\nNo hay un modelo mejor en abstracto: depende del contenido, del tráfico, del equipo y de cuánto necesites posicionar en buscadores.",
       "req": [
@@ -303,9 +324,19 @@ window.SEED = {
       ]
     },
     {
-      "id": "t15-4",
+      "id": "t15-11",
       "m": "m15",
       "order": 4,
+      "title": "Meta etiquetas y viewport",
+      "desc": "Las meta etiquetas viven en el head y describen el documento para el navegador y los buscadores. No se ven en la página, pero cambian cómo se interpreta y se comparte.\n\n• meta charset=\"utf-8\": declara la codificación y evita acentos rotos.\n• meta name=\"viewport\" content=\"width=device-width, initial-scale=1\": adapta la página al ancho real del móvil.\n• meta name=\"description\": resumen que suelen mostrar los buscadores.\n• meta name=\"robots\": indica si indexar o seguir enlaces.\n• Open Graph y Twitter Cards: controlan el título, la imagen y la descripción al compartir.\n\nNo todas las etiquetas del head son meta: title, link canonical, favicon y preload también importan. El viewport es imprescindible para que el diseño responsive funcione; sin él, el móvil simula una pantalla ancha y reduce todo.",
+      "req": [
+        "t15-3"
+      ]
+    },
+    {
+      "id": "t15-4",
+      "m": "m15",
+      "order": 5,
       "title": "HTML semántico",
       "desc": "El HTML semántico usa etiquetas que describen el significado del contenido: header, nav, main, section, article, aside y footer, en lugar de div para todo. Ayuda a los lectores de pantalla, a los buscadores y al propio equipo a entender la página. Mejora la accesibilidad y el SEO sin cambiar el aspecto visual.",
       "req": [
@@ -313,9 +344,20 @@ window.SEED = {
       ]
     },
     {
+      "id": "t15-14",
+      "m": "m15",
+      "order": 6,
+      "title": "SEO básico",
+      "desc": "El SEO es el conjunto de prácticas para que los buscadores entiendan y muestren tu contenido. No es magia ni solo palabras clave: empieza por una página clara, rápida y accesible.\n\n• Usa HTML semántico y un solo h1 por página, con jerarquía de títulos coherente.\n• Escribe un title único y una meta description útil.\n• Enlaza internamente con textos descriptivos y cuida las URLs.\n• Añade sitemap.xml y robots.txt, y evita contenido duplicado con canonical.\n• Optimiza imágenes, fuentes y Core Web Vitals.\n• Si el contenido se renderiza con JavaScript, valora SSR o SSG para que el buscador lo vea.\n\nEl posicionamiento depende también de la competencia y de la autoridad del sitio. El SEO técnico elimina obstáculos; no garantiza el primer puesto.",
+      "req": [
+        "t15-4",
+        "t15-11"
+      ]
+    },
+    {
       "id": "t15-5",
       "m": "m15",
-      "order": 5,
+      "order": 7,
       "title": "Enlaces e imágenes",
       "desc": "Los enlaces se crean con la etiqueta a y su atributo href, que puede apuntar a otra página, a una sección con #id o a un correo. Las imágenes usan img con src y alt; el texto alternativo describe la imagen para quien no puede verla y es obligatorio para la accesibilidad. Los enlaces construyen la Web y las imágenes deben optimizarse.",
       "req": [
@@ -325,7 +367,7 @@ window.SEED = {
     {
       "id": "t15-6",
       "m": "m15",
-      "order": 6,
+      "order": 8,
       "title": "Listas y tablas",
       "desc": "Las listas ordenadas (ol) y no ordenadas (ul) agrupan elementos li; son ideales para menús y pasos. Las tablas (table, tr, th, td) sirven para datos tabulares, no para maquetar. Usa thead, tbody y caption para que sean comprensibles. Una tabla mal usada rompe la semántica y la accesibilidad.",
       "req": [
@@ -335,7 +377,7 @@ window.SEED = {
     {
       "id": "t15-7",
       "m": "m15",
-      "order": 7,
+      "order": 9,
       "title": "Formularios HTML",
       "desc": "Un formulario agrupa campos que el usuario rellena y los envía al servidor mediante action y method. Cada control debe tener un label asociado y un name, porque ese nombre es la clave con la que llegan los datos. Los formularios son la principal vía de entrada de información y deben validarse en cliente y servidor.",
       "req": [
@@ -343,9 +385,20 @@ window.SEED = {
       ]
     },
     {
+      "id": "t15-12",
+      "m": "m15",
+      "order": 10,
+      "title": "Label y accesibilidad de formularios",
+      "desc": "Cada campo de un formulario debe tener una etiqueta asociada. La forma más robusta es label con el atributo for igual al id del input; también vale envolver el input dentro del label.\n\nUn label permite que al hacer clic en el texto se enfoque el campo, y los lectores de pantalla anuncian qué se espera. El placeholder no sustituye al label: desaparece al escribir y suele tener poco contraste.\n\nPara grupos de opciones se usan fieldset y legend. Los mensajes de error deben asociarse con aria-describedby y no depender solo del color. Atributos como autocomplete y inputmode mejoran la experiencia en móvil y la accesibilidad.",
+      "req": [
+        "t15-7",
+        "t15-10"
+      ]
+    },
+    {
       "id": "t15-8",
       "m": "m15",
-      "order": 8,
+      "order": 11,
       "title": "Tipos de input",
       "desc": "El elemento input cambia de comportamiento según su atributo type: text, email, password, number, date, checkbox, radio, file o submit. Elegir el tipo correcto activa teclados y validaciones del navegador, y mejora la experiencia en móvil. No sustituye la validación del servidor, pero reduce errores.",
       "req": [
@@ -355,7 +408,7 @@ window.SEED = {
     {
       "id": "t15-9",
       "m": "m15",
-      "order": 9,
+      "order": 12,
       "title": "Validación HTML nativa",
       "desc": "El navegador puede validar campos con required, minlength, maxlength, pattern, min, max y type. Muestra mensajes sin JavaScript y bloquea el envío si algo no cumple. Es una primera barrera cómoda, pero el usuario puede saltarla; por eso el servidor debe repetir todas las comprobaciones importantes.",
       "req": [
@@ -365,12 +418,22 @@ window.SEED = {
     {
       "id": "t15-10",
       "m": "m15",
-      "order": 10,
+      "order": 13,
       "title": "Accesibilidad básica (a11y)",
       "desc": "La accesibilidad busca que cualquier persona pueda usar la web, incluidas las que usan lector de pantalla, teclado o tienen baja visión. Implica HTML semántico, texto alternativo, contraste suficiente, foco visible, etiquetas en formularios y navegación con teclado. No es un extra: es parte de hacer bien la interfaz.",
       "req": [
         "t15-4",
         "t15-7"
+      ]
+    },
+    {
+      "id": "t15-13",
+      "m": "m15",
+      "order": 14,
+      "title": "ARIA: roles, estados y propiedades",
+      "desc": "ARIA (Accessible Rich Internet Applications) añade información semántica al HTML para tecnologías de asistencia. Se usa con atributos como role, aria-label, aria-expanded, aria-live o aria-hidden.\n\nLa primera regla de ARIA es no usar ARIA si existe una etiqueta HTML nativa que ya hace el trabajo. Un button real es mejor que un div con role=\"button\", porque ya trae teclado y foco. ARIA no añade comportamiento: solo describe.\n\nSe usa sobre todo en componentes dinámicos: menús, pestañas, diálogos, acordeones y notificaciones. Un aria-expanded debe actualizarse al abrir o cerrar, y un aria-live debe anunciar cambios sin mover el foco. Mal usado, ARIA empeora la experiencia.",
+      "req": [
+        "t15-10"
       ]
     },
     {
@@ -394,9 +457,19 @@ window.SEED = {
       ]
     },
     {
-      "id": "t16-3",
+      "id": "t16-12",
       "m": "m16",
       "order": 3,
+      "title": "Pseudo-clases y pseudo-elementos",
+      "desc": "Las pseudo-clases seleccionan un elemento según su estado o posición: :hover, :focus, :active, :disabled, :checked, :nth-child, :first-child, :not y :has. Permiten estilos interactivos sin JavaScript.\n\nLos pseudo-elementos crean o seleccionan una parte del elemento: ::before, ::after, ::first-line, ::selection y ::placeholder. Con content se puede insertar decoración, pero no contenido importante para la accesibilidad.\n\nConviene cuidar :focus-visible para que el teclado vea dónde está, y no eliminar el foco sin reemplazarlo. Las pseudo-clases suman especificidad como una clase; abusar de :not o :has puede volver el CSS difícil de mantener.",
+      "req": [
+        "t16-2"
+      ]
+    },
+    {
+      "id": "t16-3",
+      "m": "m16",
+      "order": 4,
       "title": "Modelo de caja (box model)",
       "desc": "En CSS, cada elemento ocupa una caja formada por contenido, padding, borde y margin. El tamaño total depende de box-sizing: con border-box, width incluye padding y borde, lo que hace el diseño mucho más predecible. El modelo de caja explica por qué un elemento se desborda o deja espacios inesperados.",
       "req": [
@@ -406,7 +479,7 @@ window.SEED = {
     {
       "id": "t16-4",
       "m": "m16",
-      "order": 4,
+      "order": 5,
       "title": "Unidades, colores y tipografía",
       "desc": "CSS admite unidades absolutas como px y relativas como rem, em, %, vw y vh. Para accesibilidad conviene usar rem en textos y evitar fijar alturas. Los colores se escriben en hexadecimal, rgb, hsl o variables, y la tipografía se controla con font-family, size, weight y line-height. La legibilidad importa más que la decoración.",
       "req": [
@@ -416,7 +489,7 @@ window.SEED = {
     {
       "id": "t16-5",
       "m": "m16",
-      "order": 5,
+      "order": 6,
       "title": "Flexbox",
       "desc": "Flexbox organiza elementos en una fila o columna y reparte el espacio con justify-content, align-items y gap. Es ideal para menús, barras, tarjetas y centrar contenido. Los hijos se adaptan al tamaño disponible y pueden crecer o encogerse. Resuelve muchos problemas que antes exigían floats o posicionamiento manual.",
       "req": [
@@ -426,7 +499,7 @@ window.SEED = {
     {
       "id": "t16-6",
       "m": "m16",
-      "order": 6,
+      "order": 7,
       "title": "CSS Grid",
       "desc": "Grid divide el espacio en filas y columnas explícitas y coloca los elementos en celdas. Es la herramienta adecuada para maquetar páginas completas y galerías, combinando fr, repeat y minmax. Puede convivir con Flexbox: Grid para la estructura y Flexbox para el contenido de cada zona. Facilita diseños responsive sin media queries complejas.",
       "req": [
@@ -436,7 +509,7 @@ window.SEED = {
     {
       "id": "t16-7",
       "m": "m16",
-      "order": 7,
+      "order": 8,
       "title": "Posicionamiento CSS",
       "desc": "position controla cómo se ubica un elemento: static sigue el flujo normal; relative se desplaza sin sacarlo; absolute se posiciona respecto a un ancestro posicionado; fixed respecto a la ventana; sticky se pega al hacer scroll. Se combinan con top, right, bottom y left y con z-index. Abusar de absolute complica el diseño responsive.",
       "req": [
@@ -446,7 +519,7 @@ window.SEED = {
     {
       "id": "t16-8",
       "m": "m16",
-      "order": 8,
+      "order": 9,
       "title": "Diseño responsive y media queries",
       "desc": "El diseño responsive adapta la interfaz al tamaño de pantalla con layouts fluidos, imágenes flexibles y media queries que aplican reglas según el ancho. Conviene diseñar primero para móvil y ampliar con min-width. También cuentan el tamaño táctil de los botones y la legibilidad. No es solo encoger: es reorganizar el contenido.",
       "req": [
@@ -456,7 +529,7 @@ window.SEED = {
     {
       "id": "t16-9",
       "m": "m16",
-      "order": 9,
+      "order": 10,
       "title": "Variables CSS",
       "desc": "Las variables CSS, o custom properties, guardan valores reutilizables como colores, espacios o radios. Se declaran en :root y se usan con var(--nombre); pueden cambiar por tema o contexto. Reducen la repetición y facilitan mantener un sistema de diseño coherente. Son distintas de las variables de JavaScript.",
       "req": [
@@ -466,7 +539,7 @@ window.SEED = {
     {
       "id": "t16-10",
       "m": "m16",
-      "order": 10,
+      "order": 11,
       "title": "Transiciones y animaciones",
       "desc": "En CSS, las transiciones suavizan cambios de propiedades con transition; las animaciones con @keyframes permiten secuencias más complejas. Deben ser rápidas y sutiles para no distraer, y respetar prefers-reduced-motion. Animar transform y opacity es más eficiente que animar width o top. El movimiento debe comunicar, no decorar sin sentido.",
       "req": [
@@ -476,7 +549,7 @@ window.SEED = {
     {
       "id": "t16-11",
       "m": "m16",
-      "order": 11,
+      "order": 12,
       "title": "Frameworks y metodologías CSS",
       "desc": "Existen frameworks como Tailwind, Bootstrap o Bulma, y metodologías como BEM para nombrar clases. Tailwind prioriza utilidades en el HTML; Bootstrap ofrece componentes listos. También hay CSS Modules y CSS-in-JS para aislar estilos. La elección depende del equipo, el proyecto y cuánto control visual necesites.",
       "req": [
@@ -534,9 +607,19 @@ window.SEED = {
       ]
     },
     {
-      "id": "t17-6",
+      "id": "t17-13",
       "m": "m17",
       "order": 6,
+      "title": "Destructuring, spread y rest",
+      "desc": "La desestructuración extrae valores de objetos y arreglos en variables: const { nombre, edad } = usuario o const [primero, segundo] = lista. Admite valores por defecto, renombrado y anidamiento.\n\nEl operador spread (...) expande un objeto o arreglo: const copia = { ...usuario } o const todos = [...a, ...b]. Se usa para combinar, clonar en el primer nivel y pasar props. Cuidado: es una copia superficial, los objetos anidados siguen compartidos.\n\nEl operador rest (...) agrupa el resto: function sumar(...numeros) o const { id, ...datos } = objeto. Aunque se escriben igual, spread expande y el operador rest recoge. Entender la diferencia evita errores al copiar estado o al escribir funciones variádicas.",
+      "req": [
+        "t17-5"
+      ]
+    },
+    {
+      "id": "t17-6",
+      "m": "m17",
+      "order": 7,
       "title": "Métodos de arreglos",
       "desc": "map transforma cada elemento, filter selecciona los que cumplen una condición, reduce acumula un resultado y find busca el primero que coincide. forEach recorre sin devolver nada y some/every responden preguntas booleanas. Estos métodos evitan bucles manuales y hacen el código más expresivo. No mutan el arreglo original salvo sort, splice o push.",
       "req": [
@@ -546,7 +629,7 @@ window.SEED = {
     {
       "id": "t17-7",
       "m": "m17",
-      "order": 7,
+      "order": 8,
       "title": "DOM y eventos",
       "desc": "El DOM permite seleccionar elementos con querySelector y cambiarlos con textContent, classList o setAttribute. Los eventos, como click, submit o input, se escuchan con addEventListener y permiten reaccionar a la interacción. Conviene delegar eventos en un contenedor y evitar innerHTML con datos externos. Así el JavaScript conecta la lógica con la interfaz.",
       "req": [
@@ -557,7 +640,7 @@ window.SEED = {
     {
       "id": "t17-8",
       "m": "m17",
-      "order": 8,
+      "order": 9,
       "title": "Asincronía y callbacks",
       "desc": "JavaScript ejecuta una tarea a la vez, pero puede lanzar operaciones que terminan después, como una petición HTTP o un temporizador. Un callback es una función que se ejecuta al terminar. Encadenarlos en exceso crea el llamado callback hell. Las promesas y async/await resuelven ese problema con un código más legible.",
       "req": [
@@ -567,7 +650,7 @@ window.SEED = {
     {
       "id": "t17-9",
       "m": "m17",
-      "order": 9,
+      "order": 10,
       "title": "Promesas",
       "desc": "En JavaScript, una promesa representa un valor que estará disponible ahora, más tarde o nunca. Tiene tres estados: pendiente, cumplida y rechazada. Se consume con then para el éxito y catch para el error, y se combina con Promise.all o Promise.race. Una promesa no se cancela sola y un error no capturado puede romper el flujo.",
       "req": [
@@ -577,7 +660,7 @@ window.SEED = {
     {
       "id": "t17-10",
       "m": "m17",
-      "order": 10,
+      "order": 11,
       "title": "async/await",
       "desc": "async convierte una función en una promesa; await pausa su ejecución hasta que otra promesa se resuelve, sin bloquear el navegador. El código asíncrono se lee como secuencial y los errores se capturan con try/catch. No elimina la asincronía: solo la hace más clara. Conviene no abusar de await secuencial cuando las tareas son independientes.",
       "req": [
@@ -585,9 +668,20 @@ window.SEED = {
       ]
     },
     {
+      "id": "t17-14",
+      "m": "m17",
+      "order": 12,
+      "title": "Manejo de errores: try/catch",
+      "desc": "Los errores se lanzan con throw y se capturan con try/catch. El bloque finally se ejecuta siempre, haya error o no, y sirve para liberar recursos o cerrar estados.\n\nEn código asíncrono, un try/catch alrededor de await captura el rechazo de la promesa. Sin await, el error queda en la promesa y debe manejarse con catch. Una promesa rechazada sin manejar genera un unhandledrejection y puede romper el flujo.\n\nNo conviene capturar y silenciar: hay que registrar, transformar en un mensaje útil o relanzar. Los errores personalizados con class extienden Error y permiten distinguir casos. En el servidor, un manejador central evita repetir try/catch en cada ruta.",
+      "req": [
+        "t17-4",
+        "t17-10"
+      ]
+    },
+    {
       "id": "t17-11",
       "m": "m17",
-      "order": 11,
+      "order": 13,
       "title": "fetch y consumo de APIs",
       "desc": "fetch permite hacer peticiones HTTP desde el navegador y devuelve una promesa con la respuesta. Hay que comprobar response.ok antes de parsear el JSON, porque fetch no rechaza por un 404 o un 500. Se configuran método, headers y body. Para APIs protegidas se envía el token en Authorization y se manejan los errores de red.",
       "req": [
@@ -598,7 +692,7 @@ window.SEED = {
     {
       "id": "t17-12",
       "m": "m17",
-      "order": 12,
+      "order": 14,
       "title": "Módulos JavaScript",
       "desc": "Los módulos dividen el código en archivos con export e import. Cada módulo tiene su propio alcance y solo expone lo que decide. Facilitan la organización, las pruebas y el trabajo en equipo. En el navegador se cargan con type=\"module\"; en Node.js se usan ESM o CommonJS. Evitan depender de variables globales.",
       "req": [
@@ -961,9 +1055,20 @@ window.SEED = {
       ]
     },
     {
-      "id": "t5-8",
+      "id": "t5-11",
       "m": "m5",
       "order": 8,
+      "title": "HSTS y contenido mixto",
+      "desc": "HSTS (HTTP Strict Transport Security) es una cabecera que ordena al navegador usar siempre HTTPS para un dominio. Se envía con Strict-Transport-Security: max-age=31536000; includeSubDomains y evita que alguien fuerce una primera conexión HTTP insegura.\n\nSin HSTS, un usuario que escribe el dominio sin https puede sufrir un ataque de degradación antes de la redirección. Con HSTS, el navegador recuerda durante max-age que debe ir por HTTPS. La directiva preload permite incluir el dominio en una lista que viene con el navegador.\n\nEl contenido mixto ocurre cuando una página HTTPS carga recursos por HTTP: imágenes, scripts, estilos o peticiones. El navegador los bloquea o los marca como inseguros porque rompen la garantía de la página. Se corrige usando URLs HTTPS o la directiva upgrade-insecure-requests de CSP.",
+      "req": [
+        "t5-2",
+        "t5-4"
+      ]
+    },
+    {
+      "id": "t5-8",
+      "m": "m5",
+      "order": 9,
       "title": "¿Qué es un puerto? (80 y 443)",
       "desc": "Un puerto es un número de 16 bits (0–65535) que identifica un servicio dentro de una máquina con una misma dirección IP. La IP llega al equipo; el puerto indica a qué programa debe entregarse la conexión. La combinación IP + puerto forma un socket.\n\nSe dividen en tres rangos:\n• Bien conocidos (0–1023): HTTP 80, HTTPS 443, DNS 53, SSH 22, SMTP 25.\n• Registrados (1024–49151): PostgreSQL 5432, MySQL 3306, Redis 6379, servidores de desarrollo como 3000 o 5173.\n• Dinámicos o efímeros (49152–65535): los usa el sistema para conexiones salientes.\n\nSi en la URL se omite el puerto, el navegador asume 80 para HTTP y 443 para HTTPS. En local, http://localhost:3000 pide el servicio que escucha en el 3000. Dos programas no pueden escuchar en el mismo puerto y la misma interfaz; un firewall puede bloquearlo aunque el servidor esté activo.",
       "req": [
@@ -973,7 +1078,7 @@ window.SEED = {
     {
       "id": "t5-9",
       "m": "m5",
-      "order": 9,
+      "order": 10,
       "title": "Encabezados HTTP (Headers)",
       "desc": "Los headers son metadatos que acompañan una petición o una respuesta. Tienen la forma Nombre: valor, no son el contenido y no se ven en la página, pero condicionan cómo se interpreta.\n\nHay varias familias:\n• De petición: Host, User-Agent, Accept, Authorization, Cookie.\n• De respuesta: Content-Type, Content-Length, Set-Cookie, Cache-Control, ETag.\n• De negociación: Accept-Language, Accept-Encoding, Content-Encoding.\n• De seguridad: Content-Security-Policy, Strict-Transport-Security, X-Frame-Options.\n• De CORS: Origin, Access-Control-Allow-Origin, Access-Control-Allow-Methods.\n\nLos nombres no distinguen mayúsculas de minúsculas y algunos son de extremo a extremo mientras otros los modifican proxies. Un header mal configurado puede romper la caché, exponer datos o bloquear una petición legítima.",
       "req": [
@@ -983,7 +1088,7 @@ window.SEED = {
     {
       "id": "t5-10",
       "m": "m5",
-      "order": 10,
+      "order": 11,
       "title": "Cuerpo de una solicitud (Body)",
       "desc": "El body es la parte de la petición que lleva datos, como un formulario o un objeto JSON. No todas las peticiones lo tienen: GET normalmente carece de body. Su formato se declara con Content-Type y su tamaño puede limitarse en el servidor. El backend debe validarlo antes de usarlo.",
       "req": [
@@ -1392,9 +1497,60 @@ window.SEED = {
       ]
     },
     {
-      "id": "t9-8",
+      "id": "t9-13",
       "m": "m9",
       "order": 8,
+      "title": "IPv4 e IPv6",
+      "desc": "IPv4 e IPv6 son las dos versiones del protocolo IP. Ambas direccionan y encaminan paquetes, pero no son compatibles directamente: un dispositivo puede hablar una, otra o las dos a la vez (dual stack).\n\n• IPv4 usa 32 bits y se escribe como cuatro números entre 0 y 255 separados por puntos (192.168.1.10). Ofrece unos 4.300 millones de direcciones, un rango ya agotado, por lo que se depende de NAT.\n• IPv6 usa 128 bits y se escribe en hexadecimal (2001:db8::1). Permite una cantidad enorme de direcciones, elimina la necesidad habitual de NAT y añade autoconfiguración.\n\nEn DNS, un dominio puede tener un registro A para IPv4 y un registro AAAA para IPv6. Durante la transición conviven ambos: el cliente elige según su red y el servidor debe escuchar en las dos si quiere ser accesible para todos.",
+      "req": [
+        "t9-7"
+      ]
+    },
+    {
+      "id": "t9-14",
+      "m": "m9",
+      "order": 9,
+      "title": "NAT y direcciones privadas",
+      "desc": "Las direcciones privadas son rangos reservados para redes locales: 10.0.0.0/8, 172.16.0.0/12 y 192.168.0.0/16. No se enrutan por Internet, así que pueden repetirse en miles de hogares y empresas sin chocar entre sí.\n\nNAT (Network Address Translation) es lo que permite salir a Internet desde esas redes. El router sustituye la IP privada y el puerto de origen por su IP pública y un puerto libre, y guarda la correspondencia en una lista interna. Cuando llega la respuesta, hace el camino inverso. Esa variante con puertos se llama PAT o NAT de puertos.\n\nNAT ahorra direcciones IPv4 y añade una capa de ocultación, pero complica las conexiones entrantes, la voz sobre IP y los juegos peer-to-peer. Los proveedores también usan CGNAT, compartiendo una IP pública entre muchos clientes. IPv6 reduce la dependencia de NAT, aunque no elimina los firewalls.",
+      "req": [
+        "t9-7"
+      ]
+    },
+    {
+      "id": "t9-15",
+      "m": "m9",
+      "order": 10,
+      "title": "Máscara de subred y CIDR",
+      "desc": "Una dirección IP sola no dice dónde termina la red y empieza el host. Para eso está la máscara de subred, que separa la parte de red de la parte de host.\n\nLa notación CIDR indica cuántos bits iniciales pertenecen a la red: /24 equivale a 255.255.255.0. En 192.168.1.10/24, la red es 192.168.1.0, el host es 10 y el rango utilizable va de 192.168.1.1 a 192.168.1.254; la última dirección suele ser broadcast.\n\nLa máscara determina qué destinos están en la misma red local y cuáles deben enviarse al router (gateway). Subnetear divide una red grande en redes más pequeñas para organizar tráfico y seguridad. /32 identifica un solo host y /0 representa la ruta por defecto.",
+      "req": [
+        "t9-7"
+      ]
+    },
+    {
+      "id": "t9-16",
+      "m": "m9",
+      "order": 11,
+      "title": "DHCP: cómo se asigna una IP",
+      "desc": "DHCP (Dynamic Host Configuration Protocol) asigna automáticamente direcciones IP y otros datos de red a los dispositivos que se conectan. Sin él habría que configurar cada equipo a mano.\n\nEl proceso se recuerda como DORA: Discover (el cliente busca un servidor), Offer (el servidor propone una IP), Request (el cliente la solicita) y Ack (el servidor confirma). La asignación tiene una concesión o lease con duración; al expirar, el cliente renueva o recibe otra.\n\nAdemás de la IP, DHCP entrega la máscara, el gateway y los servidores DNS. Un administrador puede reservar una IP fija para un dispositivo concreto. Por eso una IP doméstica puede cambiar al reiniciar el router, mientras que una IP estática configurada a mano permanece.",
+      "req": [
+        "t9-7"
+      ]
+    },
+    {
+      "id": "t9-17",
+      "m": "m9",
+      "order": 12,
+      "title": "Socket: IP + puerto",
+      "desc": "Un socket es el punto final de una conexión de red: combina una dirección IP y un puerto. La IP identifica la máquina y el puerto identifica el programa o servicio dentro de ella.\n\nUn servidor web escucha en un puerto conocido, como 443. Cada cliente que se conecta usa un puerto efímero distinto. La conexión se identifica por la combinación de IP y puerto de origen y destino, también llamada cuádruple.\n\nGracias a los sockets, una misma máquina puede atender web, correo y base de datos a la vez en puertos distintos. En desarrollo se habla de “abrir un socket” o “escuchar en el 3000” para referirse a un servidor local esperando conexiones.",
+      "req": [
+        "t9-7",
+        "t5-8"
+      ]
+    },
+    {
+      "id": "t9-8",
+      "m": "m9",
+      "order": 13,
       "title": "Parámetros de ruta (Path Parameters)",
       "desc": "Los path parameters o parámetros de ruta forman parte de la ruta de la URL y identifican un recurso concreto dentro de una colección. En /usuarios/42, el 42 es el parámetro de ruta que representa al usuario con id 42.\n\nSe usan en APIs REST para jerarquías claras: /clientes/7/pedidos/15. Suelen ser obligatorios y su ausencia cambia la ruta. El servidor debe validar el formato y comprobar que el recurso existe y que el usuario tiene permiso para verlo.\n\nNo sirven para filtrar u ordenar: para eso están los query parameters. Tampoco conviene meter datos sensibles en la ruta, porque aparecen en logs, historiales y cabeceras Referer.",
       "req": [
@@ -1404,7 +1560,7 @@ window.SEED = {
     {
       "id": "t9-9",
       "m": "m9",
-      "order": 9,
+      "order": 14,
       "title": "Parámetros de consulta (Query Parameters)",
       "desc": "Los query parameters o parámetros de consulta van después del signo ? y se separan con &. Sirven para filtrar, ordenar, paginar o buscar sin cambiar el recurso base: /productos?categoria=libros&orden=precio&page=2.\n\nSon opcionales por naturaleza: la misma ruta sin parámetros debe devolver un resultado razonable. Cada valor debe validarse y codificarse; un parámetro desconocido puede ignorarse o rechazarse según el contrato de la API.\n\nNo deben usarse para datos sensibles, porque quedan visibles en el historial, los logs y las analíticas. Para listas grandes conviene limitar el tamaño de la respuesta y documentar los valores permitidos de orden y filtros.",
       "req": [
@@ -1414,7 +1570,7 @@ window.SEED = {
     {
       "id": "t9-10",
       "m": "m9",
-      "order": 10,
+      "order": 15,
       "title": "Path vs. Query Parameters",
       "desc": "Los path parameters identifican un recurso; los query parameters modifican cómo se consulta o presenta. /productos/15 pide un producto concreto; /productos?color=azul pide una lista filtrada. Confundirlos produce APIs confusas. Usa path para identidad y query para opciones.",
       "req": [
@@ -1425,7 +1581,7 @@ window.SEED = {
     {
       "id": "t9-11",
       "m": "m9",
-      "order": 11,
+      "order": 16,
       "title": "Codificación URL",
       "desc": "La codificación URL (percent-encoding) convierte caracteres especiales en una secuencia segura para que no se confundan con la estructura de la URL. Un espacio se convierte en %20, la ñ en %C3%B1 y el signo & en %26.\n\nLos caracteres reservados tienen significado propio: / separa rutas, ? inicia la query, & separa parámetros y # inicia el fragmento. Si necesitas enviarlos como dato, hay que codificarlos. Los caracteres no reservados también pueden codificarse, pero no es obligatorio.\n\nEn JavaScript, encodeURIComponent codifica un valor completo para meterlo en un parámetro, mientras que encodeURI conserva la estructura de una URL entera. Codificar dos veces produce valores como %2520 y es un error frecuente. En formularios antiguos, los espacios pueden viajar como +.",
       "req": [
@@ -1435,7 +1591,7 @@ window.SEED = {
     {
       "id": "t9-12",
       "m": "m9",
-      "order": 12,
+      "order": 17,
       "title": "URL absoluta vs. relativa",
       "desc": "Una URL absoluta incluye esquema y dominio: https://ejemplo.com/imagen.png. Una relativa se resuelve contra la URL actual: /imagen.png o ../datos.json. Las relativas facilitan mover el sitio entre dominios y entornos. En APIs y correos conviene usar absolutas para evitar ambigüedad.",
       "req": [
@@ -1453,20 +1609,31 @@ window.SEED = {
       ]
     },
     {
-      "id": "t10-2",
+      "id": "t10-5",
       "m": "m10",
       "order": 2,
-      "title": "DNS y direcciones IP",
-      "desc": "El DNS mantiene la relación entre nombres y direcciones IP. Cuando cambias de servidor, actualizas el registro DNS y los clientes empiezan a resolver el dominio hacia la nueva IP. Por eso un sitio puede seguir apuntando al servidor antiguo durante un tiempo. El TTL controla cuánto se conserva esa información en caché.",
+      "title": "Jerarquía DNS: raíz, TLD y autoritativo",
+      "desc": "El DNS está organizado en una jerarquía para que ningún servidor tenga que conocer todos los dominios del mundo.\n\n• Servidores raíz: conocen dónde están los servidores de cada TLD (.com, .org, .es) y son el punto de partida.\n• Servidores TLD: gestionan una extensión y delegan cada dominio a sus servidores autoritativos.\n• Servidores autoritativos: guardan los registros reales del dominio y responden con la IP.\n• Resolutor recursivo: pregunta por ti, recorre la jerarquía y cachea el resultado.\n\nLas delegaciones se declaran con registros NS. Los servidores raíz y de TLD no guardan la IP final de tu web: solo indican quién la sabe. Esta distribución permite que el sistema escale y que cada dominio se gestione de forma independiente.",
+      "req": [
+        "t9-6",
+        "t10-1"
+      ]
+    },
+    {
+      "id": "t10-6",
+      "m": "m10",
+      "order": 3,
+      "title": "TTL y caché DNS",
+      "desc": "El TTL (Time To Live) es el tiempo, en segundos, que un registro DNS puede guardarse en caché. Un TTL de 3600 significa que el resolutor puede reutilizar la respuesta durante una hora sin volver a preguntar.\n\nGracias a la caché, la resolución es rápida y no satura los servidores. Pero también explica por qué un cambio de DNS no es instantáneo: cada caché lo mantiene hasta que expira. Antes de cambiar de servidor conviene bajar el TTL, esperar el tiempo anterior y luego cambiar la IP.\n\nTambién existe caché negativa: cuando un dominio no existe, la respuesta NXDOMAIN se guarda un tiempo. Los navegadores y sistemas operativos tienen sus propias cachés, además de la del proveedor. Si algo no actualiza, revisa TTL, cachés y propagación.",
       "req": [
         "t10-1",
-        "t9-7"
+        "t10-3"
       ]
     },
     {
       "id": "t10-3",
       "m": "m10",
-      "order": 3,
+      "order": 4,
       "title": "Registros A, AAAA, CNAME y MX",
       "desc": "Los registros DNS son las entradas que describen qué hace un dominio. Los más habituales:\n\n• A: asocia el dominio a una dirección IPv4 (ejemplo.com → 203.0.113.10).\n• AAAA: lo asocia a una IPv6.\n• CNAME: crea un alias hacia otro nombre (www → ejemplo.com). No debe usarse en la raíz del dominio.\n• MX: indica los servidores que reciben el correo, con prioridad.\n• TXT: guarda texto para verificaciones, SPF, DKIM o DMARC.\n• NS: delega la zona a los servidores DNS autoritativos.\n• SOA: contiene metadatos de la zona, como el servidor principal y los tiempos de refresco.\n• CAA: limita qué autoridades pueden emitir certificados para el dominio.\n\nCada registro tiene un TTL que indica cuántos segundos puede cachearse. Un TTL bajo facilita cambios rápidos pero aumenta las consultas; uno alto disminuye el tráfico pero tarda más en propagar modificaciones.",
       "req": [
@@ -1476,11 +1643,33 @@ window.SEED = {
     {
       "id": "t10-4",
       "m": "m10",
-      "order": 4,
+      "order": 5,
       "title": "Propagación DNS",
       "desc": "La propagación es el tiempo que tardan las cachés DNS del mundo en actualizarse tras un cambio. No se propaga un archivo, sino que expiran copias antiguas según el TTL. Puede tardar minutos u horas. Para migraciones conviene bajar el TTL antes del cambio y monitorear la resolución.",
       "req": [
         "t10-3"
+      ]
+    },
+    {
+      "id": "t10-2",
+      "m": "m10",
+      "order": 6,
+      "title": "DNS y direcciones IP",
+      "desc": "El DNS mantiene la relación entre nombres y direcciones IP. Cuando cambias de servidor, actualizas el registro DNS y los clientes empiezan a resolver el dominio hacia la nueva IP. Por eso un sitio puede seguir apuntando al servidor antiguo durante un tiempo. El TTL controla cuánto se conserva esa información en caché.",
+      "req": [
+        "t10-1",
+        "t9-7"
+      ]
+    },
+    {
+      "id": "t10-7",
+      "m": "m10",
+      "order": 7,
+      "title": "DNS seguro: DoH y DoT",
+      "desc": "El DNS tradicional viaja sin cifrar, así que quien controle la red puede ver qué dominios consultas e incluso modificarlos. Para protegerlo existen dos mecanismos:\n\n• DoT (DNS over TLS): cifra las consultas en el puerto 853 con TLS.\n• DoH (DNS over HTTPS): las envía dentro de HTTPS en el puerto 443, mezcladas con el resto del tráfico web.\n\nAmbos aportan privacidad frente a la red local, pero no garantizan que la respuesta sea auténtica. Para eso está DNSSEC, que firma los registros y permite verificar su integridad, aunque no los cifra.\n\nDoH puede dificultar el filtrado de contenido en redes corporativas, porque las consultas parecen tráfico HTTPS normal. Es una decisión de privacidad y control que conviene entender antes de activarlo.",
+      "req": [
+        "t9-6",
+        "t5-4"
       ]
     },
     {
@@ -1514,9 +1703,30 @@ window.SEED = {
       ]
     },
     {
-      "id": "t11-4",
+      "id": "t11-7",
       "m": "m11",
       "order": 4,
+      "title": "async, defer y carga de scripts",
+      "desc": "Un script sin atributos bloquea el parser: el navegador deja de construir el DOM hasta descargarlo y ejecutarlo. Por eso suele colocarse al final del body o cargarse con atributos.\n\n• async: descarga en paralelo y ejecuta en cuanto está listo; no garantiza orden.\n• defer: descarga en paralelo y ejecuta después de parsear el HTML, en orden.\n• type=\"module\": se comporta como defer por defecto y permite import/export.\n\nLos scripts críticos deben ser pequeños y ejecutarse pronto; los secundarios pueden diferirse. preload adelanta la descarga y prefetch prepara recursos para una navegación futura. Elegir bien reduce el bloqueo y mejora la primera carga.",
+      "req": [
+        "t11-3",
+        "t15-3"
+      ]
+    },
+    {
+      "id": "t11-8",
+      "m": "m11",
+      "order": 5,
+      "title": "Reflow y repaint",
+      "desc": "Cuando JavaScript o CSS cambian la página, el navegador puede tener que recalcular el layout (reflow) y volver a pintar (repaint). El reflow es más caro porque recalcula posiciones y tamaños de muchos elementos.\n\nCambiar width, height, padding, font-size o añadir nodos provoca reflow. Cambiar color o background suele provocar solo repaint. Leer propiedades como offsetHeight después de escribir estilos puede forzar un reflow síncrono y crear layout thrashing.\n\nPara evitarlo, agrupa lecturas y escrituras, usa transform y opacity para animaciones y considera will-change con moderación. Las DevTools de rendimiento muestran cuánto tiempo se va en layout y pintado.",
+      "req": [
+        "t11-3"
+      ]
+    },
+    {
+      "id": "t11-4",
+      "m": "m11",
+      "order": 6,
       "title": "¿Qué es el DOM?",
       "desc": "El DOM (Document Object Model) es la representación en memoria del HTML como un árbol de nodos. Cada etiqueta, texto y atributo es un nodo que JavaScript puede leer y modificar.\n\nNo es el HTML del archivo, sino el estado actual de la página: si el script añade un elemento, el DOM cambia aunque el archivo siga igual. Se puede consultar con querySelector, recorrer con parentNode o children y modificar con textContent, classList o setAttribute.\n\nManipularlo en exceso puede afectar al rendimiento, porque cada cambio puede provocar recálculos de layout y pintado. Por eso se agrupan operaciones, se usa DocumentFragment o se delegan eventos. El Virtual DOM de librerías como React es una copia en memoria que calcula los cambios mínimos antes de tocar el DOM real.",
       "req": [
@@ -1526,7 +1736,7 @@ window.SEED = {
     {
       "id": "t11-5",
       "m": "m11",
-      "order": 5,
+      "order": 7,
       "title": "¿Qué es el BOM?",
       "desc": "El BOM (Browser Object Model) agrupa los objetos que representan el navegador más allá del documento: window, navigator, location, history, screen y timers. Permite navegar, leer información del entorno y usar APIs del navegador. No está estandarizado del todo, aunque los navegadores modernos convergen en gran parte.",
       "req": [
@@ -1536,7 +1746,7 @@ window.SEED = {
     {
       "id": "t11-6",
       "m": "m11",
-      "order": 6,
+      "order": 8,
       "title": "Almacenamiento del navegador",
       "desc": "El navegador ofrece varias formas de guardar datos en el cliente: cookies, localStorage, sessionStorage, IndexedDB y Cache Storage. Cada una tiene límites, persistencia y alcance distintos. Cookies viajan al servidor; localStorage e IndexedDB se quedan en el navegador. Elegir mal puede afectar a seguridad, privacidad y rendimiento.",
       "req": [
@@ -1594,9 +1804,31 @@ window.SEED = {
       ]
     },
     {
-      "id": "t12-6",
+      "id": "t12-7",
       "m": "m12",
       "order": 6,
+      "title": "IndexedDB",
+      "desc": "IndexedDB es una base de datos NoSQL integrada en el navegador. Guarda objetos, archivos y datos grandes de forma asíncrona, mucho más allá de los pocos megabytes de localStorage.\n\nSe organiza en bases de datos, almacenes de objetos (object stores) e índices. Las operaciones se hacen dentro de transacciones y devuelven eventos o promesas. Es ideal para caché de datos, aplicaciones offline, historiales y contenido multimedia.\n\nSu API nativa es verbosa; librerías como idb o Dexie la simplifican. No sustituye a una base de datos del servidor: vive en el dispositivo del usuario y puede borrarse al limpiar datos. Para offline se combina con Service Worker.",
+      "req": [
+        "t11-6",
+        "t12-4"
+      ]
+    },
+    {
+      "id": "t12-8",
+      "m": "m12",
+      "order": 7,
+      "title": "Service Worker y PWA",
+      "desc": "Un Service Worker es un script que el navegador ejecuta en segundo plano, separado de la página. Actúa como proxy de red: puede interceptar peticiones, servirlas desde caché y hacer que la app funcione sin conexión.\n\nTiene un ciclo de vida propio: se registra, se instala, se activa y puede actualizarse. Solo funciona en HTTPS (o localhost) y no puede acceder al DOM directamente. Se combina con Cache Storage e IndexedDB.\n\nUna PWA (Progressive Web App) usa Service Worker, un manifest, diseño responsive y HTTPS para comportarse como una app instalable. Puede recibir notificaciones push y sincronizar en segundo plano, con límites y permisos del navegador.",
+      "req": [
+        "t11-6",
+        "t17-12"
+      ]
+    },
+    {
+      "id": "t12-6",
+      "m": "m12",
+      "order": 8,
       "title": "Cookies vs. sesiones vs. almacenamiento",
       "desc": "Las cookies viajan automáticamente al servidor y sirven para identificar la sesión; la sesión es el estado que el servidor mantiene; localStorage y sessionStorage viven solo en el navegador y no se envían solos. Usa cookies HttpOnly para sesión, almacenamiento para preferencias y nunca guardes contraseñas en el cliente.",
       "req": [
@@ -1699,9 +1931,19 @@ window.SEED = {
       ]
     },
     {
-      "id": "t19-5",
+      "id": "t19-13",
       "m": "m19",
       "order": 5,
+      "title": "Restricciones: UNIQUE, NOT NULL y CHECK",
+      "desc": "Las restricciones son reglas que la base de datos aplica a las columnas. Son la última línea de defensa: aunque el backend valide, la base impide datos inválidos.\n\n• NOT NULL: la columna no puede quedar vacía.\n• UNIQUE: no admite valores duplicados; permite varios NULL según el motor.\n• CHECK: exige que se cumpla una condición, como precio >= 0.\n• DEFAULT: asigna un valor cuando no se envía.\n• PRIMARY KEY y FOREIGN KEY: identifican filas y protegen relaciones.\n\nLas restricciones documentan el modelo y evitan inconsistencias. Un error de validación en el servidor puede dejar pasar datos; la restricción los rechaza. Al crear tablas conviene pensarlas desde el inicio, porque añadirlas después puede fallar si ya hay datos inválidos.",
+      "req": [
+        "t19-4"
+      ]
+    },
+    {
+      "id": "t19-5",
+      "m": "m19",
+      "order": 6,
       "title": "SQL básico: SELECT, INSERT, UPDATE y DELETE",
       "desc": "SQL es el lenguaje de consulta de las bases relacionales. SELECT lee datos, INSERT crea filas, UPDATE modifica las existentes y DELETE las elimina. Se combinan con WHERE para filtrar, ORDER BY para ordenar y LIMIT para acotar. Siempre se usan consultas parametrizadas para evitar inyección SQL.",
       "req": [
@@ -1709,9 +1951,19 @@ window.SEED = {
       ]
     },
     {
+      "id": "t19-12",
+      "m": "m19",
+      "order": 7,
+      "title": "GROUP BY y agregaciones",
+      "desc": "Las agregaciones resumen muchas filas en un valor: COUNT cuenta, SUM suma, AVG promedia, MIN y MAX obtienen extremos.\n\nGROUP BY agrupa las filas por una o varias columnas antes de agregar. Por ejemplo, SELECT cliente_id, COUNT(*) FROM pedidos GROUP BY cliente_id devuelve cuántos pedidos tiene cada comprador. Las columnas del SELECT deben estar agrupadas o dentro de una agregación.\n\nWHERE filtra filas antes de agrupar; HAVING filtra grupos después. Para rendimiento, conviene filtrar temprano y tener índices en las columnas de agrupación. Sin GROUP BY, una agregación mezcla todas las filas en un solo resultado.",
+      "req": [
+        "t19-5"
+      ]
+    },
+    {
       "id": "t19-6",
       "m": "m19",
-      "order": 6,
+      "order": 8,
       "title": "Relaciones entre tablas",
       "desc": "Una relación uno a uno asocia un registro con otro; uno a muchos, como un usuario con sus pedidos; muchos a muchos, como productos y categorías, requiere una tabla intermedia. Las relaciones evitan duplicar información y mantienen la coherencia. Se consultan con JOIN, que combina filas de varias tablas según una condición.",
       "req": [
@@ -1719,9 +1971,19 @@ window.SEED = {
       ]
     },
     {
+      "id": "t19-11",
+      "m": "m19",
+      "order": 9,
+      "title": "Tipos de JOIN",
+      "desc": "JOIN combina filas de dos tablas según una condición. Los tipos cambian qué pasa cuando no hay coincidencia:\n\n• INNER JOIN: solo devuelve filas con coincidencia en ambas tablas.\n• LEFT JOIN: todas las de la izquierda, con NULL donde no hay coincidencia.\n• RIGHT JOIN: todas las de la derecha.\n• FULL JOIN: todas las de ambas, con NULL en los huecos.\n• CROSS JOIN: producto cartesiano, todas las combinaciones.\n• Self join: una tabla se une consigo misma, útil para jerarquías.\n\nElegir mal el tipo elimina filas o las duplica. Un JOIN sin condición explícita puede explotar en tamaño. Para relaciones muchos a muchos se usa una tabla intermedia y dos JOIN.",
+      "req": [
+        "t19-6"
+      ]
+    },
+    {
       "id": "t19-7",
       "m": "m19",
-      "order": 7,
+      "order": 10,
       "title": "Normalización",
       "desc": "Normalizar es organizar las tablas para reducir duplicación y dependencias innecesarias. Las formas normales separan datos repetidos en tablas propias y usan claves para relacionarlas. Menos duplicación significa menos incoherencias al actualizar. En sistemas de lectura intensiva a veces se desnormaliza a propósito para ganar velocidad, asumiendo el coste.",
       "req": [
@@ -1731,7 +1993,7 @@ window.SEED = {
     {
       "id": "t19-8",
       "m": "m19",
-      "order": 8,
+      "order": 11,
       "title": "Índices",
       "desc": "Un índice es una estructura que acelera la búsqueda de filas por una o varias columnas, como el índice de un libro. Mejora las lecturas pero ocupa espacio y ralentiza las escrituras, porque hay que actualizarlo. Conviene indexar columnas usadas en WHERE, JOIN y ORDER BY. Un índice mal elegido no se usa y solo añade coste.",
       "req": [
@@ -1741,7 +2003,7 @@ window.SEED = {
     {
       "id": "t19-9",
       "m": "m19",
-      "order": 9,
+      "order": 12,
       "title": "Transacciones y ACID",
       "desc": "En una base de datos, una transacción agrupa varias operaciones que deben completarse juntas o no aplicarse. ACID resume sus garantías: atomicidad, consistencia, aislamiento y durabilidad. El ejemplo clásico es transferir dinero: restar de una cuenta y sumar a otra sin que quede a medias. Los niveles de aislamiento equilibran consistencia y concurrencia.",
       "req": [
@@ -1749,13 +2011,34 @@ window.SEED = {
       ]
     },
     {
+      "id": "t19-15",
+      "m": "m19",
+      "order": 13,
+      "title": "Niveles de aislamiento",
+      "desc": "El aislamiento define cuánto puede ver una transacción de lo que hacen otras al mismo tiempo. Más aislamiento evita anomalías, pero reduce concurrencia.\n\n• Read uncommitted: permite leer datos no confirmados (lectura sucia).\n• Read committed: solo lee datos confirmados, pero una misma consulta puede cambiar si otra transacción confirma entre medias.\n• Repeatable read: mantiene estable lo leído durante la transacción, aunque pueden aparecer filas nuevas (lecturas fantasma).\n• Serializable: como si las transacciones se ejecutaran en serie; máxima consistencia y más bloqueos o reintentos.\n\nLos motores modernos usan MVCC para que los lectores no bloqueen a los escritores. Elegir el nivel es un equilibrio entre consistencia y rendimiento; para operaciones críticas conviene entender qué anomalía tolera el negocio.",
+      "req": [
+        "t19-9"
+      ]
+    },
+    {
       "id": "t19-10",
       "m": "m19",
-      "order": 10,
+      "order": 14,
       "title": "ORM",
       "desc": "Un ORM (Object-Relational Mapping) traduce objetos del código a tablas y consultas SQL. Permite trabajar con modelos en lugar de escribir SQL manual y ayuda con relaciones y migraciones. Ejemplos son Prisma, Sequelize, SQLAlchemy o Hibernate. Puede ocultar consultas ineficientes, así que conviene revisar el SQL que genera.",
       "req": [
         "t19-5"
+      ]
+    },
+    {
+      "id": "t19-14",
+      "m": "m19",
+      "order": 15,
+      "title": "Migraciones de base de datos",
+      "desc": "Una migración es un cambio de esquema versionado: crear una tabla, añadir una columna, cambiar un tipo o crear un índice. Se guarda como código y se aplica en orden, igual que un commit.\n\nCada migración suele tener una operación de subida y otra de bajada, y se registra en una tabla de historial. Herramientas como Prisma Migrate, Flyway, Liquibase o las de Django y Rails las ejecutan. Nunca se cambia producción a mano sin dejar rastro.\n\nEn sistemas grandes se buscan migraciones compatibles y sin bloqueos: añadir columnas nullable, rellenar por lotes, cambiar el código y limpiar después. Antes de migrar hay que hacer copia de seguridad y probar en un entorno similar.",
+      "req": [
+        "t19-3",
+        "t19-10"
       ]
     },
     {
@@ -1780,9 +2063,19 @@ window.SEED = {
       ]
     },
     {
-      "id": "t20-3",
+      "id": "t20-9",
       "m": "m20",
       "order": 3,
+      "title": "API keys y Bearer tokens",
+      "desc": "Una API key identifica a una aplicación o proyecto, no a una persona. Se envía en una cabecera como X-API-Key y sirve para medir uso, limitar peticiones o revocar acceso a un cliente.\n\nUn Bearer token identifica a un usuario o sesión y viaja normalmente en Authorization: Bearer <token>. Quien lo posee puede usarlo, así que debe tratarse como una contraseña: HTTPS, caducidad y almacenamiento seguro.\n\nNunca conviene poner ninguno de los dos en la URL, porque queda en historiales y logs. Las API keys deben poder rotarse y tener permisos mínimos. No son lo mismo que un JWT: el JWT es un formato de token; la API key suele ser un identificador opaco.",
+      "req": [
+        "t6-7"
+      ]
+    },
+    {
+      "id": "t20-3",
+      "m": "m20",
+      "order": 4,
       "title": "Webhooks",
       "desc": "Un webhook es una petición HTTP que un servicio envía a tu aplicación cuando ocurre un evento, como un pago completado. Invierte el flujo: no preguntas, te avisan. Debes verificar la firma, responder rápido y procesar en segundo plano, porque el emisor puede reintentar. Si tu endpoint falla, el evento puede perderse o duplicarse.",
       "req": [
@@ -1793,7 +2086,7 @@ window.SEED = {
     {
       "id": "t20-4",
       "m": "m20",
-      "order": 4,
+      "order": 5,
       "title": "Polling",
       "desc": "El polling consiste en preguntar al servidor cada cierto tiempo si hay novedades. Es simple y funciona en cualquier cliente, pero genera peticiones inútiles y latencia. El polling largo mantiene la conexión abierta hasta que hay datos o se agota el tiempo. Para tiempo real intenso conviene WebSockets o Server-Sent Events.",
       "req": [
@@ -1803,7 +2096,7 @@ window.SEED = {
     {
       "id": "t20-5",
       "m": "m20",
-      "order": 5,
+      "order": 6,
       "title": "WebSockets",
       "desc": "WebSocket abre una conexión bidireccional y persistente entre cliente y servidor. Ambos pueden enviar mensajes en cualquier momento sin repetir headers en cada uno. Es ideal para chat, juegos o colaboración en vivo. Requiere gestionar reconexiones, autenticación y escalado. No reemplaza a HTTP para peticiones normales.",
       "req": [
@@ -1813,7 +2106,7 @@ window.SEED = {
     {
       "id": "t20-6",
       "m": "m20",
-      "order": 6,
+      "order": 7,
       "title": "Server-Sent Events (SSE)",
       "desc": "SSE permite que el servidor envíe un flujo de eventos al cliente por una conexión HTTP abierta. Es unidireccional: solo del servidor al navegador. Sirve para notificaciones, progreso o cotizaciones. Es más simple que WebSocket y se reconecta solo. No permite que el cliente envíe mensajes por ese canal.",
       "req": [
@@ -1823,7 +2116,7 @@ window.SEED = {
     {
       "id": "t20-7",
       "m": "m20",
-      "order": 7,
+      "order": 8,
       "title": "GraphQL",
       "desc": "GraphQL es un lenguaje de consulta para APIs en el que el cliente pide exactamente los campos que necesita. Una sola petición puede traer datos relacionados y evitar respuestas con campos de más. Requiere definir un esquema y resolver cada campo. Es potente, pero añade complejidad de caché, autorización y consultas costosas.",
       "req": [
@@ -1833,7 +2126,7 @@ window.SEED = {
     {
       "id": "t20-8",
       "m": "m20",
-      "order": 8,
+      "order": 9,
       "title": "Rate limiting",
       "desc": "El rate limiting limita cuántas peticiones puede hacer un cliente en un periodo, por ejemplo 100 por minuto. Protege al servidor de abusos, ataques y errores en bucle. Se aplica por IP, usuario o API key y responde con 429 Too Many Requests. Conviene informar el límite y el tiempo de espera en headers.",
       "req": [
@@ -1881,9 +2174,29 @@ window.SEED = {
       ]
     },
     {
-      "id": "t18-5",
+      "id": "t18-10",
       "m": "m18",
       "order": 5,
+      "title": "git rebase",
+      "desc": "git rebase reaplica tus commits sobre otra base, como si los hubieras escrito después de los últimos cambios de main. El resultado es un historial lineal y fácil de leer.\n\nSe usa para actualizar una rama antes de un pull request o para limpiar commits con rebase interactivo (squash, reword, drop). Durante el proceso pueden aparecer conflictos que se resuelven commit a commit.\n\nLa regla de oro: no reescribas el historial de una rama compartida. Rebase cambia los hashes y obliga a los demás a reintegrar su trabajo. En ramas personales es seguro; en main o en una rama que otros usan, mejor merge.",
+      "req": [
+        "t18-4"
+      ]
+    },
+    {
+      "id": "t18-11",
+      "m": "m18",
+      "order": 6,
+      "title": "Tags y releases",
+      "desc": "Un tag es una marca fija que apunta a un commit, normalmente para marcar una versión. A diferencia de una rama, no se mueve sola.\n\nUn tag ligero es solo un nombre; uno anotado guarda autor, fecha y mensaje, y es el recomendado para releases. Se crea con git tag -a v1.2.0 -m \"Versión 1.2.0\" y se publica con git push origin v1.2.0.\n\nLas versiones suelen seguir semver: MAJOR.MINOR.PATCH. GitHub Releases añade notas y artefactos descargables. Desplegar desde un tag permite saber exactamente qué código está en producción y volver a él si algo falla.",
+      "req": [
+        "t18-2"
+      ]
+    },
+    {
+      "id": "t18-5",
+      "m": "m18",
+      "order": 7,
       "title": "Repositorio remoto y GitHub",
       "desc": "Un repositorio remoto vive en un servidor como GitHub, GitLab o Bitbucket y sirve para compartir y respaldar el proyecto. Se conecta con git remote y se sincroniza con push y pull. GitHub añade incidencias, revisiones y acciones automatizadas. El remoto no reemplaza los commits locales: los publica.",
       "req": [
@@ -1893,7 +2206,7 @@ window.SEED = {
     {
       "id": "t18-6",
       "m": "m18",
-      "order": 6,
+      "order": 8,
       "title": "Pull request",
       "desc": "Una pull request propone integrar una rama en otra y abre un espacio para revisar el código. Muestra los cambios, permite comentar líneas, ejecutar pruebas automáticas y pedir aprobación. Un buen PR es pequeño, explica el objetivo y enlaza el problema que resuelve. Al aprobarse se fusiona y se cierra.",
       "req": [
@@ -1903,7 +2216,7 @@ window.SEED = {
     {
       "id": "t18-7",
       "m": "m18",
-      "order": 7,
+      "order": 9,
       "title": "clone, pull y push",
       "desc": "git clone copia un repositorio remoto a tu máquina. git pull descarga los cambios remotos y los integra en tu rama; git push envía tus commits al remoto. Antes de subir conviene hacer pull para evitar rechazos. Si hay divergencias, se resuelven con merge o rebase. Son los comandos básicos para sincronizar el trabajo.",
       "req": [
@@ -1911,9 +2224,19 @@ window.SEED = {
       ]
     },
     {
+      "id": "t18-12",
+      "m": "m18",
+      "order": 10,
+      "title": "git stash",
+      "desc": "git stash guarda temporalmente los cambios no confirmados para dejar la rama limpia. Es útil cuando necesitas cambiar de rama o hacer un pull sin confirmar trabajo a medias.\n\nSe recupera con git stash pop (aplica y elimina) o git stash apply (aplica y conserva). git stash list muestra la pila, y git stash drop borra una entrada. Con -u incluye archivos no rastreados.\n\nNo es un sustituto de los commits: es fácil olvidar un stash durante semanas. Para trabajo importante, mejor una rama o un commit temporal. Si hay conflictos al aplicar, se resuelven como un merge normal.",
+      "req": [
+        "t18-3"
+      ]
+    },
+    {
       "id": "t18-8",
       "m": "m18",
-      "order": 8,
+      "order": 11,
       "title": ".gitignore y archivos que no se suben",
       "desc": "El archivo .gitignore indica qué rutas Git debe ignorar: dependencias, builds, archivos temporales y secretos como .env. Evita subir basura y credenciales al repositorio. Si un archivo ya está rastreado, añadirlo al ignore no basta: hay que quitarlo del índice. Cada lenguaje tiene plantillas habituales.",
       "req": [
@@ -1923,7 +2246,7 @@ window.SEED = {
     {
       "id": "t18-9",
       "m": "m18",
-      "order": 9,
+      "order": 12,
       "title": "Buenas prácticas con Git",
       "desc": "Haz commits pequeños y con mensajes en imperativo que expliquen el qué y el porqué. Trabaja en ramas, sincroniza a menudo y revisa el diff antes de confirmar. No subas secretos ni archivos generados. Usa etiquetas para versiones y protege main con revisión. Un historial limpio ahorra horas de depuración.",
       "req": [
@@ -2002,9 +2325,19 @@ window.SEED = {
       ]
     },
     {
-      "id": "t21-8",
+      "id": "t21-9",
       "m": "m21",
       "order": 8,
+      "title": "Tree shaking y code splitting",
+      "desc": "Tree shaking elimina código muerto del bundle. Funciona mejor con módulos ES y exportaciones estáticas, porque el empaquetador puede saber qué se usa y qué no. Las importaciones dinámicas y los efectos secundarios dificultan la tarea.\n\nCode splitting divide el bundle en trozos que se cargan bajo demanda. Se hace con import() dinámico o por rutas: la página inicial carga solo lo necesario y el resto llega al navegar. Eso mejora la primera carga y el LCP.\n\nAmbas técnicas se complementan: tree shaking reduce lo que sobra de cada trozo y code splitting evita enviarlo todo de golpe. Un bundle gigante retrasa la interactividad aunque el HTML sea pequeño.",
+      "req": [
+        "t21-7"
+      ]
+    },
+    {
+      "id": "t21-8",
+      "m": "m21",
+      "order": 9,
       "title": "Imágenes optimizadas",
       "desc": "Las imágenes suelen ser el recurso más pesado. Conviene usar formatos modernos como WebP o AVIF, elegir el tamaño adecuado, definir width y height para evitar saltos y servir versiones responsive con srcset. La compresión y la CDN completan la estrategia. Una imagen de 4 MB puede arruinar una página bien programada.",
       "req": [
@@ -2033,9 +2366,19 @@ window.SEED = {
       ]
     },
     {
-      "id": "t22-3",
+      "id": "t22-9",
       "m": "m22",
       "order": 3,
+      "title": "Mocks, stubs y fixtures",
+      "desc": "Al probar una unidad se aíslan sus dependencias con dobles de prueba. Un stub devuelve una respuesta preparada; un mock además verifica que se llamó con ciertos argumentos; un fake es una implementación simplificada, como una base de datos en memoria.\n\nLas fixtures son datos de prueba reutilizables: un usuario, un pedido o una configuración. Bien diseñadas hacen las pruebas legibles y deterministas. Conviene crearlas cerca de la prueba o en una fábrica que permita variaciones.\n\nAbusar de mocks acopla las pruebas a la implementación y las vuelve frágiles. Si puedes usar la dependencia real en una prueba de integración, a menudo es más valioso. Mockea lo externo y lo lento, no todo.",
+      "req": [
+        "t22-2"
+      ]
+    },
+    {
+      "id": "t22-3",
+      "m": "m22",
+      "order": 4,
       "title": "Pruebas de integración",
       "desc": "Las pruebas de integración comprueban cómo interactúan varias piezas: una ruta de la API con su base de datos, o un componente con un servicio. Son más lentas que las unitarias y detectan fallos de contrato y configuración. Se suelen usar bases de datos de prueba o contenedores. Complementan, no sustituyen, a las unitarias.",
       "req": [
@@ -2043,9 +2386,19 @@ window.SEED = {
       ]
     },
     {
+      "id": "t22-8",
+      "m": "m22",
+      "order": 5,
+      "title": "Cobertura de pruebas",
+      "desc": "La cobertura mide qué porcentaje del código ejecutan las pruebas: líneas, ramas, funciones o sentencias. Es una señal útil, no un objetivo absoluto.\n\nUna cobertura alta no garantiza que las pruebas comprueben lo correcto: puedes ejecutar una función sin afirmar nada sobre su resultado. Una cobertura baja en una zona crítica sí es una alerta. Conviene priorizar lógica de negocio, validaciones y casos límite.\n\nMuchos equipos fijan umbrales en CI, pero perseguir el 100% suele llevar a pruebas vacías. Mejor cubrir los caminos importantes y revisar las ramas sin cubrir que obsesionarse con el número.",
+      "req": [
+        "t22-1"
+      ]
+    },
+    {
       "id": "t22-4",
       "m": "m22",
-      "order": 4,
+      "order": 6,
       "title": "Pruebas end-to-end (E2E)",
       "desc": "Una prueba end-to-end simula a un usuario real: abre el navegador, rellena un formulario y comprueba el resultado. Valida el flujo completo, pero es lenta y frágil si la interfaz cambia. Herramientas como Playwright o Cypress la automatizan. Conviene reservarlas para los recorridos críticos, no para cada detalle.",
       "req": [
@@ -2055,7 +2408,7 @@ window.SEED = {
     {
       "id": "t22-5",
       "m": "m22",
-      "order": 5,
+      "order": 7,
       "title": "TDD",
       "desc": "TDD (Test-Driven Development) propone escribir primero una prueba que falla, luego el código mínimo para pasarla y después refactorizar. El ciclo rojo-verde-refactor fuerza a pensar en el comportamiento antes de la implementación. No es obligatorio, pero mejora el diseño y la cobertura. Funciona mejor en lógica de negocio que en prototipos visuales.",
       "req": [
@@ -2065,7 +2418,7 @@ window.SEED = {
     {
       "id": "t22-6",
       "m": "m22",
-      "order": 6,
+      "order": 8,
       "title": "Linting y formato de código",
       "desc": "Un linter analiza el código y señala errores, variables sin usar o malas prácticas; un formateador como Prettier lo deja con un estilo uniforme. Se configuran en el proyecto y se ejecutan en el editor o antes de cada commit. Reducen discusiones de estilo y errores tontos. No sustituyen a las pruebas ni a la revisión.",
       "req": [
@@ -2075,7 +2428,7 @@ window.SEED = {
     {
       "id": "t22-7",
       "m": "m22",
-      "order": 7,
+      "order": 9,
       "title": "Depuración (debugging)",
       "desc": "Depurar es localizar y corregir un fallo. Las DevTools permiten pausar el código, inspeccionar variables, ver la pila de llamadas y observar la red. Conviene reproducir el error, aislar la causa y comprobar la solución con una prueba. Los mensajes de error y los logs son pistas, no la respuesta final. Depurar bien ahorra tiempo.",
       "req": [
@@ -2114,9 +2467,19 @@ window.SEED = {
       ]
     },
     {
-      "id": "t23-4",
+      "id": "t23-11",
       "m": "m23",
       "order": 4,
+      "title": "Gestión de secretos",
+      "desc": "Un secreto es una credencial que no debe revelarse: contraseña de base de datos, clave de API, token de firma o certificado. La configuración normal puede ser pública; un secreto no.\n\nNunca se sube al repositorio ni se escribe en el frontend. Se usan variables de entorno o un gestor de secretos como Vault, AWS Secrets Manager o el que ofrezca la plataforma. En CI/CD se configuran como secretos protegidos y se enmascaran en los logs.\n\nBuenas prácticas: permisos mínimos, rotación periódica, separación por entorno y auditoría de accesos. Si un secreto se filtra, hay que revocarlo y rotarlo, no solo borrar el commit. El historial de Git conserva lo que se subió.",
+      "req": [
+        "t23-3"
+      ]
+    },
+    {
+      "id": "t23-4",
+      "m": "m23",
+      "order": 5,
       "title": "CI/CD",
       "desc": "CI (integración continua) ejecuta pruebas y builds en cada cambio para detectar errores pronto. CD (entrega o despliegue continuo) automatiza la publicación en un entorno. Un pipeline típico instala dependencias, prueba, construye y despliega si todo pasa. Reduce el trabajo manual y hace los lanzamientos más frecuentes y seguros.",
       "req": [
@@ -2127,7 +2490,7 @@ window.SEED = {
     {
       "id": "t23-5",
       "m": "m23",
-      "order": 5,
+      "order": 6,
       "title": "Docker y contenedores",
       "desc": "Un contenedor empaqueta la aplicación con sus dependencias y configuración para que se ejecute igual en cualquier entorno. Docker es la herramienta más común; las imágenes se construyen con un Dockerfile y se ejecutan como contenedores. Resuelve el “en mi máquina funciona”. Añade capas que hay que entender y actualizar.",
       "req": [
@@ -2135,9 +2498,19 @@ window.SEED = {
       ]
     },
     {
+      "id": "t23-12",
+      "m": "m23",
+      "order": 7,
+      "title": "Observabilidad: logs, métricas y trazas",
+      "desc": "La observabilidad es la capacidad de entender qué pasa dentro de un sistema a partir de sus señales. Se apoya en tres pilares:\n\n• Logs: eventos detallados, con contexto y sin datos sensibles.\n• Métricas: números agregados como latencia, errores, tráfico y saturación.\n• Trazas: el recorrido de una petición por varios servicios, con tiempos por tramo.\n\nMonitorear es vigilar lo que ya sabes que puede fallar; observar es poder investigar lo inesperado. SLI y SLO definen objetivos medibles, y las alertas deben ser accionables para no generar ruido.\n\nHerramientas como OpenTelemetry, Prometheus, Grafana o Jaeger ayudan a correlacionar las señales. Sin buenas trazas, depurar un sistema distribuido se vuelve adivinar.",
+      "req": [
+        "t23-6"
+      ]
+    },
+    {
       "id": "t23-6",
       "m": "m23",
-      "order": 6,
+      "order": 8,
       "title": "Logs y monitoreo",
       "desc": "Los logs registran eventos y errores; el monitoreo mide salud, latencia, tráfico y uso de recursos. Juntos permiten detectar fallos antes de que los reporten los usuarios. Conviene estructurar los logs y no guardar datos sensibles. Las alertas deben ser accionables para no generar ruido. Observar producción es parte del trabajo.",
       "req": [
@@ -2145,9 +2518,19 @@ window.SEED = {
       ]
     },
     {
+      "id": "t23-10",
+      "m": "m23",
+      "order": 9,
+      "title": "Despliegue azul-verde y canario",
+      "desc": "Son estrategias para reducir el riesgo al publicar una versión nueva.\n\n• Azul-verde: hay dos entornos idénticos. Se despliega en el inactivo, se prueba y se cambia el tráfico de golpe. Si falla, se vuelve al anterior.\n• Canario: la versión nueva recibe primero un porcentaje pequeño de usuarios. Se observan errores y métricas y se aumenta poco a poco.\n\nEl despliegue canario permite detectar fallos con impacto limitado, pero exige monitoreo y una forma de enrutar por porcentaje. Las feature flags separan el despliegue del lanzamiento y permiten activar funcionalidades por usuario.\n\nAmbas técnicas necesitan versiones identificables, base de datos compatible y un plan de rollback. No sustituyen a las pruebas: reducen el daño cuando algo se escapa.",
+      "req": [
+        "t23-8"
+      ]
+    },
+    {
       "id": "t23-7",
       "m": "m23",
-      "order": 7,
+      "order": 10,
       "title": "Dominio, DNS y HTTPS en producción",
       "desc": "Para publicar con un dominio hay que apuntar sus registros DNS al servidor y emitir un certificado TLS. HTTPS protege las credenciales y las cookies, y los navegadores lo exigen. La renovación del certificado debe automatizarse. También conviene configurar redirecciones de HTTP a HTTPS y un host canónico.",
       "req": [
@@ -2158,7 +2541,7 @@ window.SEED = {
     {
       "id": "t23-8",
       "m": "m23",
-      "order": 8,
+      "order": 11,
       "title": "Rollback y versiones",
       "desc": "Un rollback vuelve a una versión anterior cuando un despliegue falla. Para poder hacerlo hay que versionar los artefactos, mantener la base de datos compatible y tener un plan claro. Los despliegues azul-verde o canario reducen el riesgo al exponer primero a pocos usuarios. Nunca improvises una vuelta atrás en producción.",
       "req": [
@@ -2168,7 +2551,7 @@ window.SEED = {
     {
       "id": "t23-9",
       "m": "m23",
-      "order": 9,
+      "order": 12,
       "title": "Cloud y serverless",
       "desc": "La nube ofrece servidores, almacenamiento, bases de datos y servicios gestionados bajo demanda. Serverless ejecuta funciones sin administrar servidores, escalando automáticamente y cobrando por uso. Reduce la operación, pero añade dependencia del proveedor y límites de tiempo o frío. La elección depende del tráfico, el equipo y el control necesario.",
       "req": [
@@ -2186,9 +2569,19 @@ window.SEED = {
       ]
     },
     {
-      "id": "t14-2",
+      "id": "t14-11",
       "m": "m14",
       "order": 2,
+      "title": "MFA y 2FA",
+      "desc": "La autenticación multifactor (MFA) combina dos o más factores de distinto tipo: algo que sabes (contraseña), algo que tienes (teléfono, llave) o algo que eres (huella). 2FA es el caso de exactamente dos factores.\n\nEl segundo factor más seguro suele ser una app TOTP o una llave física WebAuthn/passkey. Los SMS son cómodos pero vulnerables a SIM swapping y interceptación. Los códigos de recuperación deben guardarse fuera del teléfono.\n\nMFA protege aunque la contraseña se filtre, pero no arregla una autorización mal hecha. Conviene aplicarlo a cuentas sensibles y permitir step-up authentication: pedir un factor extra solo para acciones críticas como cambiar la contraseña o pagar.",
+      "req": [
+        "t14-1"
+      ]
+    },
+    {
+      "id": "t14-2",
+      "m": "m14",
+      "order": 3,
       "title": "¿Qué es la autorización?",
       "desc": "Autorizar es decidir qué puede hacer un usuario ya identificado. Se aplica con roles, permisos o reglas sobre recursos: quién puede editar un artículo, ver un pedido ajeno o borrar una cuenta.\n\nModelos habituales:\n• RBAC: roles como admin, editor o cliente, con permisos asociados.\n• ABAC: reglas basadas en atributos del usuario, el recurso y el contexto.\n• ACL: listas de permisos por recurso concreto.\n\nLa comprobación debe hacerse en el servidor en cada operación sensible. Ocultar un botón en el frontend no protege nada. Un fallo clásico es el IDOR: cambiar el id de la URL y acceder a datos de otro usuario porque solo se comprobó que había sesión, no que el recurso fuera suyo.",
       "req": [
@@ -2197,9 +2590,30 @@ window.SEED = {
       ]
     },
     {
+      "id": "t14-12",
+      "m": "m14",
+      "order": 4,
+      "title": "RBAC, ABAC y ACL",
+      "desc": "Son modelos para decidir qué puede hacer un usuario.\n\n• RBAC (Role-Based Access Control): asigna permisos a roles y roles a usuarios. Es simple y habitual en paneles de administración.\n• ABAC (Attribute-Based Access Control): decide según atributos del usuario, el recurso y el contexto, como departamento, hora o ubicación.\n• ACL (Access Control List): guarda permisos por recurso concreto, por ejemplo quién puede leer un documento.\n\nLa comprobación debe ocurrir en el servidor en cada operación sensible, no solo ocultando botones. Aplica el principio de mínimo privilegio: cada rol tiene solo lo necesario. Los permisos deben poder auditarse y revocarse.",
+      "req": [
+        "t14-2"
+      ]
+    },
+    {
+      "id": "t14-13",
+      "m": "m14",
+      "order": 5,
+      "title": "IDOR (referencia directa insegura)",
+      "desc": "IDOR ocurre cuando una aplicación expone un identificador de recurso y no comprueba que el usuario tenga permiso sobre él. Si /facturas/15 muestra la factura 15 y cambias el número a 16, podrías ver la de otra persona.\n\nEl fallo no es usar un id predecible, sino confiar en que el cliente solo enviará ids válidos. Cambiar a UUID dificulta adivinarlos, pero no corrige la falta de autorización. La defensa es comprobar en el servidor que el recurso pertenece al usuario o que su rol permite acceder.\n\nSe prueba intentando acceder con otra cuenta, con un id ajeno y con recursos inexistentes. Devuelve 403 o 404 según la política, y registra el intento. Es una de las vulnerabilidades más comunes en APIs.",
+      "req": [
+        "t14-2",
+        "t14-9"
+      ]
+    },
+    {
       "id": "t14-3",
       "m": "m14",
-      "order": 3,
+      "order": 6,
       "title": "Autenticación vs. autorización",
       "desc": "La autenticación responde “¿quién eres?”; la autorización, “¿qué puedes hacer?”. Primero se identifica al usuario y después se comprueban sus permisos. Un 401 indica falta de autenticación; un 403, falta de autorización. Confundirlas produce fallos de seguridad y mensajes erróneos.",
       "req": [
@@ -2210,7 +2624,7 @@ window.SEED = {
     {
       "id": "t14-4",
       "m": "m14",
-      "order": 4,
+      "order": 7,
       "title": "¿Qué es un token?",
       "desc": "Un token es una credencial que el servidor emite tras autenticar al usuario y que el cliente envía en peticiones posteriores, normalmente en el header Authorization. Puede ser opaco o contener datos firmados. Tiene caducidad y debe tratarse como una contraseña: no se comparte ni se guarda en lugares inseguros.",
       "req": [
@@ -2218,9 +2632,20 @@ window.SEED = {
       ]
     },
     {
+      "id": "t14-14",
+      "m": "m14",
+      "order": 8,
+      "title": "Refresh tokens y rotación",
+      "desc": "Un access token suele durar poco para limitar el daño si se roba. El refresh token permite obtener uno nuevo sin volver a pedir la contraseña, y dura más.\n\nEl refresh token debe guardarse de forma segura y enviarse solo al endpoint de renovación. En aplicaciones web se recomienda una cookie HttpOnly, Secure y SameSite, no localStorage. La rotación emite uno nuevo en cada uso y invalida el anterior.\n\nSi se detecta que se reutiliza un refresh token ya rotado, se asume robo y se revoca toda la familia de tokens. Al cerrar sesión se invalida también el refresh token. Así se combina comodidad con capacidad de revocación.",
+      "req": [
+        "t14-4",
+        "t14-5"
+      ]
+    },
+    {
       "id": "t14-5",
       "m": "m14",
-      "order": 5,
+      "order": 9,
       "title": "¿Qué es JWT?",
       "desc": "JWT (JSON Web Token) es un token formado por header, payload y firma, codificados en Base64URL y separados por puntos. El servidor puede verificar la firma sin consultar la base de datos.\n\nEl header indica el algoritmo; el payload lleva claims como sub (usuario), exp (caducidad), iat (emisión) y roles; la firma garantiza que nadie lo modificó. Base64URL no es cifrado: cualquiera puede leer el payload, así que no debe contener secretos.\n\nSe usa para sesiones y APIs, con cuidado en expiración, almacenamiento y revocación. Un JWT robado sirve hasta que caduca; para revocarlo antes hacen falta listas de bloqueo o sesiones de corta duración con refresh tokens. Guardarlo en localStorage lo expone a XSS; una cookie HttpOnly y Secure suele ser más segura.",
       "req": [
@@ -2231,7 +2656,7 @@ window.SEED = {
     {
       "id": "t14-6",
       "m": "m14",
-      "order": 6,
+      "order": 10,
       "title": "¿Qué es CORS?",
       "desc": "CORS (Cross-Origin Resource Sharing) es un mecanismo del navegador que controla si una página puede leer respuestas de otro origen. Un origen es la combinación de esquema, dominio y puerto: https://app.com y https://api.com son orígenes distintos.\n\nSi la petición es simple (GET, HEAD o POST con ciertos Content-Type), el navegador la envía y comprueba si la respuesta incluye Access-Control-Allow-Origin. Si no es simple (PUT, DELETE, JSON o headers personalizados), antes envía un preflight OPTIONS preguntando qué está permitido.\n\nEl servidor responde con Access-Control-Allow-Origin, Allow-Methods, Allow-Headers y, si hay credenciales, Allow-Credentials. Un error común es poner * con credenciales, o creer que CORS protege la API: CORS es una política del navegador, no una autenticación. Un cliente que no sea un navegador puede ignorarlo.",
       "req": [
@@ -2242,7 +2667,7 @@ window.SEED = {
     {
       "id": "t14-7",
       "m": "m14",
-      "order": 7,
+      "order": 11,
       "title": "¿Qué es CSRF?",
       "desc": "CSRF (Cross-Site Request Forgery) es un ataque en el que un sitio malicioso hace que el navegador del usuario envíe una petición autenticada a otro sitio. Se previene con tokens anti-CSRF, cookies SameSite, comprobación de Origin/Referer y no usando GET para acciones que cambian estado. La víctima no nota nada porque su sesión es válida.",
       "req": [
@@ -2253,7 +2678,7 @@ window.SEED = {
     {
       "id": "t14-8",
       "m": "m14",
-      "order": 8,
+      "order": 12,
       "title": "¿Qué es XSS?",
       "desc": "XSS (Cross-Site Scripting) ocurre cuando un atacante inyecta JavaScript en una página que otros usuarios ven. Puede robar cookies, modificar la interfaz, redirigir o actuar en nombre del usuario.\n\nTipos principales:\n• Almacenado: el script se guarda en la base de datos y se sirve a todos.\n• Reflejado: el script viaja en la URL o en un formulario y se devuelve en la respuesta.\n• DOM-based: el propio JavaScript del cliente inserta datos no confiables en el DOM.\n\nSe evita escapando la salida según el contexto, validando la entrada, usando textContent en lugar de innerHTML con datos externos y aplicando una Content Security Policy. Los frameworks modernos escapan por defecto, pero siguen existiendo APIs peligrosas. Las cookies HttpOnly reducen el impacto, no la causa.",
       "req": [
@@ -2264,7 +2689,7 @@ window.SEED = {
     {
       "id": "t14-9",
       "m": "m14",
-      "order": 9,
+      "order": 13,
       "title": "Validación en cliente y servidor",
       "desc": "Validar en el cliente mejora la experiencia: avisa antes de enviar, evita viajes innecesarios y guía al usuario. Validar en el servidor es obligatorio para la seguridad: el cliente puede modificarse, desactivarse o saltarse por completo.\n\nSe deben comprobar tipos, longitudes, formatos, rangos y reglas de negocio en ambos lados, con el servidor como autoridad final. La validación debe ser positiva (permitir lo que cumple el formato) y no solo negativa (bloquear caracteres sueltos), para evitar errores y ataques de codificación.\n\nLa validación no sustituye a otras defensas: las consultas parametrizadas evitan inyección SQL, el escape de salida evita XSS y los permisos evitan accesos indebidos. Un dato válido puede seguir siendo peligroso si se usa en el contexto equivocado.",
       "req": [
@@ -2275,7 +2700,7 @@ window.SEED = {
     {
       "id": "t14-10",
       "m": "m14",
-      "order": 10,
+      "order": 14,
       "title": "Buenas prácticas de seguridad",
       "desc": "Usa HTTPS, contraseñas con hash fuerte, cookies HttpOnly/Secure/SameSite, validación en servidor, consultas parametrizadas, permisos mínimos y dependencias actualizadas. No expongas secretos en el frontend ni en el repositorio. Registra eventos sin guardar datos sensibles y aplica el principio de menor privilegio. La seguridad es un proceso continuo, no una casilla.",
       "req": [

@@ -251,7 +251,52 @@ const ALIASES = {
   't24-23': ['semver', 'versionado semántico', 'npm', 'package.json'],
   't24-24': ['CAP', 'teorema CAP', 'replicación', 'sharding', 'fragmentación'],
   't24-25': ['Big O', 'complejidad algorítmica', 'notación Big O'],
-  't24-26': ['Virtual DOM', 'React']
+  't24-26': ['Virtual DOM', 'React'],
+  /* Ampliaciones: redes */
+  't1-11': ['ISP', 'backbone', 'router', 'routers', 'proveedor de Internet'],
+  't1-12': ['handshake TCP', 'three-way handshake', 'saludo a tres pasos', 'SYN'],
+  't9-13': ['IPv4', 'IPv6', 'dual stack'],
+  't9-14': ['NAT', 'direcciones privadas', 'IP privada', 'IP pública', 'CGNAT'],
+  't9-15': ['CIDR', 'máscara de subred', 'subred', 'subneteo'],
+  't9-16': ['DHCP', 'concesión', 'lease'],
+  't9-17': ['socket', 'sockets'],
+  't10-5': ['servidor raíz', 'servidores raíz', 'servidor autoritativo', 'resolutor recursivo'],
+  't10-6': ['TTL', 'caché DNS', 'propagación DNS', 'NXDOMAIN'],
+  't10-7': ['DoH', 'DoT', 'DNSSEC', 'DNS over HTTPS', 'DNS over TLS'],
+  't5-11': ['HSTS', 'contenido mixto', 'Strict-Transport-Security'],
+  /* Ampliaciones: HTML, CSS, JS y navegador */
+  't15-11': ['viewport', 'meta etiquetas', 'meta tags', 'Open Graph'],
+  't15-12': ['label', 'fieldset', 'legend'],
+  't15-13': ['ARIA', 'aria-label', 'aria-live', 'role'],
+  't15-14': ['SEO', 'sitemap', 'robots.txt', 'canonical'],
+  't16-12': ['pseudo-clase', 'pseudo-clases', 'pseudo-elemento', 'pseudo-elementos', 'focus-visible'],
+  't17-13': ['destructuring', 'desestructuración', 'spread', 'operador spread', 'operador rest'],
+  't17-14': ['try/catch', 'throw', 'finally', 'manejo de errores'],
+  't11-7': ['defer', 'async y defer', 'type="module"', 'preload', 'prefetch'],
+  't11-8': ['reflow', 'repaint', 'layout thrashing'],
+  't12-7': ['IndexedDB'],
+  't12-8': ['Service Worker', 'PWA', 'Progressive Web App'],
+  /* Ampliaciones: SQL, APIs, Git, rendimiento y testing */
+  't19-11': ['INNER JOIN', 'LEFT JOIN', 'RIGHT JOIN', 'FULL JOIN', 'CROSS JOIN', 'tipos de JOIN'],
+  't19-12': ['GROUP BY', 'HAVING', 'COUNT', 'SUM', 'AVG'],
+  't19-13': ['UNIQUE', 'NOT NULL', 'CHECK', 'restricciones'],
+  't19-14': ['migración', 'migraciones', 'migración de base de datos'],
+  't19-15': ['nivel de aislamiento', 'niveles de aislamiento', 'lectura sucia', 'MVCC'],
+  't20-9': ['API key', 'API keys', 'Bearer token', 'Bearer tokens', 'X-API-Key'],
+  't18-10': ['rebase', 'git rebase'],
+  't18-11': ['git tag', 'tags', 'release', 'releases', 'etiqueta de versión'],
+  't18-12': ['stash', 'git stash'],
+  't21-9': ['tree shaking', 'code splitting'],
+  't22-8': ['cobertura', 'cobertura de pruebas'],
+  't22-9': ['mock', 'mocks', 'stub', 'stubs', 'fixture', 'fixtures', 'dobles de prueba'],
+  /* Ampliaciones: despliegue y seguridad */
+  't23-10': ['azul-verde', 'canario', 'despliegue canario', 'feature flags'],
+  't23-11': ['secreto', 'secretos', 'gestión de secretos', 'Vault'],
+  't23-12': ['observabilidad', 'trazas', 'OpenTelemetry', 'SLI', 'SLO'],
+  't14-11': ['MFA', '2FA', 'autenticación multifactor', 'TOTP', 'passkey', 'WebAuthn'],
+  't14-12': ['RBAC', 'ABAC', 'ACL', 'mínimo privilegio'],
+  't14-13': ['IDOR', 'referencia directa insegura'],
+  't14-14': ['refresh token', 'refresh tokens', 'rotación de tokens']
 };
 
 function cleanPart(s) {
@@ -294,6 +339,11 @@ function linkify(text, selfId) {
   let cursor = 0;
   for (const h of hits) {
     if (h.start < cursor) continue;
+    const prev = raw[h.start - 1] || '';
+    const next = raw[h.end] || '';
+    if (prev === '_' || next === '_') continue;
+    if (prev === '.' || prev === '-' || prev === '/') continue;
+    if (next === '-') continue;
     if (h.id === selfId) {
       out.push(esc(raw.slice(cursor, h.end)));
       cursor = h.end;
