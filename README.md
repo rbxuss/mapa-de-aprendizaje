@@ -12,7 +12,7 @@ No necesita instalación, dependencias ni proceso de build: es HTML, CSS y JavaS
 - **Prerrequisitos**: avisa cuando falta dominar un concepto anterior y muestra qué desbloquea cada uno.
 - **Estados de estudio**: pendiente, estudiando, dominado y repasar.
 - **Vista Repaso**: calcula qué puedes estudiar ahora, qué está bloqueado y qué conviene repasar.
-- **Mapa de dependencias** en SVG, con arrastre, rueda para desplazarse, `Ctrl` + rueda para zoom, flechas y detalle por módulo.
+- **Mapa de dependencias** en SVG, con arrastre, rueda para desplazarse, `Ctrl` + rueda o doble clic para zoom, flechas, botones de desplazamiento y detalle por módulo.
 - **Notas personales** por concepto.
 - **Búsqueda y filtros** por título, explicación y estado.
 - **Alta y edición de conceptos**, con gestión de prerrequisitos y protección contra ciclos.

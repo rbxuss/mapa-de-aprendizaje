@@ -990,13 +990,20 @@ function fit() {
   UI.vt.y = (H - bbox.height * k) / 2 - bbox.y * k;
   applyTransform();
 }
-function zoomBy(f) {
-  const wrap = $('#canvas-wrap');
-  const mx = wrap.clientWidth / 2, my = wrap.clientHeight / 2;
-  const k2 = clamp(UI.vt.k * f, 0.12, 2.6);
+function zoomAt(mx, my, f) {
+  const k2 = clamp(UI.vt.k * f, 0.12, 3);
   UI.vt.x = mx - (mx - UI.vt.x) * (k2 / UI.vt.k);
   UI.vt.y = my - (my - UI.vt.y) * (k2 / UI.vt.k);
   UI.vt.k = k2;
+  applyTransform();
+}
+function zoomBy(f) {
+  const wrap = $('#canvas-wrap');
+  zoomAt(wrap.clientWidth / 2, wrap.clientHeight / 2, f);
+}
+function panBy(dx, dy) {
+  UI.vt.x += dx;
+  UI.vt.y += dy;
   applyTransform();
 }
 function wireMap() {
@@ -1007,8 +1014,9 @@ function wireMap() {
   const isMapView = () => UI.view === 'map' && !$('#canvas-wrap').hidden;
 
   canvas.addEventListener('pointerdown', e => {
-    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    if (e.pointerType === 'mouse' && e.button !== 0 && e.button !== 1) return;
     if (!e.isPrimary) return;
+    if (e.button === 1) e.preventDefault();
     pan = { id: e.pointerId, x: e.clientX, y: e.clientY, vx: UI.vt.x, vy: UI.vt.y, moved: false };
     try { canvas.setPointerCapture(e.pointerId); } catch (err) {}
     canvas.classList.add('grabbing');
@@ -1040,39 +1048,36 @@ function wireMap() {
     e.preventDefault();
     if (e.ctrlKey || e.metaKey) {
       const r = canvas.getBoundingClientRect();
-      const mx = e.clientX - r.left, my = e.clientY - r.top;
-      const k2 = clamp(UI.vt.k * Math.exp(-e.deltaY * 0.0018), 0.12, 3);
-      UI.vt.x = mx - (mx - UI.vt.x) * (k2 / UI.vt.k);
-      UI.vt.y = my - (my - UI.vt.y) * (k2 / UI.vt.k);
-      UI.vt.k = k2;
-      applyTransform();
+      zoomAt(e.clientX - r.left, e.clientY - r.top, Math.exp(-e.deltaY * 0.0018));
       return;
     }
     let dx = e.deltaX, dy = e.deltaY;
     if (e.shiftKey && !dx) { dx = dy; dy = 0; }
-    UI.vt.x -= dx;
-    UI.vt.y -= dy;
-    applyTransform();
+    panBy(-dx, -dy);
   }, { passive: false });
+
+  canvas.addEventListener('dblclick', e => {
+    if (!isMapView()) return;
+    e.preventDefault();
+    const r = canvas.getBoundingClientRect();
+    zoomAt(e.clientX - r.left, e.clientY - r.top, e.shiftKey ? 0.8 : 1.35);
+  });
 
   canvas.addEventListener('keydown', e => {
     if (!isMapView()) return;
     const step = e.shiftKey ? 180 : 70;
     let handled = true;
     switch (e.key) {
-      case 'ArrowLeft': UI.vt.x += step; break;
-      case 'ArrowRight': UI.vt.x -= step; break;
-      case 'ArrowUp': UI.vt.y += step; break;
-      case 'ArrowDown': UI.vt.y -= step; break;
+      case 'ArrowLeft': panBy(step, 0); break;
+      case 'ArrowRight': panBy(-step, 0); break;
+      case 'ArrowUp': panBy(0, step); break;
+      case 'ArrowDown': panBy(0, -step); break;
       case '+': case '=': zoomBy(1.2); break;
       case '-': case '_': zoomBy(0.8); break;
       case '0': fit(); break;
       default: handled = false;
     }
-    if (handled) {
-      e.preventDefault();
-      applyTransform();
-    }
+    if (handled) e.preventDefault();
   });
 
   viewport.addEventListener('click', e => {
@@ -1092,6 +1097,11 @@ function wireMap() {
   $('#zoom-in').addEventListener('click', () => zoomBy(1.25));
   $('#zoom-out').addEventListener('click', () => zoomBy(0.8));
   $('#zoom-fit').addEventListener('click', fit);
+  const step = 90;
+  $('#pan-up').addEventListener('click', () => panBy(0, step));
+  $('#pan-down').addEventListener('click', () => panBy(0, -step));
+  $('#pan-left').addEventListener('click', () => panBy(step, 0));
+  $('#pan-right').addEventListener('click', () => panBy(-step, 0));
 }
 
 /* ============================================================
