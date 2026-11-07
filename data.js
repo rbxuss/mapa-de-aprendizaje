@@ -1,6 +1,6 @@
 /* Contenido inicial: Nivel 1 · Fundamentos de desarrollo web.
    La app guarda tus cambios en localStorage; este archivo solo es la semilla. */
-window.SEED_VERSION = 4;
+window.SEED_VERSION = 5;
 window.SEED = {
   "version": 1,
   "modules": [
@@ -12,92 +12,155 @@ window.SEED = {
       "desc": "El entorno donde vive la web: qué es Internet, cómo viajan los datos con TCP/IP y qué tipos de aplicaciones existen."
     },
     {
-      "id": "m2",
+      "id": "m15",
       "order": 2,
+      "title": "HTML y estructura del contenido",
+      "priority": "alta",
+      "desc": "El lenguaje de marcado que da forma a todo lo que ves en una página: etiquetas, semántica, enlaces, formularios y accesibilidad."
+    },
+    {
+      "id": "m16",
+      "order": 3,
+      "title": "CSS y diseño visual",
+      "priority": "alta",
+      "desc": "Cómo se presenta el contenido: selectores, caja, Flexbox, Grid, responsive, variables y animaciones."
+    },
+    {
+      "id": "m17",
+      "order": 4,
+      "title": "JavaScript esencial",
+      "priority": "alta",
+      "desc": "El lenguaje que da vida a la interfaz: tipos, funciones, DOM, eventos, asincronía, promesas y consumo de APIs."
+    },
+    {
+      "id": "m2",
+      "order": 5,
       "title": "Frontend y Backend",
       "priority": "alta",
       "desc": "Las dos mitades de una aplicación: lo que ve el usuario y lo que ocurre en el servidor."
     },
     {
       "id": "m3",
-      "order": 3,
+      "order": 6,
       "title": "Cliente y servidor",
       "priority": "alta",
       "desc": "Quién pide y quién responde, y en qué se diferencian los tipos de cada lado."
     },
     {
       "id": "m4",
-      "order": 4,
+      "order": 7,
       "title": "Arquitectura cliente-servidor",
       "priority": "alta",
       "desc": "Cómo se organizan las capas, qué es una API y cómo se conecta todo con la base de datos."
     },
     {
       "id": "m5",
-      "order": 5,
+      "order": 8,
       "title": "HTTP y HTTPS",
       "priority": "alta",
       "desc": "El protocolo que hace posible la Web y cómo se protege con cifrado."
     },
     {
       "id": "m6",
-      "order": 6,
+      "order": 9,
       "title": "Request y Response",
       "priority": "alta",
       "desc": "La anatomía de una petición y de una respuesta: headers, body y formatos."
     },
     {
       "id": "m7",
-      "order": 7,
+      "order": 10,
       "title": "Métodos HTTP",
       "priority": "alta",
       "desc": "GET, POST, PUT, PATCH y DELETE: la intención de cada petición."
     },
     {
       "id": "m8",
-      "order": 8,
+      "order": 11,
       "title": "Códigos de estado HTTP",
       "priority": "alta",
       "desc": "Qué significa cada familia de códigos y cuándo usar cada uno."
     },
     {
       "id": "m9",
-      "order": 9,
+      "order": 12,
       "title": "URL, URI y parámetros",
       "priority": "alta",
       "desc": "Cómo se identifica un recurso y cómo se le pasan datos."
     },
     {
       "id": "m10",
-      "order": 10,
+      "order": 13,
       "title": "DNS y dominios",
       "priority": "media",
       "desc": "Cómo un nombre legible se convierte en la dirección IP de un servidor."
     },
     {
       "id": "m11",
-      "order": 11,
+      "order": 14,
       "title": "Navegadores y DOM",
       "priority": "alta",
       "desc": "Cómo el navegador interpreta HTML, CSS y JavaScript, y qué es el DOM."
     },
     {
       "id": "m12",
-      "order": 12,
+      "order": 15,
       "title": "Cookies, sesiones y almacenamiento",
       "priority": "alta",
       "desc": "Cómo se conserva el estado en un protocolo que no recuerda nada."
     },
     {
       "id": "m13",
-      "order": 13,
+      "order": 16,
       "title": "JSON e intercambio de información",
       "priority": "alta",
       "desc": "El formato que domina el intercambio de datos y cómo se envía y recibe."
     },
     {
+      "id": "m19",
+      "order": 17,
+      "title": "Bases de datos y SQL",
+      "priority": "alta",
+      "desc": "Cómo se guardan y consultan los datos: tablas, relaciones, SQL, índices, transacciones y ORM."
+    },
+    {
+      "id": "m20",
+      "order": 18,
+      "title": "APIs modernas y tiempo real",
+      "priority": "media",
+      "desc": "Patrones actuales para comunicar cliente y servidor: paginación, versionado, webhooks, WebSockets, SSE y GraphQL."
+    },
+    {
+      "id": "m18",
+      "order": 19,
+      "title": "Git y control de versiones",
+      "priority": "alta",
+      "desc": "Cómo registrar, compartir y colaborar en el código sin perder cambios: commits, ramas, merges y pull requests."
+    },
+    {
+      "id": "m21",
+      "order": 20,
+      "title": "Rendimiento y caché web",
+      "priority": "media",
+      "desc": "Cómo hacer que la aplicación cargue rápido: caché, CDN, compresión, lazy loading, imágenes y Core Web Vitals."
+    },
+    {
+      "id": "m22",
+      "order": 21,
+      "title": "Testing y calidad",
+      "priority": "media",
+      "desc": "Cómo comprobar que el código funciona y sigue funcionando: pruebas unitarias, integración, E2E, TDD y depuración."
+    },
+    {
+      "id": "m23",
+      "order": 22,
+      "title": "Despliegue y DevOps básico",
+      "priority": "media",
+      "desc": "Cómo llevar la aplicación a producción: build, variables de entorno, CI/CD, contenedores, logs y rollback."
+    },
+    {
       "id": "m14",
-      "order": 14,
+      "order": 23,
       "title": "Seguridad web básica",
       "priority": "alta",
       "desc": "Autenticación, autorización, tokens y los ataques más comunes."
@@ -200,6 +263,339 @@ window.SEED = {
       "desc": "Las aplicaciones web pueden ser estáticas (HTML y CSS sin lógica), dinámicas (el servidor genera cada página), SPA (una sola página que actualiza el contenido con JavaScript) o MPA (varias páginas que recargan el navegador). Cada modelo cambia la velocidad, el SEO y la complejidad. Hoy lo común es combinar renderizado en servidor con interactividad en el cliente.",
       "req": [
         "t1-5"
+      ]
+    },
+    {
+      "id": "t15-1",
+      "m": "m15",
+      "order": 1,
+      "title": "¿Qué es HTML?",
+      "desc": "HTML (HyperText Markup Language) es el lenguaje de marcado con el que se estructura el contenido de una página: títulos, párrafos, enlaces, imágenes y formularios. No es un lenguaje de programación: describe qué es cada parte para que el navegador construya el DOM. Sobre esa estructura actúan CSS para el estilo y JavaScript para el comportamiento.",
+      "req": [
+        "t1-5"
+      ]
+    },
+    {
+      "id": "t15-2",
+      "m": "m15",
+      "order": 2,
+      "title": "Etiquetas, elementos y atributos",
+      "desc": "Una etiqueta es la marca que abre o cierra un fragmento, como <p> y </p>. El elemento es el conjunto formado por la etiqueta de apertura, su contenido y la de cierre. Los atributos añaden información dentro de la apertura, por ejemplo href en un enlace o src en una imagen. Algunos elementos son vacíos y no tienen cierre.",
+      "req": [
+        "t15-1"
+      ]
+    },
+    {
+      "id": "t15-3",
+      "m": "m15",
+      "order": 3,
+      "title": "Estructura de un documento HTML",
+      "desc": "Todo documento HTML empieza con <!DOCTYPE html> y se organiza en dos zonas: head, con metadatos, título y enlaces a CSS, y body, con el contenido visible. El atributo lang declara el idioma y la etiqueta meta viewport adapta la página a móviles. Una estructura ordenada facilita el renderizado, el SEO y la accesibilidad.",
+      "req": [
+        "t15-2"
+      ]
+    },
+    {
+      "id": "t15-4",
+      "m": "m15",
+      "order": 4,
+      "title": "HTML semántico",
+      "desc": "El HTML semántico usa etiquetas que describen el significado del contenido: header, nav, main, section, article, aside y footer, en lugar de div para todo. Ayuda a los lectores de pantalla, a los buscadores y al propio equipo a entender la página. Mejora la accesibilidad y el SEO sin cambiar el aspecto visual.",
+      "req": [
+        "t15-3"
+      ]
+    },
+    {
+      "id": "t15-5",
+      "m": "m15",
+      "order": 5,
+      "title": "Enlaces e imágenes",
+      "desc": "Los enlaces se crean con la etiqueta a y su atributo href, que puede apuntar a otra página, a una sección con #id o a un correo. Las imágenes usan img con src y alt; el texto alternativo describe la imagen para quien no puede verla y es obligatorio para la accesibilidad. Los enlaces construyen la Web y las imágenes deben optimizarse.",
+      "req": [
+        "t15-2"
+      ]
+    },
+    {
+      "id": "t15-6",
+      "m": "m15",
+      "order": 6,
+      "title": "Listas y tablas",
+      "desc": "Las listas ordenadas (ol) y no ordenadas (ul) agrupan elementos li; son ideales para menús y pasos. Las tablas (table, tr, th, td) sirven para datos tabulares, no para maquetar. Usa thead, tbody y caption para que sean comprensibles. Una tabla mal usada rompe la semántica y la accesibilidad.",
+      "req": [
+        "t15-4"
+      ]
+    },
+    {
+      "id": "t15-7",
+      "m": "m15",
+      "order": 7,
+      "title": "Formularios HTML",
+      "desc": "Un formulario agrupa campos que el usuario rellena y los envía al servidor mediante action y method. Cada control debe tener un label asociado y un name, porque ese nombre es la clave con la que llegan los datos. Los formularios son la principal vía de entrada de información y deben validarse en cliente y servidor.",
+      "req": [
+        "t15-5"
+      ]
+    },
+    {
+      "id": "t15-8",
+      "m": "m15",
+      "order": 8,
+      "title": "Tipos de input",
+      "desc": "El elemento input cambia de comportamiento según su atributo type: text, email, password, number, date, checkbox, radio, file o submit. Elegir el tipo correcto activa teclados y validaciones del navegador, y mejora la experiencia en móvil. No sustituye la validación del servidor, pero reduce errores.",
+      "req": [
+        "t15-7"
+      ]
+    },
+    {
+      "id": "t15-9",
+      "m": "m15",
+      "order": 9,
+      "title": "Validación HTML nativa",
+      "desc": "El navegador puede validar campos con required, minlength, maxlength, pattern, min, max y type. Muestra mensajes sin JavaScript y bloquea el envío si algo no cumple. Es una primera barrera cómoda, pero el usuario puede saltarla; por eso el servidor debe repetir todas las comprobaciones importantes.",
+      "req": [
+        "t15-8"
+      ]
+    },
+    {
+      "id": "t15-10",
+      "m": "m15",
+      "order": 10,
+      "title": "Accesibilidad básica (a11y)",
+      "desc": "La accesibilidad busca que cualquier persona pueda usar la web, incluidas las que usan lector de pantalla, teclado o tienen baja visión. Implica HTML semántico, texto alternativo, contraste suficiente, foco visible, etiquetas en formularios y navegación con teclado. No es un extra: es parte de hacer bien la interfaz.",
+      "req": [
+        "t15-4",
+        "t15-7"
+      ]
+    },
+    {
+      "id": "t16-1",
+      "m": "m16",
+      "order": 1,
+      "title": "¿Qué es CSS?",
+      "desc": "CSS (Cascading Style Sheets) es el lenguaje que define la presentación de un documento HTML: colores, tipografías, tamaños, espacios y disposición. Separa el contenido de su aspecto y permite adaptar la misma página a móvil, tableta o escritorio. Se aplica mediante reglas con selectores, propiedades y valores.",
+      "req": [
+        "t15-1"
+      ]
+    },
+    {
+      "id": "t16-2",
+      "m": "m16",
+      "order": 2,
+      "title": "Selectores y especificidad",
+      "desc": "Un selector indica a qué elementos se aplica una regla: por etiqueta, clase, id, atributo o relación. Cuando varias reglas compiten, gana la de mayor especificidad; si empatan, la que aparece después. Entender la cascada y la especificidad evita usar !important y facilita mantener el CSS.",
+      "req": [
+        "t16-1"
+      ]
+    },
+    {
+      "id": "t16-3",
+      "m": "m16",
+      "order": 3,
+      "title": "Modelo de caja (box model)",
+      "desc": "En CSS, cada elemento ocupa una caja formada por contenido, padding, borde y margin. El tamaño total depende de box-sizing: con border-box, width incluye padding y borde, lo que hace el diseño mucho más predecible. El modelo de caja explica por qué un elemento se desborda o deja espacios inesperados.",
+      "req": [
+        "t16-2"
+      ]
+    },
+    {
+      "id": "t16-4",
+      "m": "m16",
+      "order": 4,
+      "title": "Unidades, colores y tipografía",
+      "desc": "CSS admite unidades absolutas como px y relativas como rem, em, %, vw y vh. Para accesibilidad conviene usar rem en textos y evitar fijar alturas. Los colores se escriben en hexadecimal, rgb, hsl o variables, y la tipografía se controla con font-family, size, weight y line-height. La legibilidad importa más que la decoración.",
+      "req": [
+        "t16-3"
+      ]
+    },
+    {
+      "id": "t16-5",
+      "m": "m16",
+      "order": 5,
+      "title": "Flexbox",
+      "desc": "Flexbox organiza elementos en una fila o columna y reparte el espacio con justify-content, align-items y gap. Es ideal para menús, barras, tarjetas y centrar contenido. Los hijos se adaptan al tamaño disponible y pueden crecer o encogerse. Resuelve muchos problemas que antes exigían floats o posicionamiento manual.",
+      "req": [
+        "t16-3"
+      ]
+    },
+    {
+      "id": "t16-6",
+      "m": "m16",
+      "order": 6,
+      "title": "CSS Grid",
+      "desc": "Grid divide el espacio en filas y columnas explícitas y coloca los elementos en celdas. Es la herramienta adecuada para maquetar páginas completas y galerías, combinando fr, repeat y minmax. Puede convivir con Flexbox: Grid para la estructura y Flexbox para el contenido de cada zona. Facilita diseños responsive sin media queries complejas.",
+      "req": [
+        "t16-5"
+      ]
+    },
+    {
+      "id": "t16-7",
+      "m": "m16",
+      "order": 7,
+      "title": "Posicionamiento CSS",
+      "desc": "position controla cómo se ubica un elemento: static sigue el flujo normal; relative se desplaza sin sacarlo; absolute se posiciona respecto a un ancestro posicionado; fixed respecto a la ventana; sticky se pega al hacer scroll. Se combinan con top, right, bottom y left y con z-index. Abusar de absolute complica el diseño responsive.",
+      "req": [
+        "t16-3"
+      ]
+    },
+    {
+      "id": "t16-8",
+      "m": "m16",
+      "order": 8,
+      "title": "Diseño responsive y media queries",
+      "desc": "El diseño responsive adapta la interfaz al tamaño de pantalla con layouts fluidos, imágenes flexibles y media queries que aplican reglas según el ancho. Conviene diseñar primero para móvil y ampliar con min-width. También cuentan el tamaño táctil de los botones y la legibilidad. No es solo encoger: es reorganizar el contenido.",
+      "req": [
+        "t16-6"
+      ]
+    },
+    {
+      "id": "t16-9",
+      "m": "m16",
+      "order": 9,
+      "title": "Variables CSS",
+      "desc": "Las variables CSS, o custom properties, guardan valores reutilizables como colores, espacios o radios. Se declaran en :root y se usan con var(--nombre); pueden cambiar por tema o contexto. Reducen la repetición y facilitan mantener un sistema de diseño coherente. Son distintas de las variables de JavaScript.",
+      "req": [
+        "t16-1"
+      ]
+    },
+    {
+      "id": "t16-10",
+      "m": "m16",
+      "order": 10,
+      "title": "Transiciones y animaciones",
+      "desc": "En CSS, las transiciones suavizan cambios de propiedades con transition; las animaciones con @keyframes permiten secuencias más complejas. Deben ser rápidas y sutiles para no distraer, y respetar prefers-reduced-motion. Animar transform y opacity es más eficiente que animar width o top. El movimiento debe comunicar, no decorar sin sentido.",
+      "req": [
+        "t16-4"
+      ]
+    },
+    {
+      "id": "t16-11",
+      "m": "m16",
+      "order": 11,
+      "title": "Frameworks y metodologías CSS",
+      "desc": "Existen frameworks como Tailwind, Bootstrap o Bulma, y metodologías como BEM para nombrar clases. Tailwind prioriza utilidades en el HTML; Bootstrap ofrece componentes listos. También hay CSS Modules y CSS-in-JS para aislar estilos. La elección depende del equipo, el proyecto y cuánto control visual necesites.",
+      "req": [
+        "t16-2"
+      ]
+    },
+    {
+      "id": "t17-1",
+      "m": "m17",
+      "order": 1,
+      "title": "¿Qué es JavaScript?",
+      "desc": "JavaScript es el lenguaje de programación de la Web. Se ejecuta en el navegador, manipula el DOM, responde a eventos y hace peticiones al servidor; con Node.js también corre fuera del navegador. Es dinámico, interpretado y basado en prototipos. Es la pieza que convierte una página estática en una aplicación interactiva.",
+      "req": [
+        "t15-1"
+      ]
+    },
+    {
+      "id": "t17-2",
+      "m": "m17",
+      "order": 2,
+      "title": "Variables y tipos de datos",
+      "desc": "JavaScript declara variables con let y const; var quedó desaconsejado por su alcance confuso. Los tipos primitivos son string, number, boolean, null, undefined, symbol y bigint; además existen objetos y arreglos. const impide reasignar la variable, no modificar el contenido de un objeto. Conocer los tipos evita errores sutiles.",
+      "req": [
+        "t17-1"
+      ]
+    },
+    {
+      "id": "t17-3",
+      "m": "m17",
+      "order": 3,
+      "title": "Operadores y condicionales",
+      "desc": "En JavaScript, los operadores permiten comparar, sumar o combinar valores: === compara valor y tipo, && y || combinan condiciones. if, else y switch toman decisiones; el operador ternario resume una elección simple. Conviene usar === en lugar de == y comprobar null y undefined con cuidado. La lógica clara vale más que la sintaxis compacta.",
+      "req": [
+        "t17-2"
+      ]
+    },
+    {
+      "id": "t17-4",
+      "m": "m17",
+      "order": 4,
+      "title": "Funciones",
+      "desc": "Una función agrupa código reutilizable, recibe parámetros y puede devolver un valor. Se declaran con function o como funciones flecha, que además conservan el this del contexto. Los parámetros pueden tener valores por defecto y el operador rest agrupa argumentos. Dividir la lógica en funciones pequeñas facilita probar y mantener.",
+      "req": [
+        "t17-3"
+      ]
+    },
+    {
+      "id": "t17-5",
+      "m": "m17",
+      "order": 5,
+      "title": "Objetos y arreglos",
+      "desc": "Un objeto agrupa pares clave-valor y modela entidades como un usuario; un arreglo es una lista ordenada de valores. Se accede con punto o corchetes y se recorren con for, for...of o métodos. Se pueden anidar y desestructurar para extraer datos. Son las estructuras básicas para trabajar con JSON y APIs.",
+      "req": [
+        "t17-4"
+      ]
+    },
+    {
+      "id": "t17-6",
+      "m": "m17",
+      "order": 6,
+      "title": "Métodos de arreglos",
+      "desc": "map transforma cada elemento, filter selecciona los que cumplen una condición, reduce acumula un resultado y find busca el primero que coincide. forEach recorre sin devolver nada y some/every responden preguntas booleanas. Estos métodos evitan bucles manuales y hacen el código más expresivo. No mutan el arreglo original salvo sort, splice o push.",
+      "req": [
+        "t17-5"
+      ]
+    },
+    {
+      "id": "t17-7",
+      "m": "m17",
+      "order": 7,
+      "title": "DOM y eventos",
+      "desc": "El DOM permite seleccionar elementos con querySelector y cambiarlos con textContent, classList o setAttribute. Los eventos, como click, submit o input, se escuchan con addEventListener y permiten reaccionar a la interacción. Conviene delegar eventos en un contenedor y evitar innerHTML con datos externos. Así el JavaScript conecta la lógica con la interfaz.",
+      "req": [
+        "t11-4",
+        "t17-5"
+      ]
+    },
+    {
+      "id": "t17-8",
+      "m": "m17",
+      "order": 8,
+      "title": "Asincronía y callbacks",
+      "desc": "JavaScript ejecuta una tarea a la vez, pero puede lanzar operaciones que terminan después, como una petición HTTP o un temporizador. Un callback es una función que se ejecuta al terminar. Encadenarlos en exceso crea el llamado callback hell. Las promesas y async/await resuelven ese problema con un código más legible.",
+      "req": [
+        "t17-4"
+      ]
+    },
+    {
+      "id": "t17-9",
+      "m": "m17",
+      "order": 9,
+      "title": "Promesas",
+      "desc": "En JavaScript, una promesa representa un valor que estará disponible ahora, más tarde o nunca. Tiene tres estados: pendiente, cumplida y rechazada. Se consume con then para el éxito y catch para el error, y se combina con Promise.all o Promise.race. Una promesa no se cancela sola y un error no capturado puede romper el flujo.",
+      "req": [
+        "t17-8"
+      ]
+    },
+    {
+      "id": "t17-10",
+      "m": "m17",
+      "order": 10,
+      "title": "async/await",
+      "desc": "async convierte una función en una promesa; await pausa su ejecución hasta que otra promesa se resuelve, sin bloquear el navegador. El código asíncrono se lee como secuencial y los errores se capturan con try/catch. No elimina la asincronía: solo la hace más clara. Conviene no abusar de await secuencial cuando las tareas son independientes.",
+      "req": [
+        "t17-9"
+      ]
+    },
+    {
+      "id": "t17-11",
+      "m": "m17",
+      "order": 11,
+      "title": "fetch y consumo de APIs",
+      "desc": "fetch permite hacer peticiones HTTP desde el navegador y devuelve una promesa con la respuesta. Hay que comprobar response.ok antes de parsear el JSON, porque fetch no rechaza por un 404 o un 500. Se configuran método, headers y body. Para APIs protegidas se envía el token en Authorization y se manejan los errores de red.",
+      "req": [
+        "t17-10",
+        "t13-5"
+      ]
+    },
+    {
+      "id": "t17-12",
+      "m": "m17",
+      "order": 12,
+      "title": "Módulos JavaScript",
+      "desc": "Los módulos dividen el código en archivos con export e import. Cada módulo tiene su propio alcance y solo expone lo que decide. Facilitan la organización, las pruebas y el trabajo en equipo. En el navegador se cargan con type=\"module\"; en Node.js se usan ESM o CommonJS. Evitan depender de variables globales.",
+      "req": [
+        "t17-4"
       ]
     },
     {
@@ -1253,6 +1649,523 @@ window.SEED = {
         "t13-3",
         "t13-4",
         "t7-3"
+      ]
+    },
+    {
+      "id": "t19-1",
+      "m": "m19",
+      "order": 1,
+      "title": "¿Qué es una base de datos?",
+      "desc": "Una base de datos es un sistema organizado para guardar, consultar y actualizar información de forma persistente. En una aplicación web vive detrás del backend, que es el único que accede a ella con credenciales seguras. Permite buscar, relacionar y proteger datos aunque el servidor se reinicie. Elegir bien su modelo afecta al rendimiento y al mantenimiento.",
+      "req": [
+        "t4-10"
+      ]
+    },
+    {
+      "id": "t19-2",
+      "m": "m19",
+      "order": 2,
+      "title": "Bases relacionales vs. NoSQL",
+      "desc": "Las bases relacionales organizan datos en tablas con esquema y relaciones, y usan SQL; son fuertes en consistencia y consultas complejas. Las NoSQL (documentos, clave-valor, grafos) priorizan flexibilidad y escala horizontal, con esquemas más libres. No hay una mejor absoluta: depende de los datos y del acceso. Muchas aplicaciones combinan ambas.",
+      "req": [
+        "t19-1"
+      ]
+    },
+    {
+      "id": "t19-3",
+      "m": "m19",
+      "order": 3,
+      "title": "Tablas, filas y columnas",
+      "desc": "En una base de datos relacional, una tabla representa una entidad, como usuarios o pedidos. Cada fila es un registro y cada columna un campo con un tipo definido: texto, número, fecha o booleano. El esquema describe esas columnas y sus restricciones. Un buen modelo evita duplicar datos y facilita consultas claras. Cambiar el esquema requiere migraciones controladas.",
+      "req": [
+        "t19-2"
+      ]
+    },
+    {
+      "id": "t19-4",
+      "m": "m19",
+      "order": 4,
+      "title": "Clave primaria y clave foránea",
+      "desc": "La clave primaria identifica de forma única cada fila, normalmente un id. La clave foránea es una columna que referencia la clave primaria de otra tabla y crea una relación, por ejemplo pedido.usuario_id. Las foráneas protegen la integridad: no permiten referencias a registros inexistentes. También pueden definir qué ocurre al borrar.",
+      "req": [
+        "t19-3"
+      ]
+    },
+    {
+      "id": "t19-5",
+      "m": "m19",
+      "order": 5,
+      "title": "SQL básico: SELECT, INSERT, UPDATE y DELETE",
+      "desc": "SQL es el lenguaje de consulta de las bases relacionales. SELECT lee datos, INSERT crea filas, UPDATE modifica las existentes y DELETE las elimina. Se combinan con WHERE para filtrar, ORDER BY para ordenar y LIMIT para acotar. Siempre se usan consultas parametrizadas para evitar inyección SQL.",
+      "req": [
+        "t19-4"
+      ]
+    },
+    {
+      "id": "t19-6",
+      "m": "m19",
+      "order": 6,
+      "title": "Relaciones entre tablas",
+      "desc": "Una relación uno a uno asocia un registro con otro; uno a muchos, como un usuario con sus pedidos; muchos a muchos, como productos y categorías, requiere una tabla intermedia. Las relaciones evitan duplicar información y mantienen la coherencia. Se consultan con JOIN, que combina filas de varias tablas según una condición.",
+      "req": [
+        "t19-4"
+      ]
+    },
+    {
+      "id": "t19-7",
+      "m": "m19",
+      "order": 7,
+      "title": "Normalización",
+      "desc": "Normalizar es organizar las tablas para reducir duplicación y dependencias innecesarias. Las formas normales separan datos repetidos en tablas propias y usan claves para relacionarlas. Menos duplicación significa menos incoherencias al actualizar. En sistemas de lectura intensiva a veces se desnormaliza a propósito para ganar velocidad, asumiendo el coste.",
+      "req": [
+        "t19-6"
+      ]
+    },
+    {
+      "id": "t19-8",
+      "m": "m19",
+      "order": 8,
+      "title": "Índices",
+      "desc": "Un índice es una estructura que acelera la búsqueda de filas por una o varias columnas, como el índice de un libro. Mejora las lecturas pero ocupa espacio y ralentiza las escrituras, porque hay que actualizarlo. Conviene indexar columnas usadas en WHERE, JOIN y ORDER BY. Un índice mal elegido no se usa y solo añade coste.",
+      "req": [
+        "t19-5"
+      ]
+    },
+    {
+      "id": "t19-9",
+      "m": "m19",
+      "order": 9,
+      "title": "Transacciones y ACID",
+      "desc": "En una base de datos, una transacción agrupa varias operaciones que deben completarse juntas o no aplicarse. ACID resume sus garantías: atomicidad, consistencia, aislamiento y durabilidad. El ejemplo clásico es transferir dinero: restar de una cuenta y sumar a otra sin que quede a medias. Los niveles de aislamiento equilibran consistencia y concurrencia.",
+      "req": [
+        "t19-5"
+      ]
+    },
+    {
+      "id": "t19-10",
+      "m": "m19",
+      "order": 10,
+      "title": "ORM",
+      "desc": "Un ORM (Object-Relational Mapping) traduce objetos del código a tablas y consultas SQL. Permite trabajar con modelos en lugar de escribir SQL manual y ayuda con relaciones y migraciones. Ejemplos son Prisma, Sequelize, SQLAlchemy o Hibernate. Puede ocultar consultas ineficientes, así que conviene revisar el SQL que genera.",
+      "req": [
+        "t19-5"
+      ]
+    },
+    {
+      "id": "t20-1",
+      "m": "m20",
+      "order": 1,
+      "title": "Paginación, filtros y orden",
+      "desc": "Las APIs que devuelven listas deben paginar para no enviar miles de registros. Se usan parámetros como page y limit, o cursores para datos cambiantes. Los filtros y el orden también viajan en la query y se validan en el servidor. La respuesta incluye metadatos como total o siguiente página. Un buen diseño mantiene las listas rápidas y predecibles.",
+      "req": [
+        "t4-9",
+        "t9-9"
+      ]
+    },
+    {
+      "id": "t20-2",
+      "m": "m20",
+      "order": 2,
+      "title": "Versionado de APIs",
+      "desc": "Versionar una API permite evolucionarla sin romper a los clientes antiguos. Se suele indicar en la URL (/v1) o en un header. Los cambios incompatibles crean una versión nueva; los compatibles se añaden sin romper. Documentar y avisar los cambios evita integraciones rotas. Una versión antigua se mantiene un tiempo y luego se retira.",
+      "req": [
+        "t4-9"
+      ]
+    },
+    {
+      "id": "t20-3",
+      "m": "m20",
+      "order": 3,
+      "title": "Webhooks",
+      "desc": "Un webhook es una petición HTTP que un servicio envía a tu aplicación cuando ocurre un evento, como un pago completado. Invierte el flujo: no preguntas, te avisan. Debes verificar la firma, responder rápido y procesar en segundo plano, porque el emisor puede reintentar. Si tu endpoint falla, el evento puede perderse o duplicarse.",
+      "req": [
+        "t4-8",
+        "t7-3"
+      ]
+    },
+    {
+      "id": "t20-4",
+      "m": "m20",
+      "order": 4,
+      "title": "Polling",
+      "desc": "El polling consiste en preguntar al servidor cada cierto tiempo si hay novedades. Es simple y funciona en cualquier cliente, pero genera peticiones inútiles y latencia. El polling largo mantiene la conexión abierta hasta que hay datos o se agota el tiempo. Para tiempo real intenso conviene WebSockets o Server-Sent Events.",
+      "req": [
+        "t20-1"
+      ]
+    },
+    {
+      "id": "t20-5",
+      "m": "m20",
+      "order": 5,
+      "title": "WebSockets",
+      "desc": "WebSocket abre una conexión bidireccional y persistente entre cliente y servidor. Ambos pueden enviar mensajes en cualquier momento sin repetir headers en cada uno. Es ideal para chat, juegos o colaboración en vivo. Requiere gestionar reconexiones, autenticación y escalado. No reemplaza a HTTP para peticiones normales.",
+      "req": [
+        "t5-1"
+      ]
+    },
+    {
+      "id": "t20-6",
+      "m": "m20",
+      "order": 6,
+      "title": "Server-Sent Events (SSE)",
+      "desc": "SSE permite que el servidor envíe un flujo de eventos al cliente por una conexión HTTP abierta. Es unidireccional: solo del servidor al navegador. Sirve para notificaciones, progreso o cotizaciones. Es más simple que WebSocket y se reconecta solo. No permite que el cliente envíe mensajes por ese canal.",
+      "req": [
+        "t20-4"
+      ]
+    },
+    {
+      "id": "t20-7",
+      "m": "m20",
+      "order": 7,
+      "title": "GraphQL",
+      "desc": "GraphQL es un lenguaje de consulta para APIs en el que el cliente pide exactamente los campos que necesita. Una sola petición puede traer datos relacionados y evitar respuestas con campos de más. Requiere definir un esquema y resolver cada campo. Es potente, pero añade complejidad de caché, autorización y consultas costosas.",
+      "req": [
+        "t4-9"
+      ]
+    },
+    {
+      "id": "t20-8",
+      "m": "m20",
+      "order": 8,
+      "title": "Rate limiting",
+      "desc": "El rate limiting limita cuántas peticiones puede hacer un cliente en un periodo, por ejemplo 100 por minuto. Protege al servidor de abusos, ataques y errores en bucle. Se aplica por IP, usuario o API key y responde con 429 Too Many Requests. Conviene informar el límite y el tiempo de espera en headers.",
+      "req": [
+        "t8-5"
+      ]
+    },
+    {
+      "id": "t18-1",
+      "m": "m18",
+      "order": 1,
+      "title": "¿Qué es Git?",
+      "desc": "Git es un sistema de control de versiones distribuido que registra la historia de los cambios de un proyecto. Cada confirmación guarda una instantánea y permite volver atrás, comparar o trabajar en paralelo. No depende de un servidor central: cada copia tiene el historial completo. Es la herramienta estándar para colaborar en código.",
+      "req": [
+        "t1-1"
+      ]
+    },
+    {
+      "id": "t18-2",
+      "m": "m18",
+      "order": 2,
+      "title": "Repositorio y commit",
+      "desc": "Un repositorio es la carpeta del proyecto con su historial. Un commit es una instantánea de los cambios preparados, con un mensaje que explica qué se hizo y por qué. Antes se eligen archivos con git add; luego git commit los registra. Commits pequeños y claros hacen la historia fácil de revisar y revertir.",
+      "req": [
+        "t18-1"
+      ]
+    },
+    {
+      "id": "t18-3",
+      "m": "m18",
+      "order": 3,
+      "title": "Ramas (branches)",
+      "desc": "Una rama es una línea de desarrollo independiente. Permite trabajar en una función o corrección sin tocar la rama principal, normalmente main. Al terminar se integra con merge o pull request. Las ramas cortas y enfocadas reducen conflictos. Cambiar de rama con git switch actualiza los archivos del proyecto.",
+      "req": [
+        "t18-2"
+      ]
+    },
+    {
+      "id": "t18-4",
+      "m": "m18",
+      "order": 4,
+      "title": "Merge y conflictos",
+      "desc": "El merge une los cambios de una rama en otra. Si dos ramas modificaron las mismas líneas, Git no puede decidir y marca un conflicto. Hay que abrir los archivos, elegir el resultado correcto y confirmar la resolución. Entender el conflicto evita perder trabajo; los merges frecuentes reducen su tamaño.",
+      "req": [
+        "t18-3"
+      ]
+    },
+    {
+      "id": "t18-5",
+      "m": "m18",
+      "order": 5,
+      "title": "Repositorio remoto y GitHub",
+      "desc": "Un repositorio remoto vive en un servidor como GitHub, GitLab o Bitbucket y sirve para compartir y respaldar el proyecto. Se conecta con git remote y se sincroniza con push y pull. GitHub añade incidencias, revisiones y acciones automatizadas. El remoto no reemplaza los commits locales: los publica.",
+      "req": [
+        "t18-1"
+      ]
+    },
+    {
+      "id": "t18-6",
+      "m": "m18",
+      "order": 6,
+      "title": "Pull request",
+      "desc": "Una pull request propone integrar una rama en otra y abre un espacio para revisar el código. Muestra los cambios, permite comentar líneas, ejecutar pruebas automáticas y pedir aprobación. Un buen PR es pequeño, explica el objetivo y enlaza el problema que resuelve. Al aprobarse se fusiona y se cierra.",
+      "req": [
+        "t18-5"
+      ]
+    },
+    {
+      "id": "t18-7",
+      "m": "m18",
+      "order": 7,
+      "title": "clone, pull y push",
+      "desc": "git clone copia un repositorio remoto a tu máquina. git pull descarga los cambios remotos y los integra en tu rama; git push envía tus commits al remoto. Antes de subir conviene hacer pull para evitar rechazos. Si hay divergencias, se resuelven con merge o rebase. Son los comandos básicos para sincronizar el trabajo.",
+      "req": [
+        "t18-5"
+      ]
+    },
+    {
+      "id": "t18-8",
+      "m": "m18",
+      "order": 8,
+      "title": ".gitignore y archivos que no se suben",
+      "desc": "El archivo .gitignore indica qué rutas Git debe ignorar: dependencias, builds, archivos temporales y secretos como .env. Evita subir basura y credenciales al repositorio. Si un archivo ya está rastreado, añadirlo al ignore no basta: hay que quitarlo del índice. Cada lenguaje tiene plantillas habituales.",
+      "req": [
+        "t18-2"
+      ]
+    },
+    {
+      "id": "t18-9",
+      "m": "m18",
+      "order": 9,
+      "title": "Buenas prácticas con Git",
+      "desc": "Haz commits pequeños y con mensajes en imperativo que expliquen el qué y el porqué. Trabaja en ramas, sincroniza a menudo y revisa el diff antes de confirmar. No subas secretos ni archivos generados. Usa etiquetas para versiones y protege main con revisión. Un historial limpio ahorra horas de depuración.",
+      "req": [
+        "t18-6"
+      ]
+    },
+    {
+      "id": "t21-1",
+      "m": "m21",
+      "order": 1,
+      "title": "¿Qué es la caché?",
+      "desc": "La caché guarda copias de respuestas o recursos para reutilizarlas sin volver a generarlos. Reduce latencia, tráfico y carga del servidor. Puede vivir en el navegador, en un proxy, en una CDN o en memoria del backend. El reto es invalidarla cuando los datos cambian. Una buena política de caché es clave para el rendimiento.",
+      "req": [
+        "t5-9"
+      ]
+    },
+    {
+      "id": "t21-2",
+      "m": "m21",
+      "order": 2,
+      "title": "Cache-Control y ETag",
+      "desc": "Cache-Control indica cuánto tiempo y dónde puede guardarse una respuesta con directivas como max-age, no-store o no-cache. ETag identifica una versión del recurso y permite la validación condicional con If-None-Match, que responde 304 si no cambió. Juntos evitan descargas innecesarias y mantienen el contenido actualizado.",
+      "req": [
+        "t21-1",
+        "t8-4"
+      ]
+    },
+    {
+      "id": "t21-3",
+      "m": "m21",
+      "order": 3,
+      "title": "CDN",
+      "desc": "Una CDN (Content Delivery Network) es una red de servidores distribuidos que entrega contenido desde el punto más cercano al usuario. Reduce latencia, absorbe picos de tráfico y protege contra ataques. Se usa para estáticos, imágenes y vídeo, y a veces para APIs. Configurar bien la caché y la invalidación es esencial.",
+      "req": [
+        "t21-1"
+      ]
+    },
+    {
+      "id": "t21-4",
+      "m": "m21",
+      "order": 4,
+      "title": "Compresión de respuestas",
+      "desc": "Comprimir el cuerpo de una respuesta con gzip o Brotli reduce los bytes transferidos y acelera la carga. El servidor negocia el algoritmo con Accept-Encoding y el navegador descomprime. Funciona muy bien con texto, HTML, CSS, JavaScript y JSON; las imágenes ya comprimidas no ganan tanto. Debe aplicarse en el servidor o en la CDN.",
+      "req": [
+        "t21-1"
+      ]
+    },
+    {
+      "id": "t21-5",
+      "m": "m21",
+      "order": 5,
+      "title": "Lazy loading",
+      "desc": "Lazy loading carga recursos solo cuando se necesitan: imágenes al acercarse al viewport, componentes al navegar o módulos al usarlos. Reduce el peso inicial y mejora la percepción de velocidad. Se implementa con loading=\"lazy\" en imágenes o import dinámico en JavaScript. Hay que cuidar el SEO y evitar saltos de layout.",
+      "req": [
+        "t21-4"
+      ]
+    },
+    {
+      "id": "t21-6",
+      "m": "m21",
+      "order": 6,
+      "title": "Core Web Vitals",
+      "desc": "Core Web Vitals son métricas de experiencia de usuario: LCP mide cuándo aparece el contenido principal, INP la respuesta a la interacción y CLS los saltos de layout. Google las usa como señal de calidad. Se mejoran optimizando imágenes, fuentes, JavaScript y espacio reservado. Medir con datos reales es más útil que adivinar.",
+      "req": [
+        "t21-5"
+      ]
+    },
+    {
+      "id": "t21-7",
+      "m": "m21",
+      "order": 7,
+      "title": "Minificación y bundling",
+      "desc": "Minificar elimina espacios y acorta nombres para reducir el tamaño de CSS y JavaScript. El bundling agrupa varios módulos en menos archivos para disminuir peticiones. Hoy conviene combinar bundling con división de código y compresión. Un bundle gigante retrasa la primera carga, así que se separa lo crítico de lo secundario.",
+      "req": [
+        "t21-4"
+      ]
+    },
+    {
+      "id": "t21-8",
+      "m": "m21",
+      "order": 8,
+      "title": "Imágenes optimizadas",
+      "desc": "Las imágenes suelen ser el recurso más pesado. Conviene usar formatos modernos como WebP o AVIF, elegir el tamaño adecuado, definir width y height para evitar saltos y servir versiones responsive con srcset. La compresión y la CDN completan la estrategia. Una imagen de 4 MB puede arruinar una página bien programada.",
+      "req": [
+        "t15-5",
+        "t21-5"
+      ]
+    },
+    {
+      "id": "t22-1",
+      "m": "m22",
+      "order": 1,
+      "title": "¿Por qué probar el código?",
+      "desc": "Probar comprueba que una función, una API o el código hace lo esperado y sigue haciéndolo tras un cambio. Las pruebas automatizadas detectan regresiones, documentan el comportamiento y dan confianza para refactorizar. No eliminan todos los errores, pero reducen el riesgo. La clave es probar lo importante sin obsesionarse con la cobertura.",
+      "req": [
+        "t17-4"
+      ]
+    },
+    {
+      "id": "t22-2",
+      "m": "m22",
+      "order": 2,
+      "title": "Pruebas unitarias",
+      "desc": "Una prueba unitaria verifica una función o módulo aislado con entradas y salidas conocidas. Debe ser rápida, determinista e independiente de la red o la base de datos. Se agrupan en suites y se ejecutan en cada cambio. Cubren la lógica, pero no garantizan que las piezas funcionen juntas.",
+      "req": [
+        "t22-1"
+      ]
+    },
+    {
+      "id": "t22-3",
+      "m": "m22",
+      "order": 3,
+      "title": "Pruebas de integración",
+      "desc": "Las pruebas de integración comprueban cómo interactúan varias piezas: una ruta de la API con su base de datos, o un componente con un servicio. Son más lentas que las unitarias y detectan fallos de contrato y configuración. Se suelen usar bases de datos de prueba o contenedores. Complementan, no sustituyen, a las unitarias.",
+      "req": [
+        "t22-2"
+      ]
+    },
+    {
+      "id": "t22-4",
+      "m": "m22",
+      "order": 4,
+      "title": "Pruebas end-to-end (E2E)",
+      "desc": "Una prueba end-to-end simula a un usuario real: abre el navegador, rellena un formulario y comprueba el resultado. Valida el flujo completo, pero es lenta y frágil si la interfaz cambia. Herramientas como Playwright o Cypress la automatizan. Conviene reservarlas para los recorridos críticos, no para cada detalle.",
+      "req": [
+        "t22-3"
+      ]
+    },
+    {
+      "id": "t22-5",
+      "m": "m22",
+      "order": 5,
+      "title": "TDD",
+      "desc": "TDD (Test-Driven Development) propone escribir primero una prueba que falla, luego el código mínimo para pasarla y después refactorizar. El ciclo rojo-verde-refactor fuerza a pensar en el comportamiento antes de la implementación. No es obligatorio, pero mejora el diseño y la cobertura. Funciona mejor en lógica de negocio que en prototipos visuales.",
+      "req": [
+        "t22-2"
+      ]
+    },
+    {
+      "id": "t22-6",
+      "m": "m22",
+      "order": 6,
+      "title": "Linting y formato de código",
+      "desc": "Un linter analiza el código y señala errores, variables sin usar o malas prácticas; un formateador como Prettier lo deja con un estilo uniforme. Se configuran en el proyecto y se ejecutan en el editor o antes de cada commit. Reducen discusiones de estilo y errores tontos. No sustituyen a las pruebas ni a la revisión.",
+      "req": [
+        "t22-1"
+      ]
+    },
+    {
+      "id": "t22-7",
+      "m": "m22",
+      "order": 7,
+      "title": "Depuración (debugging)",
+      "desc": "Depurar es localizar y corregir un fallo. Las DevTools permiten pausar el código, inspeccionar variables, ver la pila de llamadas y observar la red. Conviene reproducir el error, aislar la causa y comprobar la solución con una prueba. Los mensajes de error y los logs son pistas, no la respuesta final. Depurar bien ahorra tiempo.",
+      "req": [
+        "t22-6"
+      ]
+    },
+    {
+      "id": "t23-1",
+      "m": "m23",
+      "order": 1,
+      "title": "¿Qué es el despliegue?",
+      "desc": "Desplegar es llevar la aplicación desde tu entorno de desarrollo a un servidor accesible para los usuarios. Incluye construir los archivos, configurar el servidor, aplicar variables de entorno y verificar que todo funciona. Un despliegue repetible y automatizado reduce errores. No termina al subir: hay que monitorear y poder revertir.",
+      "req": [
+        "t3-8"
+      ]
+    },
+    {
+      "id": "t23-2",
+      "m": "m23",
+      "order": 2,
+      "title": "Build y artefactos",
+      "desc": "El build transforma el código fuente en archivos listos para producción: compila, minifica, agrupa y copia assets. El resultado, llamado artefacto, debe ser reproducible e independiente de tu máquina. Se guarda con una versión para poder desplegarlo o volver a él. Si el build falla, el despliegue no debe continuar.",
+      "req": [
+        "t21-7"
+      ]
+    },
+    {
+      "id": "t23-3",
+      "m": "m23",
+      "order": 3,
+      "title": "Variables de entorno",
+      "desc": "Las variables de entorno guardan configuración y secretos fuera del código: credenciales de base de datos, claves de API, URL del backend. Cambian entre desarrollo, pruebas y producción sin recompilar. Nunca deben subirse al repositorio ni exponerse en el frontend. Se gestionan en el servidor o en la plataforma de despliegue.",
+      "req": [
+        "t23-1",
+        "t18-8"
+      ]
+    },
+    {
+      "id": "t23-4",
+      "m": "m23",
+      "order": 4,
+      "title": "CI/CD",
+      "desc": "CI (integración continua) ejecuta pruebas y builds en cada cambio para detectar errores pronto. CD (entrega o despliegue continuo) automatiza la publicación en un entorno. Un pipeline típico instala dependencias, prueba, construye y despliega si todo pasa. Reduce el trabajo manual y hace los lanzamientos más frecuentes y seguros.",
+      "req": [
+        "t23-2",
+        "t22-1"
+      ]
+    },
+    {
+      "id": "t23-5",
+      "m": "m23",
+      "order": 5,
+      "title": "Docker y contenedores",
+      "desc": "Un contenedor empaqueta la aplicación con sus dependencias y configuración para que se ejecute igual en cualquier entorno. Docker es la herramienta más común; las imágenes se construyen con un Dockerfile y se ejecutan como contenedores. Resuelve el “en mi máquina funciona”. Añade capas que hay que entender y actualizar.",
+      "req": [
+        "t23-1"
+      ]
+    },
+    {
+      "id": "t23-6",
+      "m": "m23",
+      "order": 6,
+      "title": "Logs y monitoreo",
+      "desc": "Los logs registran eventos y errores; el monitoreo mide salud, latencia, tráfico y uso de recursos. Juntos permiten detectar fallos antes de que los reporten los usuarios. Conviene estructurar los logs y no guardar datos sensibles. Las alertas deben ser accionables para no generar ruido. Observar producción es parte del trabajo.",
+      "req": [
+        "t23-1"
+      ]
+    },
+    {
+      "id": "t23-7",
+      "m": "m23",
+      "order": 7,
+      "title": "Dominio, DNS y HTTPS en producción",
+      "desc": "Para publicar con un dominio hay que apuntar sus registros DNS al servidor y emitir un certificado TLS. HTTPS protege las credenciales y las cookies, y los navegadores lo exigen. La renovación del certificado debe automatizarse. También conviene configurar redirecciones de HTTP a HTTPS y un host canónico.",
+      "req": [
+        "t10-3",
+        "t5-2"
+      ]
+    },
+    {
+      "id": "t23-8",
+      "m": "m23",
+      "order": 8,
+      "title": "Rollback y versiones",
+      "desc": "Un rollback vuelve a una versión anterior cuando un despliegue falla. Para poder hacerlo hay que versionar los artefactos, mantener la base de datos compatible y tener un plan claro. Los despliegues azul-verde o canario reducen el riesgo al exponer primero a pocos usuarios. Nunca improvises una vuelta atrás en producción.",
+      "req": [
+        "t23-2"
+      ]
+    },
+    {
+      "id": "t23-9",
+      "m": "m23",
+      "order": 9,
+      "title": "Cloud y serverless",
+      "desc": "La nube ofrece servidores, almacenamiento, bases de datos y servicios gestionados bajo demanda. Serverless ejecuta funciones sin administrar servidores, escalando automáticamente y cobrando por uso. Reduce la operación, pero añade dependencia del proveedor y límites de tiempo o frío. La elección depende del tráfico, el equipo y el control necesario.",
+      "req": [
+        "t23-5"
       ]
     },
     {

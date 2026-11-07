@@ -6,7 +6,7 @@ No necesita instalación, dependencias ni proceso de build: es HTML, CSS y JavaS
 
 ## Características
 
-- **Ruta principal** con 14 módulos y 123 conceptos ordenados.
+- **Ruta principal** con 23 módulos y 207 conceptos ordenados.
 - **Explicaciones completas** para cada concepto, con términos enlazados automáticamente.
 - **Navegación entre conceptos** sin perder el punto de partida: cada enlace interno permite volver.
 - **Prerrequisitos**: avisa cuando falta dominar un concepto anterior y muestra qué desbloquea cada uno.
@@ -46,22 +46,31 @@ También puedes abrir `index.html` directamente en el navegador.
 
 ## Contenido
 
-El contenido inicial cubre:
+El contenido inicial cubre 23 módulos y 207 conceptos:
 
 1. Introducción al desarrollo web (incluye Internet, TCP/IP, TCP vs. UDP y paquetes de datos)
-2. Frontend y Backend
-3. Cliente y servidor
-4. Arquitectura cliente-servidor
-5. HTTP y HTTPS
-6. Request y Response
-7. Métodos HTTP
-8. Códigos de estado HTTP
-9. URL, URI y parámetros
-10. DNS y dominios
-11. Navegadores y DOM
-12. Cookies, sesiones y almacenamiento
-13. JSON e intercambio de información
-14. Seguridad web básica
+2. HTML y estructura del contenido
+3. CSS y diseño visual
+4. JavaScript esencial
+5. Frontend y Backend
+6. Cliente y servidor
+7. Arquitectura cliente-servidor
+8. HTTP y HTTPS
+9. Request y Response
+10. Métodos HTTP
+11. Códigos de estado HTTP
+12. URL, URI y parámetros
+13. DNS y dominios
+14. Navegadores y DOM
+15. Cookies, sesiones y almacenamiento
+16. JSON e intercambio de información
+17. Bases de datos y SQL
+18. APIs modernas y tiempo real
+19. Git y control de versiones
+20. Rendimiento y caché web
+21. Testing y calidad
+22. Despliegue y DevOps básico
+23. Seguridad web básica
 
 ## Datos y persistencia
 

@@ -142,7 +142,7 @@ const ALIASES = {
   't3-5': ['servidor web', 'servidor de aplicaciones'], 't3-6': ['hosting'],
   't3-7': ['servidor local', 'servidor remoto'],
   't4-4': ['tres capas', '3 capas'], 't4-8': ['API', 'APIs'],
-  't4-9': ['API REST', 'APIs REST', 'REST'], 't4-10': ['base de datos'],
+  't4-9': ['API REST', 'APIs REST', 'REST'],
   't5-1': ['HTTP'], 't5-2': ['HTTPS'], 't5-4': ['SSL', 'TLS'], 't5-5': ['certificado digital'],
   't5-8': ['puerto', 'puertos'], 't5-9': ['headers', 'cabeceras', 'cabecera'], 't5-10': ['body', 'cuerpo'],
   't6-1': ['solicitud', 'solicitudes', 'petición', 'peticiones'], 't6-2': ['respuesta', 'respuestas'],
@@ -160,7 +160,6 @@ const ALIASES = {
   't9-11': ['URL encoding', 'codificación URL'],
   't10-1': ['resolución DNS'], 't10-3': ['registro A', 'registros DNS', 'CNAME', 'MX'],
   't11-1': ['navegador', 'navegadores'], 't11-2': ['motor de renderizado'],
-  't11-3': ['HTML', 'CSS', 'JavaScript'],
   't11-4': ['DOM'], 't11-5': ['BOM'],
   't12-1': ['stateless', 'sin estado'], 't12-2': ['cookies', 'cookie'],
   't12-3': ['sesión', 'sesiones'], 't12-4': ['localStorage'], 't12-5': ['sessionStorage'],
@@ -168,7 +167,64 @@ const ALIASES = {
   't13-4': ['MIME', 'MIME Types', 'tipos de contenido'],
   't14-1': ['autenticación', 'autenticado', 'autenticada'],
   't14-2': ['autorización'], 't14-4': ['token', 'tokens'], 't14-5': ['JWT'],
-  't14-6': ['CORS'], 't14-7': ['CSRF'], 't14-8': ['XSS'], 't14-9': ['validación']
+  't14-6': ['CORS'], 't14-7': ['CSRF'], 't14-8': ['XSS'], 't14-9': ['validación'],
+  /* HTML */
+  't15-1': ['HTML', 'HyperText Markup Language'], 't15-2': ['etiqueta', 'etiquetas', 'elemento HTML', 'atributo', 'atributos'],
+  't15-3': ['documento HTML', 'DOCTYPE'], 't15-4': ['HTML semántico', 'semántica HTML', 'semántico'],
+  't15-5': ['enlace', 'enlaces', 'imagen', 'imágenes', 'href', 'alt'],
+  't15-6': ['listas', 'tablas'], 't15-7': ['formulario', 'formularios'],
+  't15-8': ['input', 'tipos de input'], 't15-9': ['validación HTML', 'validación nativa'],
+  't15-10': ['accesibilidad', 'a11y'],
+  /* CSS */
+  't16-1': ['CSS', 'Cascading Style Sheets'], 't16-2': ['especificidad', 'cascada CSS', 'selector', 'selectores'],
+  't16-3': ['box model', 'modelo de caja', 'box-sizing'],
+  't16-4': ['unidades CSS', 'tipografía'], 't16-5': ['Flexbox', 'flex'],
+  't16-6': ['CSS Grid', 'Grid'], 't16-7': ['position', 'posicionamiento'],
+  't16-8': ['responsive', 'media queries', 'diseño adaptable'],
+  't16-9': ['variables CSS', 'custom properties'], 't16-10': ['transiciones', 'animaciones', 'keyframes'],
+  't16-11': ['Tailwind', 'Bootstrap', 'BEM', 'frameworks CSS'],
+  /* JavaScript */
+  't17-1': ['JavaScript', 'JS'], 't17-2': ['let', 'const', 'var', 'tipos de datos'],
+  't17-3': ['condicionales', 'operadores'], 't17-4': ['función', 'funciones', 'funciones flecha'],
+  't17-5': ['objeto', 'objetos', 'arreglo', 'arreglos', 'array', 'arrays'],
+  't17-6': ['map', 'filter', 'reduce', 'métodos de arreglos'],
+  't17-7': ['addEventListener', 'evento', 'eventos', 'querySelector'],
+  't17-8': ['callback', 'callbacks', 'asincronía'], 't17-9': ['promesa', 'promesas', 'Promise'],
+  't17-10': ['async', 'await', 'async/await'], 't17-11': ['fetch'],
+  't17-12': ['módulo', 'módulos', 'import', 'export'],
+  /* Git */
+  't18-1': ['Git'], 't18-2': ['commit', 'commits', 'repositorio', 'repositorios'],
+  't18-3': ['rama', 'ramas', 'branch', 'branches'], 't18-4': ['merge', 'conflicto', 'conflictos'],
+  't18-5': ['GitHub', 'repositorio remoto'], 't18-6': ['pull request', 'PR'],
+  't18-7': ['git clone', 'git pull', 'git push'], 't18-8': ['.gitignore'],
+  't18-9': ['buenas prácticas con Git'],
+  /* Bases de datos */
+  't19-1': ['base de datos', 'bases de datos'], 't19-2': ['NoSQL', 'relacional', 'relacionales'],
+  't19-3': ['tabla', 'tablas', 'fila', 'filas', 'columna', 'columnas'],
+  't19-4': ['clave primaria', 'clave foránea', 'foreign key'],
+  't19-5': ['SQL', 'SELECT', 'INSERT', 'UPDATE'], 't19-6': ['JOIN', 'relaciones'],
+  't19-7': ['normalización'], 't19-8': ['índice', 'índices'],
+  't19-9': ['transacción', 'transacciones', 'ACID'], 't19-10': ['ORM'],
+  /* APIs modernas */
+  't20-1': ['paginación'], 't20-2': ['versionado'],
+  't20-3': ['webhook', 'webhooks'], 't20-4': ['polling'],
+  't20-5': ['WebSocket', 'WebSockets'], 't20-6': ['SSE', 'Server-Sent Events'],
+  't20-7': ['GraphQL'], 't20-8': ['rate limiting', 'límite de peticiones'],
+  /* Rendimiento */
+  't21-1': ['caché', 'cache'], 't21-2': ['Cache-Control', 'ETag'],
+  't21-3': ['CDN'], 't21-4': ['gzip', 'Brotli', 'compresión'],
+  't21-5': ['lazy loading', 'carga diferida'], 't21-6': ['Core Web Vitals', 'LCP', 'INP', 'CLS'],
+  't21-7': ['minificación', 'bundling', 'bundle'], 't21-8': ['WebP', 'AVIF', 'srcset'],
+  /* Testing */
+  't22-1': ['pruebas', 'test', 'tests'], 't22-2': ['prueba unitaria', 'pruebas unitarias'],
+  't22-3': ['prueba de integración', 'pruebas de integración'],
+  't22-4': ['end-to-end', 'E2E', 'Playwright', 'Cypress'], 't22-5': ['TDD'],
+  't22-6': ['linter', 'linting', 'Prettier'], 't22-7': ['debugging', 'depuración', 'depurar'],
+  /* Despliegue */
+  't23-1': ['despliegue', 'deploy'], 't23-2': ['build'],
+  't23-3': ['variables de entorno', '.env'], 't23-4': ['CI/CD', 'integración continua'],
+  't23-5': ['Docker', 'contenedor', 'contenedores'], 't23-6': ['logs', 'monitoreo'],
+  't23-7': ['certificado TLS'], 't23-8': ['rollback'], 't23-9': ['serverless', 'cloud']
 };
 
 function cleanPart(s) {
@@ -1008,46 +1064,62 @@ function panBy(dx, dy) {
 }
 function wireMap() {
   const canvas = $('#canvas');
+  const wrap = $('#canvas-wrap');
   const viewport = $('#viewport');
   let pan = null, lastDrag = 0;
 
-  const isMapView = () => UI.view === 'map' && !$('#canvas-wrap').hidden;
+  const isMapView = () => UI.view === 'map' && !wrap.hidden;
 
-  canvas.addEventListener('pointerdown', e => {
-    if (e.pointerType === 'mouse' && e.button !== 0 && e.button !== 1) return;
-    if (!e.isPrimary) return;
+  const startPan = (e, id) => {
+    if (e.button != null && e.button !== 0 && e.button !== 1) return;
     if (e.button === 1) e.preventDefault();
-    pan = { id: e.pointerId, x: e.clientX, y: e.clientY, vx: UI.vt.x, vy: UI.vt.y, moved: false };
-    try { canvas.setPointerCapture(e.pointerId); } catch (err) {}
-    canvas.classList.add('grabbing');
+    pan = { id, x: e.clientX, y: e.clientY, vx: UI.vt.x, vy: UI.vt.y, moved: false };
+    wrap.classList.add('grabbing');
+    document.body.classList.add('map-panning');
     try { canvas.focus({ preventScroll: true }); } catch (err) { canvas.focus(); }
-  });
-  canvas.addEventListener('pointermove', e => {
-    if (!pan || e.pointerId !== pan.id) return;
+  };
+  const movePan = (e, id) => {
+    if (!pan || (id != null && id !== pan.id)) return;
     const dx = e.clientX - pan.x, dy = e.clientY - pan.y;
     if (!pan.moved && Math.hypot(dx, dy) > 3) pan.moved = true;
     if (!pan.moved) return;
+    e.preventDefault();
     UI.vt.x = pan.vx + dx;
     UI.vt.y = pan.vy + dy;
     applyTransform();
-  });
-  const endPan = e => {
+  };
+  const endPan = (e, id) => {
     if (!pan) return;
-    if (e.pointerId != null && e.pointerId !== pan.id) return;
+    if (id != null && id !== pan.id) return;
     if (pan.moved) lastDrag = Date.now();
     pan = null;
-    canvas.classList.remove('grabbing');
-    try { canvas.releasePointerCapture(e.pointerId); } catch (err) {}
+    wrap.classList.remove('grabbing');
+    document.body.classList.remove('map-panning');
   };
-  canvas.addEventListener('pointerup', endPan);
-  canvas.addEventListener('pointercancel', endPan);
-  canvas.addEventListener('lostpointercapture', endPan);
 
-  canvas.addEventListener('wheel', e => {
+  if (window.PointerEvent) {
+    wrap.addEventListener('pointerdown', e => {
+      if (!isMapView() || !e.isPrimary) return;
+      startPan(e, e.pointerId);
+    });
+    window.addEventListener('pointermove', e => movePan(e, e.pointerId), { passive: false });
+    window.addEventListener('pointerup', e => endPan(e, e.pointerId));
+    window.addEventListener('pointercancel', e => endPan(e, e.pointerId));
+  } else {
+    wrap.addEventListener('mousedown', e => {
+      if (!isMapView()) return;
+      startPan(e, 'mouse');
+      e.preventDefault();
+    });
+    window.addEventListener('mousemove', e => movePan(e, 'mouse'));
+    window.addEventListener('mouseup', e => endPan(e, 'mouse'));
+  }
+
+  wrap.addEventListener('wheel', e => {
     if (!isMapView()) return;
     e.preventDefault();
+    const r = wrap.getBoundingClientRect();
     if (e.ctrlKey || e.metaKey) {
-      const r = canvas.getBoundingClientRect();
       zoomAt(e.clientX - r.left, e.clientY - r.top, Math.exp(-e.deltaY * 0.0018));
       return;
     }
@@ -1056,10 +1128,10 @@ function wireMap() {
     panBy(-dx, -dy);
   }, { passive: false });
 
-  canvas.addEventListener('dblclick', e => {
+  wrap.addEventListener('dblclick', e => {
     if (!isMapView()) return;
     e.preventDefault();
-    const r = canvas.getBoundingClientRect();
+    const r = wrap.getBoundingClientRect();
     zoomAt(e.clientX - r.left, e.clientY - r.top, e.shiftKey ? 0.8 : 1.35);
   });
 
