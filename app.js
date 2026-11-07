@@ -1093,15 +1093,6 @@ function wireMap() {
       openConcept(id);
     }
   });
-
-  $('#zoom-in').addEventListener('click', () => zoomBy(1.25));
-  $('#zoom-out').addEventListener('click', () => zoomBy(0.8));
-  $('#zoom-fit').addEventListener('click', fit);
-  const step = 90;
-  $('#pan-up').addEventListener('click', () => panBy(0, step));
-  $('#pan-down').addEventListener('click', () => panBy(0, -step));
-  $('#pan-left').addEventListener('click', () => panBy(step, 0));
-  $('#pan-right').addEventListener('click', () => panBy(-step, 0));
 }
 
 /* ============================================================

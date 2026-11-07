@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Mapa de Aprendizaje · Desarrollo Web</title>
-<link rel="stylesheet" href="styles.css?v=7"/>
+<link rel="stylesheet" href="styles.css?v=8"/>
 </head>
 <body>
 
@@ -111,20 +111,7 @@
         </defs>
         <g id="viewport"></g>
       </svg>
-      <div class="map-hint" id="map-hint">Arrastra con el mouse · Rueda para desplazar · Ctrl + rueda o doble clic para zoom · Flechas para moverte</div>
-      <div class="map-controls" aria-label="Controles del mapa">
-        <div class="pan-pad" role="group" aria-label="Mover el mapa">
-          <button id="pan-up" type="button" title="Mover arriba">↑</button>
-          <button id="pan-left" type="button" title="Mover a la izquierda">←</button>
-          <button id="zoom-fit" type="button" title="Centrar y ajustar a pantalla">⤢</button>
-          <button id="pan-right" type="button" title="Mover a la derecha">→</button>
-          <button id="pan-down" type="button" title="Mover abajo">↓</button>
-        </div>
-        <div class="zoom-pad" role="group" aria-label="Zoom">
-          <button id="zoom-in" type="button" title="Acercar">+</button>
-          <button id="zoom-out" type="button" title="Alejar">−</button>
-        </div>
-      </div>
+      <div class="map-hint" id="map-hint">Arrastra con el mouse para mover · Rueda para desplazar · Ctrl + rueda o doble clic para zoom</div>
       <div id="empty-state" class="empty-state" hidden></div>
     </div>
   </section>
@@ -133,7 +120,7 @@
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 <input id="file-import" type="file" accept="application/json,.json" hidden/>
 
-<script src="data.js?v=7"></script>
-<script src="app.js?v=7"></script>
+<script src="data.js?v=8"></script>
+<script src="app.js?v=8"></script>
 </body>
 </html>
