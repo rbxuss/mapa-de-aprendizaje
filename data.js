@@ -1,6 +1,6 @@
 /* Contenido inicial: Nivel 1 · Fundamentos de desarrollo web.
    La app guarda tus cambios en localStorage; este archivo solo es la semilla. */
-window.SEED_VERSION = 6;
+window.SEED_VERSION = 7;
 window.SEED = {
   "version": 1,
   "modules": [
@@ -187,7 +187,7 @@ window.SEED = {
       "m": "m1",
       "order": 2,
       "title": "¿Cómo funciona Internet?",
-      "desc": "Internet es una red mundial de computadoras conectadas que intercambian datos mediante protocolos comunes, principalmente TCP/IP. Cada dispositivo tiene una dirección IP y los datos viajan en paquetes que se enrutan hasta su destino. La Web es uno de los servicios que usa Internet: el navegador pide recursos a un servidor y este responde.",
+      "desc": "Internet es una red mundial de redes interconectadas. No es una sola máquina ni un lugar concreto: es un acuerdo técnico que permite que millones de dispositivos de distintos países y proveedores se comuniquen aunque usen sistemas operativos y redes diferentes.\n\nPara que funcione hacen falta varias piezas:\n• Direcciones IP: cada dispositivo conectado recibe una dirección que lo identifica dentro de la red.\n• TCP/IP: la familia de protocolos que divide la información en paquetes, la encamina y comprueba que llegue.\n• DNS: el sistema que traduce nombres legibles como ejemplo.com a direcciones IP.\n• Routers y proveedores (ISP): encaminan los paquetes entre redes hasta el destino.\n\nLa Web es solo uno de los servicios que viajan por Internet, junto al correo, las videollamadas, los juegos en línea o las actualizaciones del sistema. Cuando abres una página, el navegador usa HTTP sobre esa infraestructura para pedir recursos a un servidor.",
       "req": []
     },
     {
@@ -195,7 +195,7 @@ window.SEED = {
       "m": "m1",
       "order": 3,
       "title": "¿Qué es TCP/IP?",
-      "desc": "TCP/IP es la familia de protocolos que hace funcionar Internet. IP se encarga de direccionar y encaminar los paquetes entre dispositivos; TCP se coloca encima para ordenarlos, comprobar que llegan completos y reenviar lo que se pierde. Juntos permiten que dos máquinas intercambien datos de forma fiable aunque la red no lo sea. La Web, el correo o las descargas se apoyan en esta base.",
+      "desc": "TCP/IP es la familia de protocolos que hace funcionar Internet. Se llama familia porque no es un solo protocolo, sino un conjunto organizado en capas que se reparten el trabajo.\n\n• IP (capa de red): direcciona y encamina los paquetes entre redes. No garantiza que lleguen, solo intenta llevarlos al destino correcto.\n• TCP (capa de transporte): coloca encima de IP y convierte esa red poco fiable en un canal fiable. Numera los segmentos, confirma la recepción, reordena y reenvía lo que se pierde.\n• Aplicación: HTTP, DNS, correo o SSH usan los servicios de las capas inferiores.\n• Acceso al medio: Ethernet, Wi-Fi o fibra transportan físicamente los datos.\n\nCuando abres una página, el navegador resuelve el dominio con DNS, abre una conexión TCP al servidor (normalmente al puerto 443), envía una petición HTTP y recibe la respuesta. IP se encarga del camino y TCP de que las piezas lleguen completas y en orden.",
       "req": [
         "t1-2"
       ]
@@ -205,7 +205,7 @@ window.SEED = {
       "m": "m1",
       "order": 4,
       "title": "TCP vs. UDP",
-      "desc": "TCP y UDP son dos formas de transportar datos sobre IP. TCP abre una conexión, numera los paquetes, confirma la recepción y reenvía lo perdido: es fiable pero más lento. UDP no establece conexión ni garantiza la entrega: es más rápido y ligero, ideal para vídeo en vivo, voz o juegos donde llegar tarde es peor que perder un paquete. HTTP usa TCP; DNS y el streaming suelen usar UDP.",
+      "desc": "TCP y UDP son dos formas de transportar datos sobre IP. La diferencia está en cuánto garantizan y a qué coste.\n\n• TCP abre una conexión con un saludo a tres pasos, numera los segmentos, confirma la recepción, reordena lo que llega desordenado y reenvía lo perdido. También ajusta el ritmo para no saturar la red. Es fiable, pero añade latencia y estado.\n• UDP no establece conexión ni confirma nada: envía datagramas y olvida. Es más ligero y rápido, pero puede perder, duplicar o desordenar paquetes.\n\nTCP encaja cuando cada byte importa: páginas web, correo, transferencias de archivos, bases de datos. UDP encaja cuando llegar tarde es peor que perder un paquete: vídeo en vivo, voz, juegos multijugador, DNS o telemetría.\n\nHTTP/1.1 y HTTP/2 usan TCP; HTTP/3 usa QUIC sobre UDP y añade fiabilidad y cifrado en la propia capa de transporte. Por eso “UDP es malo” es una simplificación: depende de lo que necesite la aplicación.",
       "req": [
         "t1-8"
       ]
@@ -215,7 +215,7 @@ window.SEED = {
       "m": "m1",
       "order": 5,
       "title": "¿Qué es un paquete de datos?",
-      "desc": "Un paquete es una unidad pequeña de información que viaja por la red. Los datos se dividen en paquetes, y cada uno lleva la dirección IP de origen y destino y un número de secuencia. Los routers los envían por caminos distintos, así que pueden llegar desordenados o perderse; TCP los reordena y recupera, mientras que IP solo se encarga de encaminarlos y UDP no comprueba si llegan. Así muchas comunicaciones comparten la misma red.",
+      "desc": "Un paquete es una unidad pequeña de información que viaja por la red. Los datos grandes no se envían de golpe: se dividen en paquetes para que puedan compartir la red, recuperarse de fallos y encaminarse por caminos distintos.\n\nCada paquete lleva una cabecera con la dirección IP de origen y destino, el protocolo, el número de secuencia y otra información de control; el resto es la carga útil. Los routers leen la dirección de destino y lo envían hacia el siguiente salto, sin conocer necesariamente la ruta completa.\n\nComo cada paquete puede tomar un camino diferente, pueden llegar desordenados, duplicarse o perderse. TCP los reordena y pide los que faltan; IP solo se encarga de encaminarlos y UDP no comprueba si llegan. Este diseño es lo que permite que millones de comunicaciones compartan la misma infraestructura.",
       "req": [
         "t1-2",
         "t1-8"
@@ -226,7 +226,7 @@ window.SEED = {
       "m": "m1",
       "order": 6,
       "title": "Internet vs. la Web (WWW)",
-      "desc": "Internet es la infraestructura de red; la Web (WWW) es un servicio que funciona sobre ella. La Web usa HTTP, URL y navegadores para acceder a documentos enlazados. Puedes tener Internet sin Web (correo, juegos en línea, FTP) y la Web no existiría sin Internet. Es la diferencia entre la carretera y los vehículos que circulan por ella.",
+      "desc": "Internet es la infraestructura: los cables, routers, proveedores y protocolos que conectan dispositivos de todo el mundo. La Web (WWW) es un servicio que funciona sobre esa infraestructura y usa HTTP, HTML, URL y navegadores para acceder a documentos enlazados entre sí.\n\nLa distinción importa porque no todo lo que usa Internet es la Web: el correo electrónico, las videollamadas, los juegos en línea, la sincronización de archivos o el DNS también viajan por Internet sin ser páginas web. Del mismo modo, la Web no existiría sin Internet, igual que una aplicación no funciona sin el sistema operativo.\n\nLa analogía clásica: Internet es la carretera y la Web son los vehículos que circulan por ella. Puedes usar la carretera para otras cosas (correo, FTP, VoIP) y puedes tener carretera sin ese tipo de vehículo concreto.",
       "req": [
         "t1-2"
       ]
@@ -246,7 +246,7 @@ window.SEED = {
       "m": "m1",
       "order": 8,
       "title": "¿Qué es una aplicación web?",
-      "desc": "Una aplicación web es un programa que se ejecuta en el navegador y se comunica con un servidor para leer o modificar datos. A diferencia de una página informativa, permite acciones: iniciar sesión, comprar, publicar o filtrar. El navegador actúa como cliente y el servidor expone una API que la aplicación consume.",
+      "desc": "Una aplicación web es un programa que se ejecuta en el navegador y se comunica con un servidor para leer o modificar datos. A diferencia de una página informativa, permite acciones: iniciar sesión, comprar, publicar, filtrar, enviar un formulario o colaborar en tiempo real.\n\nLa forman dos mitades que trabajan juntas: el frontend, que muestra la interfaz y responde a los eventos, y el backend, que aplica reglas de negocio, valida permisos y guarda la información en una base de datos. Se comunican mediante una API, normalmente con peticiones HTTP que intercambian JSON.\n\nLo que la define no es el número de páginas ni el diseño, sino que procesa datos y mantiene estado: recuerda quién eres, qué has hecho y qué puedes ver. Un blog estático no es una aplicación; un correo web, un banco online o esta misma app de estudio sí lo son.",
       "req": [
         "t1-4"
       ]
@@ -256,7 +256,7 @@ window.SEED = {
       "m": "m1",
       "order": 9,
       "title": "Página, sitio y aplicación web",
-      "desc": "Una página web es un documento individual; un sitio web es el conjunto de páginas bajo un mismo dominio; una aplicación web es un sitio con lógica interactiva que procesa datos. La frontera no siempre es estricta: una tienda puede ser un sitio con muchas páginas y a la vez una aplicación. Lo importante es si el usuario solo lee o también opera.",
+      "desc": "Una página web es un documento individual, como una noticia o una página de contacto. Un sitio web es el conjunto de páginas y recursos que viven bajo un mismo dominio y comparten identidad. Una aplicación web es un sitio con lógica interactiva que procesa datos y responde a acciones del usuario.\n\nEjemplo: una página con la historia de una empresa es una página; el conjunto de esa página, sus servicios y su blog forman el sitio; si además tiene un portal de clientes donde se inicia sesión y se consultan facturas, esa parte es una aplicación.\n\nLa frontera no siempre es estricta. Una tienda puede ser un sitio con muchas páginas y, al mismo tiempo, una aplicación con carrito, pagos y cuentas. Lo importante es preguntarse si el usuario solo lee o también opera con datos.",
       "req": [
         "t1-4",
         "t1-5"
@@ -267,7 +267,7 @@ window.SEED = {
       "m": "m1",
       "order": 10,
       "title": "Tipos de aplicaciones web",
-      "desc": "Las aplicaciones web pueden ser estáticas (HTML y CSS sin lógica), dinámicas (el servidor genera cada página), SPA (una sola página que actualiza el contenido con JavaScript) o MPA (varias páginas que recargan el navegador). Cada modelo cambia la velocidad, el SEO y la complejidad. Hoy lo común es combinar renderizado en servidor con interactividad en el cliente.",
+      "desc": "Hay varios modelos para construir una aplicación web. La elección cambia la velocidad, el SEO, la complejidad y la forma de desplegar.\n\n• Estática: HTML y CSS sin lógica; el servidor solo entrega archivos. Es rápida y barata, pero no personaliza ni guarda datos.\n• Dinámica: el servidor genera el HTML en cada petición consultando la base de datos. Es el modelo clásico de PHP, Rails o Django.\n• SPA (Single Page Application): se carga una sola página y JavaScript cambia el contenido sin recargar. La navegación es fluida, pero la primera carga y el SEO requieren cuidado.\n• MPA (Multi Page Application): cada enlace pide una página nueva al servidor. Es simple y predecible, aunque cada navegación recarga la interfaz.\n• Híbrida: renderizado en servidor (SSR o SSG) para la primera carga y JavaScript en el cliente para la interactividad. Es lo habitual hoy con Next.js, Nuxt o SvelteKit.\n\nNo hay un modelo mejor en abstracto: depende del contenido, del tráfico, del equipo y de cuánto necesites posicionar en buscadores.",
       "req": [
         "t1-5"
       ]
@@ -610,7 +610,7 @@ window.SEED = {
       "m": "m2",
       "order": 1,
       "title": "¿Qué es el Frontend?",
-      "desc": "El frontend es la parte de la aplicación que se ejecuta en el navegador y con la que interactúa el usuario. Se construye con HTML, CSS y JavaScript, y se encarga de la estructura, el estilo, la accesibilidad y la respuesta a eventos. Consume datos del backend mediante peticiones HTTP y los presenta de forma comprensible.",
+      "desc": "El frontend es la parte de la aplicación que se ejecuta en el navegador y con la que interactúa el usuario. Se construye con HTML, CSS y JavaScript, y se encarga de la estructura, el estilo, la accesibilidad, la respuesta a eventos y el estado de la interfaz.\n\nSus responsabilidades incluyen mostrar datos, validar formularios para mejorar la experiencia, gestionar la navegación y consumir una API. También debe cuidar el rendimiento (carga, renderizado, imágenes) y la accesibilidad (teclado, lectores de pantalla, contraste).\n\nNo decide permisos ni reglas de negocio críticas: eso corresponde al backend. El frontend puede ocultar un botón, pero el servidor debe rechazar igualmente una acción no autorizada. Un frontend moderno suele usar componentes, estado y rutas, a menudo con frameworks como React, Vue o Svelte.",
       "req": [
         "t1-5"
       ]
@@ -620,7 +620,7 @@ window.SEED = {
       "m": "m2",
       "order": 2,
       "title": "¿Qué es el Backend?",
-      "desc": "El backend es la parte que se ejecuta en el servidor: recibe peticiones, aplica reglas, consulta la base de datos y devuelve respuestas. No lo ve el usuario directamente, pero sostiene la lógica y la seguridad. Se implementa con lenguajes como Node.js, Python, PHP, Java o Go, y suele exponer una API.",
+      "desc": "El backend es la parte que se ejecuta en el servidor: recibe peticiones, aplica reglas de negocio, consulta la base de datos y devuelve respuestas. No lo ve el usuario directamente, pero sostiene la lógica, la seguridad y la persistencia.\n\nSe encarga de autenticar y autorizar, validar datos, calcular operaciones, gestionar transacciones, enviar correos, integrarse con otros servicios y exponer una API. También debe proteger secretos, limitar peticiones y registrar errores.\n\nSe implementa con lenguajes como Node.js, Python, PHP, Java, Go o C#, y suele usar frameworks como Express, Django, Laravel o Spring. Puede ser un monolito o varios servicios, y necesita base de datos, caché, colas y monitoreo según su escala.",
       "req": [
         "t1-5"
       ]
@@ -712,7 +712,7 @@ window.SEED = {
       "m": "m3",
       "order": 1,
       "title": "¿Qué es un cliente?",
-      "desc": "Un cliente es el programa que solicita un recurso o servicio a otro programa. En la Web suele ser el navegador, pero también una app móvil, una aplicación de escritorio o un script. El cliente inicia la comunicación, envía la petición y espera la respuesta del servidor.",
+      "desc": "Un cliente es el programa que solicita un recurso o servicio a otro programa. En la Web suele ser el navegador, pero también una app móvil, una aplicación de escritorio, un script de línea de comandos o un bot.\n\nEl cliente inicia la comunicación, construye la petición, envía credenciales si hace falta y espera la respuesta. Puede ser “fino” (delega casi toda la lógica al servidor) o “grueso” (ejecuta mucha lógica localmente, como una SPA o una app móvil).\n\nNo es lo mismo que el usuario: el usuario es la persona; el cliente es el software que actúa en su nombre. Un mismo usuario puede tener varios clientes abiertos, y el servidor debe distinguirlos por su sesión o token.",
       "req": [
         "t2-7"
       ]
@@ -722,7 +722,7 @@ window.SEED = {
       "m": "m3",
       "order": 2,
       "title": "¿Qué es un servidor?",
-      "desc": "Un servidor es el programa que escucha peticiones en un puerto, las procesa y devuelve una respuesta. Puede servir archivos, ejecutar lógica o actuar como intermediario. No es necesariamente una máquina enorme: tu propia computadora puede ejecutar un servidor local para desarrollo.",
+      "desc": "Un servidor es el programa que escucha peticiones en un puerto, las procesa y devuelve una respuesta. Puede servir archivos, ejecutar lógica, consultar una base de datos o actuar como intermediario.\n\nHay muchos tipos: servidor web (Nginx, Apache), servidor de aplicaciones (Node.js, Django), servidor de base de datos (PostgreSQL, MySQL), servidor de correo o servidor DNS. Una misma máquina puede ejecutar varios a la vez en puertos distintos.\n\nNo es necesariamente una máquina enorme: tu propia computadora puede ejecutar un servidor local para desarrollo en http://localhost:3000. En producción suele haber balanceadores, réplicas y servicios gestionados. El servidor no inicia la conversación: responde a un cliente, salvo tecnologías de push como WebSockets o SSE.",
       "req": [
         "t2-7"
       ]
@@ -894,7 +894,7 @@ window.SEED = {
       "m": "m5",
       "order": 1,
       "title": "¿Qué es HTTP?",
-      "desc": "HTTP (HyperText Transfer Protocol) es el protocolo de comunicación de la Web. Define cómo el cliente formula una petición y cómo el servidor responde: métodos, URL, encabezados, cuerpo y códigos de estado. Es un protocolo de texto, sin estado, que normalmente viaja sobre TCP. Cada recurso se identifica con una URL.",
+      "desc": "HTTP (HyperText Transfer Protocol) es el protocolo de comunicación de la Web. Define cómo el cliente formula una petición y cómo el servidor responde: métodos, URL, encabezados, cuerpo y códigos de estado.\n\nCada intercambio tiene dos mensajes: la request, con método, ruta, versión, headers y body opcional, y la response, con código de estado, headers y body. Por ejemplo, un GET /productos/15 puede responder 200 OK con JSON o 404 Not Found si no existe.\n\nHTTP es stateless: no recuerda peticiones anteriores. Para mantener sesión se usan cookies o tokens. También es extensible: los headers permiten negociar formato, idioma, caché, autenticación y CORS.\n\nLas versiones cambian el transporte y el rendimiento: HTTP/1.1 usa una conexión por petición o keep-alive, HTTP/2 multiplexa sobre TCP y HTTP/3 usa QUIC sobre UDP. La semántica de métodos y códigos se mantiene.",
       "req": [
         "t4-2"
       ]
@@ -904,7 +904,7 @@ window.SEED = {
       "m": "m5",
       "order": 2,
       "title": "¿Qué es HTTPS?",
-      "desc": "HTTPS es HTTP dentro de una conexión cifrada con TLS. Protege lo que se envía y se recibe: contraseñas, cookies, datos personales y tokens. Además verifica que el servidor es quien dice ser mediante un certificado. Hoy es obligatorio para cualquier sitio serio; los navegadores marcan como inseguro todo lo que use HTTP simple.",
+      "desc": "HTTPS es HTTP dentro de una conexión cifrada con TLS. Protege lo que se envía y se recibe: contraseñas, cookies, datos personales y tokens. Sin cifrado, cualquiera en la red podría leer o modificar el tráfico.\n\nTLS aporta tres garantías: confidencialidad (nadie lee el contenido), integridad (nadie lo altera sin detectarse) y autenticidad (el servidor demuestra que es quien dice ser con un certificado firmado por una autoridad de confianza).\n\nEl navegador valida el certificado, comprueba que el dominio coincide y negocia claves para cifrar la sesión. Si el certificado está caducado o es de otro dominio, muestra una advertencia. HSTS indica al navegador que use siempre HTTPS, y el contenido mixto (recursos HTTP dentro de una página HTTPS) se bloquea o se marca como inseguro.",
       "req": [
         "t5-1"
       ]
@@ -924,7 +924,7 @@ window.SEED = {
       "m": "m5",
       "order": 4,
       "title": "¿Qué es SSL/TLS?",
-      "desc": "SSL y TLS son protocolos criptográficos que crean un canal seguro entre cliente y servidor. TLS es la versión moderna; SSL quedó obsoleto. Negocian algoritmos, verifican el certificado e intercambian claves para cifrar la conexión. Son la base técnica de HTTPS.",
+      "desc": "SSL y TLS son protocolos criptográficos que crean un canal seguro entre cliente y servidor. TLS es la versión moderna; SSL quedó obsoleto y ya no debe usarse. Cuando alguien dice “SSL” hoy, normalmente se refiere a TLS.\n\nEl handshake negocia la versión y los algoritmos, valida el certificado del servidor y acuerda una clave de sesión. Se usa criptografía asimétrica para autenticar e intercambiar la clave, y criptografía simétrica para cifrar los datos, porque es mucho más rápida.\n\nTLS 1.3 redujo el handshake a menos viajes y eliminó algoritmos débiles. La confidencialidad perfecta hacia adelante (forward secrecy) hace que, aunque se robe la clave privada del servidor en el futuro, no se puedan descifrar sesiones pasadas.",
       "req": [
         "t5-2"
       ]
@@ -965,7 +965,7 @@ window.SEED = {
       "m": "m5",
       "order": 8,
       "title": "¿Qué es un puerto? (80 y 443)",
-      "desc": "Un puerto es un número que identifica un servicio dentro de una máquina con una misma dirección IP. HTTP usa el 80 y HTTPS el 443 por convención; si se omite en la URL, el navegador los asume. Otros servicios usan otros puertos, como 3000 para un servidor de desarrollo o 5432 para PostgreSQL.",
+      "desc": "Un puerto es un número de 16 bits (0–65535) que identifica un servicio dentro de una máquina con una misma dirección IP. La IP llega al equipo; el puerto indica a qué programa debe entregarse la conexión. La combinación IP + puerto forma un socket.\n\nSe dividen en tres rangos:\n• Bien conocidos (0–1023): HTTP 80, HTTPS 443, DNS 53, SSH 22, SMTP 25.\n• Registrados (1024–49151): PostgreSQL 5432, MySQL 3306, Redis 6379, servidores de desarrollo como 3000 o 5173.\n• Dinámicos o efímeros (49152–65535): los usa el sistema para conexiones salientes.\n\nSi en la URL se omite el puerto, el navegador asume 80 para HTTP y 443 para HTTPS. En local, http://localhost:3000 pide el servicio que escucha en el 3000. Dos programas no pueden escuchar en el mismo puerto y la misma interfaz; un firewall puede bloquearlo aunque el servidor esté activo.",
       "req": [
         "t5-1"
       ]
@@ -975,7 +975,7 @@ window.SEED = {
       "m": "m5",
       "order": 9,
       "title": "Encabezados HTTP (Headers)",
-      "desc": "Los headers son metadatos que acompañan una petición o una respuesta. Indican formato, idioma, cookies, autenticación, caché, origen y más. Tienen la forma Nombre: valor. Algunos son obligatorios, otros opcionales, y muchos afectan a la seguridad y al rendimiento. No son el contenido, pero lo condicionan.",
+      "desc": "Los headers son metadatos que acompañan una petición o una respuesta. Tienen la forma Nombre: valor, no son el contenido y no se ven en la página, pero condicionan cómo se interpreta.\n\nHay varias familias:\n• De petición: Host, User-Agent, Accept, Authorization, Cookie.\n• De respuesta: Content-Type, Content-Length, Set-Cookie, Cache-Control, ETag.\n• De negociación: Accept-Language, Accept-Encoding, Content-Encoding.\n• De seguridad: Content-Security-Policy, Strict-Transport-Security, X-Frame-Options.\n• De CORS: Origin, Access-Control-Allow-Origin, Access-Control-Allow-Methods.\n\nLos nombres no distinguen mayúsculas de minúsculas y algunos son de extremo a extremo mientras otros los modifican proxies. Un header mal configurado puede romper la caché, exponer datos o bloquear una petición legítima.",
       "req": [
         "t5-1"
       ]
@@ -995,7 +995,7 @@ window.SEED = {
       "m": "m6",
       "order": 1,
       "title": "¿Qué es una solicitud HTTP?",
-      "desc": "Una solicitud HTTP es el mensaje que el cliente envía al servidor para pedir un recurso o ejecutar una acción. Contiene un método, una URL, la versión del protocolo, encabezados y, a veces, un cuerpo. El servidor la interpreta y devuelve una respuesta con un código de estado.",
+      "desc": "Una solicitud HTTP es el mensaje que el cliente envía al servidor para pedir un recurso o ejecutar una acción. Se compone de una línea de petición, encabezados y, a veces, un cuerpo.\n\nEjemplo simplificado:\nGET /productos/15?color=azul HTTP/1.1\nHost: ejemplo.com\nAccept: application/json\nAuthorization: Bearer token...\n\n• El método (GET) indica la intención.\n• La ruta y la query identifican el recurso y los filtros.\n• La versión indica el protocolo.\n• Los headers aportan contexto: formato, idioma, autenticación, cookies.\n• El body lleva datos en POST, PUT o PATCH, con su Content-Type.\n\nLa query viaja en la URL y el body en el mensaje; no son intercambiables. El servidor interpreta todo el conjunto y responde con un código de estado.",
       "req": [
         "t5-9",
         "t5-10"
@@ -1006,7 +1006,7 @@ window.SEED = {
       "m": "m6",
       "order": 2,
       "title": "¿Qué es una respuesta HTTP?",
-      "desc": "Es el mensaje que el servidor devuelve al cliente. Incluye un código de estado, encabezados y, opcionalmente, un cuerpo con el recurso o el resultado. El código indica si la operación tuvo éxito o falló, y los headers describen el contenido. El cliente decide qué hacer con esa información.",
+      "desc": "Una respuesta HTTP es el mensaje que el servidor devuelve al cliente. Incluye una línea de estado, encabezados y, opcionalmente, un cuerpo con el recurso o el resultado.\n\nEjemplo:\nHTTP/1.1 200 OK\nContent-Type: application/json\nCache-Control: max-age=60\n\n{\"id\":15,\"nombre\":\"Producto\"}\n\nEl código de estado resume el resultado: 2xx éxito, 3xx redirección, 4xx error del cliente, 5xx error del servidor. Los headers describen el contenido, la caché, las cookies o la seguridad. El body puede estar vacío, como en un 204 No Content.\n\nEl cliente debe comprobar el código antes de interpretar el cuerpo: un 404 o un 500 pueden traer HTML de error en lugar del JSON esperado.",
       "req": [
         "t6-1"
       ]
@@ -1076,7 +1076,7 @@ window.SEED = {
       "m": "m6",
       "order": 9,
       "title": "¿Qué es JSON?",
-      "desc": "JSON (JavaScript Object Notation) es un formato de texto ligero para representar datos mediante objetos, arreglos, cadenas, números, booleanos y null. Es fácil de leer y de parsear, y por eso domina las APIs. No es un lenguaje de programación ni admite comentarios; solo describe datos.",
+      "desc": "JSON (JavaScript Object Notation) es un formato de texto ligero para representar datos mediante objetos, arreglos, cadenas, números, booleanos y null. Es fácil de leer y de parsear, y por eso domina las APIs.\n\nReglas importantes:\n• Las claves son cadenas entre comillas dobles.\n• Los valores permitidos son texto, número, booleano, null, objeto o arreglo.\n• No admite comentarios, funciones, undefined ni comas finales.\n• Un texto JSON siempre debe ser válido al completo; no se puede “romper” en varias piezas.\n\nEn JavaScript, JSON.parse convierte texto en objeto y JSON.stringify hace lo contrario. Aunque se parezca a un objeto de JavaScript, no es lo mismo: no tiene métodos ni prototipos. Nunca se debe evaluar JSON con eval por motivos de seguridad.",
       "req": [
         "t6-4"
       ]
@@ -1116,7 +1116,7 @@ window.SEED = {
       "m": "m7",
       "order": 1,
       "title": "¿Qué son los métodos HTTP?",
-      "desc": "Son verbos que indican la intención de una petición: leer, crear, reemplazar, modificar o eliminar. Los principales son GET, POST, PUT, PATCH y DELETE. El método no es solo una convención: servidores, cachés y proxies lo usan para decidir cómo tratar la petición. Elegir bien mejora la claridad y la seguridad de la API.",
+      "desc": "Los métodos HTTP son verbos que indican la intención de una petición. Los principales se corresponden con operaciones sobre recursos:\n\n• GET: leer un recurso.\n• POST: crear un recurso o disparar un proceso.\n• PUT: reemplazar un recurso completo.\n• PATCH: modificar parte de un recurso.\n• DELETE: eliminar un recurso.\n\nTambién existen HEAD (como GET pero sin body), OPTIONS (capacidades y CORS) y TRACE (diagnóstico). El método no es solo una convención: servidores, cachés, proxies y navegadores lo usan para decidir si pueden cachear, reintentar o previsualizar una petición.\n\nDos propiedades clave son seguro (no cambia estado) e idempotente (repetirlo deja el mismo estado final). GET, HEAD, PUT y DELETE son idempotentes; POST normalmente no.",
       "req": [
         "t6-3"
       ]
@@ -1126,7 +1126,7 @@ window.SEED = {
       "m": "m7",
       "order": 2,
       "title": "GET: obtener información",
-      "desc": "GET solicita un recurso y no debe modificar el estado del servidor. Sus parámetros viajan en la URL, por lo que quedan visibles en el historial y los registros; no conviene usarlo para datos sensibles. Es seguro e idempotente: repetirlo devuelve lo mismo salvo que el recurso cambie por otro motivo.",
+      "desc": "GET solicita un recurso y no debe modificar el estado del servidor. Sus parámetros viajan en la URL, por lo que quedan visibles en el historial, los logs y las cabeceras; no conviene usarlo para datos sensibles.\n\nEs seguro e idempotente: repetirlo devuelve lo mismo salvo que el recurso cambie por otro motivo. Los navegadores y las cachés pueden guardarlo, y los enlaces pueden compartirse. Por eso es el método natural para páginas, búsquedas y listados.\n\nAunque el estándar no prohíbe un body en GET, muchos servidores y proxies lo ignoran o lo rechazan. Las URLs tienen límites prácticos de longitud, así que para filtros muy largos conviene POST con un endpoint de búsqueda o parámetros bien acotados.",
       "req": [
         "t7-1"
       ]
@@ -1136,7 +1136,7 @@ window.SEED = {
       "m": "m7",
       "order": 3,
       "title": "POST: crear o procesar",
-      "desc": "POST envía datos en el body para crear un recurso o disparar un proceso. No es seguro ni idempotente: dos envíos pueden crear dos registros. Se usa para formularios, altas y acciones que cambian estado. La respuesta suele incluir el recurso creado y un código 201.",
+      "desc": "POST envía datos en el body para crear un recurso o disparar un proceso. No es seguro ni idempotente: dos envíos pueden crear dos registros, dos pedidos o dos correos.\n\nEl body debe llevar un Content-Type adecuado: application/json para APIs, application/x-www-form-urlencoded o multipart/form-data para formularios y archivos. El servidor valida los datos, aplica reglas de negocio y responde normalmente con 201 Created y la ubicación del recurso, o 200 si no se crea nada.\n\nPara evitar duplicados por reintentos se usan claves de idempotencia: el cliente envía un identificador único y el servidor recuerda el resultado de la primera petición. Es habitual en pagos y operaciones críticas.",
       "req": [
         "t7-1"
       ]
@@ -1208,7 +1208,7 @@ window.SEED = {
       "m": "m7",
       "order": 10,
       "title": "Métodos idempotentes e idempotencia",
-      "desc": "Idempotente significa que repetir la misma petición produce el mismo estado final. GET, PUT y DELETE lo son; POST normalmente no. No es lo mismo que “seguro”: DELETE cambia datos, pero repetirlo no debería eliminarlos dos veces. La idempotencia permite reintentar peticiones con seguridad.",
+      "desc": "Idempotente significa que repetir la misma petición produce el mismo estado final. Si envías dos veces un DELETE del recurso 15, la segunda puede responder 404, pero el estado final es el mismo: el recurso está eliminado.\n\nGET, HEAD, PUT y DELETE son idempotentes. POST normalmente no lo es, porque cada envío puede crear un recurso nuevo. PATCH puede serlo o no según cómo se defina: “establecer el nombre a Ana” es idempotente; “incrementar el contador” no.\n\nNo es lo mismo que seguro: DELETE cambia datos, pero repetirlo no debería eliminarlos dos veces. La idempotencia permite reintentar peticiones cuando la red falla sin miedo a duplicar efectos. Para POST se consigue con una clave de idempotencia acordada entre cliente y servidor.",
       "req": [
         "t7-4",
         "t7-6"
@@ -1231,7 +1231,7 @@ window.SEED = {
       "m": "m8",
       "order": 1,
       "title": "¿Qué son los códigos de estado?",
-      "desc": "Son números de tres dígitos que el servidor devuelve para indicar el resultado de una petición. Se agrupan por familias: 1xx informativo, 2xx éxito, 3xx redirección, 4xx error del cliente y 5xx error del servidor. El código permite al cliente reaccionar sin analizar el cuerpo. Debe ser coherente con lo que realmente ocurrió.",
+      "desc": "Los códigos de estado son números de tres dígitos que el servidor devuelve para indicar el resultado de una petición. Se agrupan por familias:\n\n• 1xx: informativo; la petición sigue en curso.\n• 2xx: éxito (200 OK, 201 Created, 204 No Content).\n• 3xx: redirección (301 permanente, 302 temporal, 304 no modificado).\n• 4xx: error del cliente (400, 401, 403, 404, 409, 422, 429).\n• 5xx: error del servidor (500, 502, 503, 504).\n\nEl código permite al cliente reaccionar sin analizar el cuerpo: reintentar, pedir login, redirigir o mostrar un error. Debe ser coherente con lo que realmente ocurrió; devolver siempre 200 con un mensaje de error rompe clientes, cachés y monitoreo.\n\nEn APIs conviene combinarlo con un cuerpo de error claro, pero sin filtrar detalles internos en los 5xx.",
       "req": [
         "t6-4"
       ]
@@ -1291,7 +1291,7 @@ window.SEED = {
       "m": "m8",
       "order": 7,
       "title": "401 vs. 403",
-      "desc": "401 Unauthorized significa que no estás autenticado o tu credencial no es válida: falta iniciar sesión o el token expiró. 403 Forbidden significa que el servidor te identifica pero no tienes permiso para esa acción. En 401 conviene enviar WWW-Authenticate; en 403 no se debe revelar cómo obtener acceso.",
+      "desc": "401 Unauthorized significa que no estás autenticado o tu credencial no es válida: falta iniciar sesión, el token expiró o la contraseña es incorrecta. El servidor debería indicar cómo autenticarse con el header WWW-Authenticate.\n\n403 Forbidden significa que el servidor te identifica pero no tienes permiso para esa acción. No es un problema de login: es de autorización. Por ejemplo, un usuario normal intentando acceder al panel de administración.\n\nLa diferencia importa para el cliente: ante 401 debe pedir credenciales o renovar el token; ante 403 debe mostrar “no tienes permiso” y no insistir. En algunos casos se devuelve 404 en lugar de 403 para no revelar que un recurso existe, lo que es una decisión de seguridad.",
       "req": [
         "t8-5"
       ]
@@ -1301,7 +1301,7 @@ window.SEED = {
       "m": "m8",
       "order": 8,
       "title": "400 vs. 422",
-      "desc": "400 Bad Request indica que la petición está mal formada: JSON inválido, parámetros faltantes o tipos incorrectos. 422 Unprocessable Entity indica que la sintaxis es válida pero los datos no cumplen las reglas de negocio, como un correo con formato correcto pero ya registrado. Algunos equipos usan 400 para ambos; ser específico ayuda al cliente.",
+      "desc": "400 Bad Request indica que la petición está mal formada: JSON inválido, parámetros faltantes, tipos incorrectos o una cabecera obligatoria ausente. El servidor no puede interpretarla.\n\n422 Unprocessable Entity indica que la sintaxis es válida pero los datos no cumplen las reglas de negocio: un correo con formato correcto pero ya registrado, una fecha de fin anterior a la de inicio o un stock insuficiente.\n\nTambién existen 409 Conflict para conflictos de estado, como editar una versión desactualizada, y 415 Unsupported Media Type para un Content-Type no aceptado. Algunos equipos usan 400 para todo, pero ser específico ayuda al cliente a mostrar errores útiles y a distinguir un fallo de formato de un fallo de negocio.",
       "req": [
         "t8-5"
       ]
@@ -1326,7 +1326,7 @@ window.SEED = {
       "m": "m9",
       "order": 1,
       "title": "¿Qué es una URL?",
-      "desc": "Una URL (Uniform Resource Locator) es la dirección que identifica y localiza un recurso en la Web. Indica el protocolo, el dominio, la ruta y, opcionalmente, parámetros y fragmento. El navegador la usa para saber a qué servidor conectarse y qué recurso pedir. Ejemplo: https://ejemplo.com/productos/15?color=azul.",
+      "desc": "Una URL (Uniform Resource Locator) es la dirección que identifica y localiza un recurso en la Web. Indica el protocolo, el servidor, la ruta y, opcionalmente, parámetros y fragmento. El navegador la usa para saber a qué servidor conectarse y qué recurso pedir.\n\nEjemplo: https://ejemplo.com/productos/15?color=azul#detalle. Aquí https es el esquema, ejemplo.com el host, /productos/15 la ruta, ?color=azul la query y #detalle el fragmento.\n\nNo es lo mismo que un dominio: el dominio es solo el nombre del servidor (ejemplo.com); la URL es la dirección completa de un recurso concreto. Puede ser absoluta (con protocolo y host) o relativa (/productos/15), en cuyo caso el navegador completa la parte que falta con la página actual.\n\nLa URL también debe codificar caracteres especiales y espacios para que no se confundan con la estructura. Y el fragmento no se envía al servidor: lo usa el navegador para desplazarse a una sección.",
       "req": [
         "t4-2"
       ]
@@ -1356,7 +1356,7 @@ window.SEED = {
       "m": "m9",
       "order": 4,
       "title": "Estructura de una URL",
-      "desc": "Una URL se compone de esquema (https), host o dominio (ejemplo.com), puerto opcional (443), ruta (/productos/15), query (?color=azul) y fragmento (#detalle). Cada parte cumple una función: el esquema indica el protocolo, el host el servidor, la ruta el recurso y la query los filtros. El fragmento no se envía al servidor.",
+      "desc": "Una URL se compone de varias partes, y cada una tiene una función:\n\n• Esquema: https, http, ftp o mailto. Indica cómo interpretar el resto.\n• Usuario y contraseña: opcionales y desaconsejados; no deben usarse para autenticación real.\n• Host o dominio: ejemplo.com o una dirección IP. Es el servidor al que se conecta.\n• Puerto: opcional. Si se omite, se asume 80 para HTTP y 443 para HTTPS.\n• Ruta: /productos/15. Identifica el recurso dentro del servidor.\n• Query: ?color=azul&orden=precio. Parámetros que filtran, ordenan o paginan.\n• Fragmento: #detalle. Señala una sección dentro del documento y no viaja al servidor.\n\nLos caracteres reservados (espacios, ?, #, &, /) deben codificarse con porcentaje para no romper la estructura. Los dominios internacionales pueden escribirse con acentos y se convierten a punycode por debajo.",
       "req": [
         "t9-1"
       ]
@@ -1366,7 +1366,7 @@ window.SEED = {
       "m": "m9",
       "order": 5,
       "title": "¿Qué es un dominio?",
-      "desc": "Un dominio es un nombre legible que identifica un sitio en Internet, como ejemplo.com. Se registra ante un registrador y se traduce a una dirección IP mediante DNS. Tiene partes jerárquicas: subdominio, dominio de segundo nivel y extensión. Los dominios facilitan recordar direcciones y permiten cambiar de servidor sin cambiar el nombre.",
+      "desc": "Un dominio es un nombre legible que identifica un sitio en Internet, como ejemplo.com. Se registra ante un registrador acreditado y se traduce a una o varias direcciones IP mediante DNS. El dominio no es el servidor: es el nombre que apunta hacia él.\n\nSu estructura es jerárquica y se lee de derecha a izquierda: la extensión o TLD (.com, .org, .es), el dominio de segundo nivel (ejemplo) y los subdominios opcionales (tienda.ejemplo.com). Cada nivel se delega a servidores DNS distintos.\n\nUn mismo dominio puede tener varios registros: uno para la web, otro para el correo y alias para servicios. También puede apuntar a varias IPs para repartir tráfico. El dominio se alquila por años, debe renovarse y puede transferirse entre registradores; si caduca, el sitio deja de resolverse aunque el servidor siga funcionando.",
       "req": [
         "t9-4"
       ]
@@ -1376,7 +1376,7 @@ window.SEED = {
       "m": "m9",
       "order": 6,
       "title": "¿Qué es el DNS?",
-      "desc": "El DNS (Domain Name System) es el sistema que traduce nombres de dominio a direcciones IP. Funciona como una agenda distribuida: el navegador consulta un resolutor, que pregunta a servidores jerárquicos hasta encontrar la respuesta. Sin DNS tendríamos que recordar números IP. También gestiona correo y otros servicios.",
+      "desc": "El DNS (Domain Name System) es el sistema que traduce nombres de dominio a direcciones IP. Es una agenda distribuida y jerárquica: no hay un único servidor con todos los nombres, sino miles de servidores que se delegan zonas entre sí.\n\nEl recorrido básico es: caché del navegador → caché del sistema operativo → resolutor del proveedor → servidor raíz → servidor del TLD → servidor autoritativo del dominio. El autoritativo devuelve el registro final y el resolutor lo guarda durante el tiempo indicado por el TTL.\n\nAdemás de nombres web, el DNS gestiona correo (MX), verificaciones (TXT), alias (CNAME) y delegaciones (NS). Viaja normalmente por el puerto 53, usando UDP para consultas rápidas y TCP cuando la respuesta es grande. DoH y DoT añaden cifrado para que nadie vea qué dominios consultas.",
       "req": [
         "t9-5"
       ]
@@ -1386,7 +1386,7 @@ window.SEED = {
       "m": "m9",
       "order": 7,
       "title": "¿Qué es una dirección IP?",
-      "desc": "Una dirección IP es un número que identifica un dispositivo en una red. IPv4 usa cuatro bloques (192.168.1.10); IPv6 usa hexadecimal y ofrece muchísimas más direcciones. Puede ser pública o privada, fija o dinámica. El DNS traduce dominios a estas direcciones para que los clientes encuentren el servidor.",
+      "desc": "Una dirección IP es un número que identifica una interfaz de red dentro de una red. No es un identificador único universal como un DNI: tu router tiene una IP privada y tu red sale a Internet con una IP pública que puede compartir con otros dispositivos mediante NAT.\n\nExisten dos versiones:\n• IPv4: 32 bits, escrita como cuatro números entre 0 y 255 separados por puntos (192.168.1.10). Permite unos 4.300 millones de direcciones, un rango ya agotado.\n• IPv6: 128 bits, escrita en hexadecimal (2001:db8::1). Ofrece una cantidad enorme de direcciones y disminuye la dependencia de NAT.\n\nDentro de una IP se distinguen la parte de red y la parte de host. La máscara de subred o el prefijo CIDR (/24) indican dónde termina una y empieza la otra. Los rangos privados como 192.168.x.x, 10.x.x.x y 172.16–31.x.x se usan dentro de redes locales y no se enrutan por Internet.\n\nUna IP puede ser fija (configurada a mano) o dinámica (asignada por DHCP al conectarse). La dirección 127.0.0.1, también llamada localhost, apunta al propio equipo. El DNS existe para no tener que recordar estos números: traduce un dominio a la IP del servidor.",
       "req": [
         "t9-6"
       ]
@@ -1396,7 +1396,7 @@ window.SEED = {
       "m": "m9",
       "order": 8,
       "title": "Parámetros de ruta (Path Parameters)",
-      "desc": "Son valores incrustados en la URL que identifican un recurso concreto: en /productos/15, el 15 es el parámetro de ruta. Forman parte de la estructura jerárquica y suelen ser obligatorios. A diferencia de los query parameters, sirven para identificar un recurso único, no para filtrar una lista. En Express se declaran como /productos/:id.",
+      "desc": "Los path parameters o parámetros de ruta forman parte de la ruta de la URL y identifican un recurso concreto dentro de una colección. En /usuarios/42, el 42 es el parámetro de ruta que representa al usuario con id 42.\n\nSe usan en APIs REST para jerarquías claras: /clientes/7/pedidos/15. Suelen ser obligatorios y su ausencia cambia la ruta. El servidor debe validar el formato y comprobar que el recurso existe y que el usuario tiene permiso para verlo.\n\nNo sirven para filtrar u ordenar: para eso están los query parameters. Tampoco conviene meter datos sensibles en la ruta, porque aparecen en logs, historiales y cabeceras Referer.",
       "req": [
         "t9-4"
       ]
@@ -1406,7 +1406,7 @@ window.SEED = {
       "m": "m9",
       "order": 9,
       "title": "Parámetros de consulta (Query Parameters)",
-      "desc": "Van después del signo ? y separados por &, como /productos?color=azul&orden=precio. Sirven para filtrar, ordenar, paginar o buscar sin cambiar el recurso base. Son opcionales y no forman parte de la ruta jerárquica. Deben codificarse correctamente y validarse en el servidor.",
+      "desc": "Los query parameters o parámetros de consulta van después del signo ? y se separan con &. Sirven para filtrar, ordenar, paginar o buscar sin cambiar el recurso base: /productos?categoria=libros&orden=precio&page=2.\n\nSon opcionales por naturaleza: la misma ruta sin parámetros debe devolver un resultado razonable. Cada valor debe validarse y codificarse; un parámetro desconocido puede ignorarse o rechazarse según el contrato de la API.\n\nNo deben usarse para datos sensibles, porque quedan visibles en el historial, los logs y las analíticas. Para listas grandes conviene limitar el tamaño de la respuesta y documentar los valores permitidos de orden y filtros.",
       "req": [
         "t9-4"
       ]
@@ -1427,7 +1427,7 @@ window.SEED = {
       "m": "m9",
       "order": 11,
       "title": "Codificación URL",
-      "desc": "La codificación URL transforma caracteres especiales en secuencias seguras, como %20 para un espacio o %C3%B1 para la ñ. Es necesaria porque la URL solo admite un conjunto limitado de caracteres. El servidor debe decodificarla y validar el resultado. Una codificación incorrecta puede romper la ruta o abrir fallos de seguridad.",
+      "desc": "La codificación URL (percent-encoding) convierte caracteres especiales en una secuencia segura para que no se confundan con la estructura de la URL. Un espacio se convierte en %20, la ñ en %C3%B1 y el signo & en %26.\n\nLos caracteres reservados tienen significado propio: / separa rutas, ? inicia la query, & separa parámetros y # inicia el fragmento. Si necesitas enviarlos como dato, hay que codificarlos. Los caracteres no reservados también pueden codificarse, pero no es obligatorio.\n\nEn JavaScript, encodeURIComponent codifica un valor completo para meterlo en un parámetro, mientras que encodeURI conserva la estructura de una URL entera. Codificar dos veces produce valores como %2520 y es un error frecuente. En formularios antiguos, los espacios pueden viajar como +.",
       "req": [
         "t9-9"
       ]
@@ -1447,7 +1447,7 @@ window.SEED = {
       "m": "m10",
       "order": 1,
       "title": "Resolución de nombres de dominio",
-      "desc": "Es el proceso de convertir un dominio en una dirección IP. El navegador consulta la caché local, luego el resolutor del sistema o del proveedor, y este recorre la jerarquía DNS hasta obtener la respuesta. El resultado se guarda temporalmente según el TTL. Si falla, el sitio no carga aunque el servidor esté activo.",
+      "desc": "Resolver un dominio es convertir un nombre como ejemplo.com en la dirección IP que necesita el cliente para conectarse. Es un proceso con varias cachés y servidores encadenados:\n\n• El navegador comprueba su propia caché y la del sistema operativo.\n• Si no está, pregunta al resolutor configurado, normalmente el del proveedor de Internet.\n• El resolutor consulta un servidor raíz, que le indica el servidor del TLD (.com, .es…).\n• Ese servidor le indica el servidor autoritativo del dominio.\n• El autoritativo devuelve el registro A o AAAA con la IP.\n• La respuesta se guarda durante el TTL para no repetir el recorrido en cada petición.\n\nSi el dominio no existe, la consulta falla con NXDOMAIN; si los servidores no responden, el navegador puede tardar y mostrar un error aunque el servidor esté activo. Por eso los cambios de DNS no son instantáneos: dependen de las cachés y del TTL.",
       "req": [
         "t9-6"
       ]
@@ -1468,7 +1468,7 @@ window.SEED = {
       "m": "m10",
       "order": 3,
       "title": "Registros A, AAAA, CNAME y MX",
-      "desc": "Un registro A asocia un dominio a una IPv4; AAAA, a una IPv6; CNAME crea un alias hacia otro nombre; MX indica los servidores de correo. También existen TXT para verificaciones y NS para delegar la zona. Cada tipo responde a una necesidad distinta dentro de la configuración DNS.",
+      "desc": "Los registros DNS son las entradas que describen qué hace un dominio. Los más habituales:\n\n• A: asocia el dominio a una dirección IPv4 (ejemplo.com → 203.0.113.10).\n• AAAA: lo asocia a una IPv6.\n• CNAME: crea un alias hacia otro nombre (www → ejemplo.com). No debe usarse en la raíz del dominio.\n• MX: indica los servidores que reciben el correo, con prioridad.\n• TXT: guarda texto para verificaciones, SPF, DKIM o DMARC.\n• NS: delega la zona a los servidores DNS autoritativos.\n• SOA: contiene metadatos de la zona, como el servidor principal y los tiempos de refresco.\n• CAA: limita qué autoridades pueden emitir certificados para el dominio.\n\nCada registro tiene un TTL que indica cuántos segundos puede cachearse. Un TTL bajo facilita cambios rápidos pero aumenta las consultas; uno alto disminuye el tráfico pero tarda más en propagar modificaciones.",
       "req": [
         "t10-1"
       ]
@@ -1488,7 +1488,7 @@ window.SEED = {
       "m": "m11",
       "order": 1,
       "title": "¿Qué es un navegador?",
-      "desc": "Un navegador es el programa que solicita recursos, interpreta HTML, CSS y JavaScript, y muestra páginas interactivas. Incluye motor de renderizado, motor JavaScript, red, almacenamiento y APIs del sistema. Chrome, Firefox, Safari y Edge compiten por velocidad, compatibilidad y privacidad. Es el cliente más común de la Web.",
+      "desc": "Un navegador es el programa que solicita recursos, interpreta HTML, CSS y JavaScript, y muestra páginas interactivas. Es el cliente más común de la Web y también una pequeña plataforma de ejecución.\n\nSus piezas principales son:\n• Interfaz de usuario: barra de direcciones, pestañas, marcadores.\n• Motor de red: gestiona DNS, conexiones, caché y peticiones HTTP.\n• Motor de renderizado: construye el DOM, calcula estilos, layout y pintado.\n• Motor JavaScript: ejecuta el código, normalmente en un hilo principal.\n• Almacenamiento: cookies, localStorage, IndexedDB, caché.\n• Sandbox y permisos: aísla pestañas y controla cámara, ubicación o portapapeles.\n\nChrome, Firefox, Safari y Edge compiten por velocidad, compatibilidad, privacidad y herramientas de desarrollo. Las DevTools permiten inspeccionar el DOM, la red, el rendimiento y los errores.",
       "req": [
         "t2-1"
       ]
@@ -1508,7 +1508,7 @@ window.SEED = {
       "m": "m11",
       "order": 3,
       "title": "Cómo interpreta HTML, CSS y JavaScript",
-      "desc": "El navegador descarga el HTML, lo parsea y construye el DOM; descarga y aplica el CSS para calcular estilos; y ejecuta JavaScript, que puede modificar el DOM y el CSSOM. Luego calcula el layout y pinta. Si el JavaScript bloquea el parser o cambia el layout repetidamente, la página se vuelve lenta.",
+      "desc": "El navegador sigue una secuencia conocida como ruta crítica de renderizado:\n\n• Descarga el HTML y lo parsea para construir el DOM.\n• Descarga el CSS y construye el CSSOM.\n• Ejecuta JavaScript, que puede modificar el DOM y el CSSOM.\n• Combina ambos en un árbol de renderizado.\n• Calcula el layout: posición y tamaño de cada caja.\n• Pinta los píxeles y compone las capas.\n\nEl CSS y el JavaScript pueden bloquear el renderizado: una hoja de estilos grande retrasa el primer pintado y un script sin async o defer detiene el parser. Cambiar el DOM o los estilos provoca reflow (recalcular layout) y repaint (volver a pintar), que son caros si se repiten en bucle.\n\nPor eso se recomienda cargar lo crítico primero, diferir el resto, animar transform y opacity y agrupar cambios en el DOM.",
       "req": [
         "t11-2"
       ]
@@ -1518,7 +1518,7 @@ window.SEED = {
       "m": "m11",
       "order": 4,
       "title": "¿Qué es el DOM?",
-      "desc": "El DOM (Document Object Model) es la representación en memoria del HTML como un árbol de nodos. JavaScript puede leerlo y modificarlo para cambiar textos, atributos, estilos o estructura. No es el HTML del archivo, sino el estado actual de la página. Manipularlo en exceso puede afectar al rendimiento.",
+      "desc": "El DOM (Document Object Model) es la representación en memoria del HTML como un árbol de nodos. Cada etiqueta, texto y atributo es un nodo que JavaScript puede leer y modificar.\n\nNo es el HTML del archivo, sino el estado actual de la página: si el script añade un elemento, el DOM cambia aunque el archivo siga igual. Se puede consultar con querySelector, recorrer con parentNode o children y modificar con textContent, classList o setAttribute.\n\nManipularlo en exceso puede afectar al rendimiento, porque cada cambio puede provocar recálculos de layout y pintado. Por eso se agrupan operaciones, se usa DocumentFragment o se delegan eventos. El Virtual DOM de librerías como React es una copia en memoria que calcula los cambios mínimos antes de tocar el DOM real.",
       "req": [
         "t11-3"
       ]
@@ -1548,7 +1548,7 @@ window.SEED = {
       "m": "m12",
       "order": 1,
       "title": "HTTP es stateless",
-      "desc": "HTTP no guarda memoria entre peticiones: cada una se entiende por sí sola. El servidor no sabe automáticamente que dos peticiones vienen del mismo usuario. Para mantener sesión se usan cookies, tokens o identificadores. Esa falta de estado hace el protocolo simple y escalable, pero obliga a transportar contexto en cada petición.",
+      "desc": "HTTP es stateless: no guarda memoria entre peticiones. Cada petición se entiende por sí sola y el servidor no sabe automáticamente que dos peticiones vienen del mismo usuario.\n\nEsa falta de estado hace el protocolo simple y escalable: cualquier servidor puede atender cualquier petición sin recordar la anterior. Pero obliga a transportar contexto en cada petición: cookies de sesión, tokens, idioma, versión de la API o claves de idempotencia.\n\nPara mantener la sesión se usan cookies, tokens o almacenamiento en el servidor. Aun así, el estado vive fuera de HTTP, no dentro del protocolo. Entender esto explica por qué cerrar sesión, caducar un token o perder una cookie cambia por completo lo que el servidor te deja hacer.",
       "req": [
         "t6-2"
       ]
@@ -1558,7 +1558,7 @@ window.SEED = {
       "m": "m12",
       "order": 2,
       "title": "¿Qué son las cookies?",
-      "desc": "Las cookies son pequeños datos que el servidor envía y el navegador guarda y reenvía en cada petición al mismo dominio. Sirven para sesiones, preferencias y seguimiento. Pueden tener atributos como HttpOnly, Secure y SameSite para reducir riesgos. No conviene guardar información sensible directamente en ellas.",
+      "desc": "Las cookies son pequeños datos que el servidor envía con Set-Cookie y el navegador guarda y reenvía en cada petición al mismo dominio. Sirven para sesiones, preferencias y seguimiento.\n\nSus propiedades principales:\n• Domain y Path: limitan a qué dominios y rutas se envían.\n• Expires y Max-Age: controlan la caducidad; sin ellos, es de sesión.\n• HttpOnly: impide que JavaScript las lea, lo que reduce el robo por XSS.\n• Secure: solo se envían por HTTPS.\n• SameSite: Lax, Strict o None; controla si se envían en peticiones de otro sitio y ayuda contra CSRF.\n\nTienen un límite de unos 4 KB y el navegador limita cuántas guarda por dominio. No conviene almacenar información sensible directamente en ellas, porque el usuario puede verlas y modificarlas. Para datos grandes se usan localStorage o IndexedDB, con sus propios riesgos.",
       "req": [
         "t12-1"
       ]
@@ -1568,7 +1568,7 @@ window.SEED = {
       "m": "m12",
       "order": 3,
       "title": "¿Qué es una sesión?",
-      "desc": "Una sesión es el periodo en el que el servidor reconoce a un usuario entre varias peticiones. Normalmente se crea al iniciar sesión y se identifica con una cookie o un token. El servidor guarda el estado asociado (usuario, permisos, caducidad). Al cerrar sesión o expirar, ese contexto deja de ser válido.",
+      "desc": "Una sesión es el periodo en el que el servidor reconoce a un usuario entre varias peticiones. Normalmente se crea al iniciar sesión y se identifica con una cookie o un token.\n\nEl flujo clásico es: el usuario envía credenciales, el servidor las verifica, crea un registro de sesión (usuario, permisos, caducidad) y devuelve un identificador opaco. En cada petición siguiente, el cliente envía ese identificador y el servidor busca la sesión.\n\nEl estado puede guardarse en memoria, en una base de datos o en un almacén compartido como Redis. Si hay varias instancias, todas deben poder leer la misma sesión o el usuario tendrá que volver a iniciar sesión al cambiar de servidor.\n\nAl cerrar sesión o expirar, el identificador deja de ser válido. Las sesiones son fáciles de revocar; los JWT no lo son tanto, porque el servidor no consulta un registro en cada petición.",
       "req": [
         "t12-2"
       ]
@@ -2180,7 +2180,7 @@ window.SEED = {
       "m": "m14",
       "order": 1,
       "title": "¿Qué es la autenticación?",
-      "desc": "Autenticar es verificar quién es un usuario. Se hace con credenciales como contraseña, código de un solo uso, huella o un proveedor externo. Si la verificación es correcta, el sistema crea una sesión o emite un token. No dice qué puede hacer el usuario, solo quién es.",
+      "desc": "Autenticar es verificar quién es un usuario. Se hace con credenciales como contraseña, código de un solo uso, huella, llave física o un proveedor externo como Google.\n\nLos factores se agrupan en algo que sabes (contraseña), algo que tienes (teléfono, token) y algo que eres (huella, rostro). Usar dos factores mejora mucho la seguridad. Las contraseñas deben guardarse con un hash lento y salado, nunca en texto plano ni con cifrado reversible.\n\nSi la verificación es correcta, el sistema crea una sesión o emite un token. Autenticación solo dice quién eres; no dice qué puedes hacer. Esa segunda parte es la autorización, y debe comprobarse en el servidor en cada operación sensible.",
       "req": [
         "t12-3"
       ]
@@ -2190,7 +2190,7 @@ window.SEED = {
       "m": "m14",
       "order": 2,
       "title": "¿Qué es la autorización?",
-      "desc": "Autorizar es decidir qué puede hacer un usuario ya identificado. Se aplica con roles, permisos o reglas sobre recursos: quién puede editar un artículo, ver un pedido o borrar una cuenta. Debe comprobarse en el servidor en cada operación sensible. Un usuario autenticado no tiene permiso automático para todo.",
+      "desc": "Autorizar es decidir qué puede hacer un usuario ya identificado. Se aplica con roles, permisos o reglas sobre recursos: quién puede editar un artículo, ver un pedido ajeno o borrar una cuenta.\n\nModelos habituales:\n• RBAC: roles como admin, editor o cliente, con permisos asociados.\n• ABAC: reglas basadas en atributos del usuario, el recurso y el contexto.\n• ACL: listas de permisos por recurso concreto.\n\nLa comprobación debe hacerse en el servidor en cada operación sensible. Ocultar un botón en el frontend no protege nada. Un fallo clásico es el IDOR: cambiar el id de la URL y acceder a datos de otro usuario porque solo se comprobó que había sesión, no que el recurso fuera suyo.",
       "req": [
         "t14-1",
         "t8-7"
@@ -2222,7 +2222,7 @@ window.SEED = {
       "m": "m14",
       "order": 5,
       "title": "¿Qué es JWT?",
-      "desc": "JWT (JSON Web Token) es un token formado por header, payload y firma, codificados en Base64URL. El servidor puede verificar la firma sin consultar la base de datos. El payload no está cifrado: cualquiera puede leerlo, así que no debe contener secretos. Se usa para sesiones y APIs, con cuidado en expiración y revocación.",
+      "desc": "JWT (JSON Web Token) es un token formado por header, payload y firma, codificados en Base64URL y separados por puntos. El servidor puede verificar la firma sin consultar la base de datos.\n\nEl header indica el algoritmo; el payload lleva claims como sub (usuario), exp (caducidad), iat (emisión) y roles; la firma garantiza que nadie lo modificó. Base64URL no es cifrado: cualquiera puede leer el payload, así que no debe contener secretos.\n\nSe usa para sesiones y APIs, con cuidado en expiración, almacenamiento y revocación. Un JWT robado sirve hasta que caduca; para revocarlo antes hacen falta listas de bloqueo o sesiones de corta duración con refresh tokens. Guardarlo en localStorage lo expone a XSS; una cookie HttpOnly y Secure suele ser más segura.",
       "req": [
         "t14-4",
         "t13-3"
@@ -2233,7 +2233,7 @@ window.SEED = {
       "m": "m14",
       "order": 6,
       "title": "¿Qué es CORS?",
-      "desc": "CORS (Cross-Origin Resource Sharing) es un mecanismo del navegador que controla si una página puede leer respuestas de otro origen. El servidor declara qué orígenes, métodos y headers permite mediante Access-Control-Allow-*. Sin esos headers, el navegador bloquea la lectura aunque la petición llegue. No es una autenticación: es una política de acceso del navegador.",
+      "desc": "CORS (Cross-Origin Resource Sharing) es un mecanismo del navegador que controla si una página puede leer respuestas de otro origen. Un origen es la combinación de esquema, dominio y puerto: https://app.com y https://api.com son orígenes distintos.\n\nSi la petición es simple (GET, HEAD o POST con ciertos Content-Type), el navegador la envía y comprueba si la respuesta incluye Access-Control-Allow-Origin. Si no es simple (PUT, DELETE, JSON o headers personalizados), antes envía un preflight OPTIONS preguntando qué está permitido.\n\nEl servidor responde con Access-Control-Allow-Origin, Allow-Methods, Allow-Headers y, si hay credenciales, Allow-Credentials. Un error común es poner * con credenciales, o creer que CORS protege la API: CORS es una política del navegador, no una autenticación. Un cliente que no sea un navegador puede ignorarlo.",
       "req": [
         "t4-9",
         "t6-6"
@@ -2255,7 +2255,7 @@ window.SEED = {
       "m": "m14",
       "order": 8,
       "title": "¿Qué es XSS?",
-      "desc": "XSS (Cross-Site Scripting) ocurre cuando un atacante inyecta JavaScript en una página que otros usuarios ven. Puede robar cookies, modificar la interfaz o actuar en nombre del usuario. Se evita escapando la salida, validando la entrada, usando CSP y evitando innerHTML con datos no confiables. Es uno de los fallos más comunes de la Web.",
+      "desc": "XSS (Cross-Site Scripting) ocurre cuando un atacante inyecta JavaScript en una página que otros usuarios ven. Puede robar cookies, modificar la interfaz, redirigir o actuar en nombre del usuario.\n\nTipos principales:\n• Almacenado: el script se guarda en la base de datos y se sirve a todos.\n• Reflejado: el script viaja en la URL o en un formulario y se devuelve en la respuesta.\n• DOM-based: el propio JavaScript del cliente inserta datos no confiables en el DOM.\n\nSe evita escapando la salida según el contexto, validando la entrada, usando textContent en lugar de innerHTML con datos externos y aplicando una Content Security Policy. Los frameworks modernos escapan por defecto, pero siguen existiendo APIs peligrosas. Las cookies HttpOnly reducen el impacto, no la causa.",
       "req": [
         "t11-4",
         "t14-3"
@@ -2266,7 +2266,7 @@ window.SEED = {
       "m": "m14",
       "order": 9,
       "title": "Validación en cliente y servidor",
-      "desc": "Validar en el cliente mejora la experiencia: avisa antes de enviar y evita viajes innecesarios. Validar en el servidor es obligatorio para la seguridad: el cliente puede modificarse o saltarse. Se deben comprobar tipos, longitudes, formatos y reglas de negocio en ambos lados, con el servidor como autoridad final.",
+      "desc": "Validar en el cliente mejora la experiencia: avisa antes de enviar, evita viajes innecesarios y guía al usuario. Validar en el servidor es obligatorio para la seguridad: el cliente puede modificarse, desactivarse o saltarse por completo.\n\nSe deben comprobar tipos, longitudes, formatos, rangos y reglas de negocio en ambos lados, con el servidor como autoridad final. La validación debe ser positiva (permitir lo que cumple el formato) y no solo negativa (bloquear caracteres sueltos), para evitar errores y ataques de codificación.\n\nLa validación no sustituye a otras defensas: las consultas parametrizadas evitan inyección SQL, el escape de salida evita XSS y los permisos evitan accesos indebidos. Un dato válido puede seguir siendo peligroso si se usa en el contexto equivocado.",
       "req": [
         "t13-5",
         "t14-3"
@@ -2290,7 +2290,7 @@ window.SEED = {
       "m": "m24",
       "order": 1,
       "title": "Event loop, call stack y microtareas",
-      "desc": "El event loop es el mecanismo que permite a JavaScript ser asíncrono con un solo hilo. Ejecuta el call stack hasta vaciarlo, luego procesa las microtareas (promesas) y después una macrotarea (temporizadores, eventos). Por eso una promesa se resuelve antes que un setTimeout de 0 ms. Entenderlo explica por qué el código pesado bloquea la interfaz.",
+      "desc": "El event loop es el mecanismo que permite a JavaScript ser asíncrono con un solo hilo. Ejecuta el call stack hasta vaciarlo, luego procesa todas las microtareas (promesas, queueMicrotask) y después una macrotarea (setTimeout, eventos, I/O).\n\nPor eso una promesa se resuelve antes que un setTimeout de 0 ms, y por eso un bucle de promesas puede dejar sin turno a los temporizadores (starvation). El código pesado en el hilo principal bloquea la interfaz aunque haya operaciones asíncronas pendientes.\n\nEn el navegador, las tareas se coordinan con el renderizado: entre macrotareas el navegador puede pintar. En Node.js el event loop tiene fases propias (timers, I/O, check, close). Entenderlo explica por qué el código bloqueante arruina la experiencia y por qué await no equivale a paralelismo.",
       "req": [
         "t17-8",
         "t17-9"
@@ -2301,7 +2301,7 @@ window.SEED = {
       "m": "m24",
       "order": 2,
       "title": "Closures (clausuras)",
-      "desc": "Un closure o clausura es una función que recuerda el ámbito donde fue creada, incluso después de que ese ámbito termine. Permite encapsular estado privado, crear fábricas de funciones y conservar valores entre llamadas. En entrevistas suele aparecer con bucles y var, donde todas las funciones comparten la misma variable. Con let cada iteración crea su propio ámbito.",
+      "desc": "Un closure o clausura es una función que recuerda el ámbito donde fue creada, incluso después de que ese ámbito termine. La función conserva acceso a sus variables porque el motor mantiene vivas las referencias que usa.\n\nPermite encapsular estado privado, crear fábricas de funciones, implementar contadores o memoización y conservar valores entre llamadas. También explica por qué una función devuelta puede seguir usando una variable local de la función que la creó.\n\nEn entrevistas suele aparecer con bucles y var: todas las funciones comparten la misma variable y al ejecutarse ven el valor final. Con let, cada iteración crea su propio ámbito y el closure captura el valor correcto. Cuidado con closures que retienen objetos grandes y provocan fugas de memoria.",
       "req": [
         "t17-4"
       ]
@@ -2396,7 +2396,7 @@ window.SEED = {
       "m": "m24",
       "order": 11,
       "title": "Inyección SQL",
-      "desc": "La inyección SQL ocurre cuando datos del usuario se concatenan en una consulta y alteran su lógica, por ejemplo con ' OR 1=1. Se evita con consultas parametrizadas o prepared statements, que separan código y datos, y con validación y permisos mínimos. Escapar comillas no es suficiente. Es una de las vulnerabilidades más graves y aparece mucho en entrevistas de backend.",
+      "desc": "La inyección SQL ocurre cuando datos del usuario se concatenan en una consulta y alteran su lógica. Por ejemplo, si el código hace \"SELECT * FROM usuarios WHERE email = '\" + email + \"'\", un valor como ' OR 1=1 -- puede devolver todos los registros o saltarse la autenticación.\n\nSe evita con consultas parametrizadas o prepared statements, que separan el código de los datos: el motor trata el valor como dato, nunca como SQL. Los ORM también ayudan si se usan correctamente y no se construyen consultas con concatenación.\n\nOtras defensas son validar y tipar la entrada, aplicar permisos mínimos a la cuenta de base de datos, no mostrar errores internos y auditar consultas. Escapar comillas a mano no es suficiente: hay codificaciones, comillas y motores distintos. Un WAF puede ayudar, pero no sustituye al código seguro.",
       "req": [
         "t19-5",
         "t14-9"
@@ -2429,7 +2429,7 @@ window.SEED = {
       "m": "m24",
       "order": 14,
       "title": "Cookies: HttpOnly, Secure y SameSite",
-      "desc": "HttpOnly impide que JavaScript lea la cookie, lo que reduce el robo por XSS. Secure hace que solo viaje por HTTPS. SameSite controla si se envía en peticiones de otro sitio: Lax, Strict o None. Para sesión conviene HttpOnly, Secure y SameSite=Lax o Strict. Estos atributos son la primera defensa de una cookie y se preguntan mucho.",
+      "desc": "Las cookies de sesión deben llevar opciones de seguridad. HttpOnly impide que JavaScript las lea, lo que reduce el robo mediante XSS. Secure hace que solo viajen por HTTPS. SameSite controla si se envían en peticiones iniciadas desde otro sitio.\n\nValores de SameSite:\n• Strict: no se envían en navegación desde otro sitio; máxima protección, pero puede romper la llegada desde otros sitios.\n• Lax: se envían en navegación normal de nivel superior, no en POST cruzados; es el equilibrio habitual.\n• None: se envían siempre, pero exigen Secure y aumentan el riesgo de CSRF.\n\nPara sesión conviene HttpOnly, Secure y SameSite=Lax o Strict, con Path acotado y caducidad razonable. El prefijo __Host- fuerza Secure, Path=/ y ausencia de Domain. Estas opciones son la primera defensa de una cookie y se preguntan mucho en entrevistas.",
       "req": [
         "t12-2",
         "t5-2"

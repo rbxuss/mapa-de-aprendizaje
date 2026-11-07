@@ -187,7 +187,7 @@ const ALIASES = {
   't17-1': ['JavaScript', 'JS'], 't17-2': ['let', 'const', 'var', 'tipos de datos'],
   't17-3': ['condicionales', 'operadores'], 't17-4': ['función', 'funciones', 'funciones flecha'],
   't17-5': ['objeto', 'objetos', 'arreglo', 'arreglos', 'array', 'arrays'],
-  't17-6': ['map', 'filter', 'reduce', 'métodos de arreglos'],
+  't17-6': ['map', 'filter', 'métodos de arreglos'],
   't17-7': ['addEventListener', 'evento', 'eventos', 'querySelector'],
   't17-8': ['callback', 'callbacks', 'asincronía'], 't17-9': ['promesa', 'promesas', 'Promise'],
   't17-10': ['async', 'await', 'async/await'], 't17-11': ['fetch'],
@@ -594,6 +594,42 @@ function topicCardHTML(t) {
     '<div class="topic-body">' + (open ? topicBodyHTML(t) : '') + '</div>' +
   '</article>';
 }
+function descBlocksHTML(text, selfId) {
+  const blocks = String(text || '').split(/\n\s*\n/).map(b => b.trim()).filter(Boolean);
+  if (!blocks.length) return '';
+  return blocks.map(block => {
+    const lines = block.split('\n').map(l => l.trim()).filter(Boolean);
+    const out = [];
+    let paragraph = [], list = [];
+    const flushParagraph = () => {
+      if (paragraph.length) {
+        out.push('<p class="desc">' + linkify(paragraph.join(' '), selfId) + '</p>');
+        paragraph = [];
+      }
+    };
+    const flushList = () => {
+      if (list.length) {
+        out.push('<ul class="desc-list">' + list.map(l =>
+          '<li>' + linkify(l, selfId) + '</li>'
+        ).join('') + '</ul>');
+        list = [];
+      }
+    };
+    lines.forEach(line => {
+      const item = line.match(/^[•\-]\s+(.*)$/);
+      if (item) {
+        flushParagraph();
+        list.push(item[1]);
+      } else {
+        flushList();
+        paragraph.push(line);
+      }
+    });
+    flushParagraph();
+    flushList();
+    return out.join('');
+  }).join('');
+}
 function topicBodyHTML(t) {
   let html = '';
   const unmet = unmetPrereqs(t);
@@ -617,7 +653,7 @@ function topicBodyHTML(t) {
       '<label class="field-label">Título</label>' +
       '<input data-edit-title value="' + esc(draftTitle) + '"/>' +
       '<label class="field-label">Explicación</label>' +
-      '<textarea data-edit-desc rows="4">' + esc(draftDesc) + '</textarea>' +
+      '<textarea data-edit-desc rows="8">' + esc(draftDesc) + '</textarea>' +
       '<label class="field-label" style="margin-top:12px">Necesitas antes</label>' +
       '<div class="chips">' + (draftReq.length
         ? draftReq.map(r => '<span class="chip">' + esc(r.title) +
@@ -632,8 +668,8 @@ function topicBodyHTML(t) {
       '</div></div>';
   }
 
-  const descHtml = linkify(t.desc || '', t.id);
-  html += '<p class="desc">' + descHtml + '</p>';
+  const descHtml = descBlocksHTML(t.desc || '', t.id);
+  html += descHtml;
   if (descHtml.indexOf('class="term"') !== -1) {
     html += '<div class="term-hint"><i></i>Las palabras subrayadas abren otro concepto sin perder tu sitio.</div>';
   }

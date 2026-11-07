@@ -7,7 +7,7 @@ No necesita instalación, dependencias ni proceso de build: es HTML, CSS y JavaS
 ## Características
 
 - **Ruta principal** con 24 módulos y 233 conceptos ordenados.
-- **Explicaciones completas** para cada concepto, con términos enlazados automáticamente.
+- **Explicaciones completas** para cada concepto, con ejemplos, listas, varios párrafos y términos enlazados automáticamente.
 - **Navegación entre conceptos** sin perder el punto de partida: cada enlace interno permite volver.
 - **Prerrequisitos**: avisa cuando falta dominar un concepto anterior y muestra qué desbloquea cada uno.
 - **Estados de estudio**: pendiente, estudiando, dominado y repasar.
@@ -46,7 +46,7 @@ También puedes abrir `index.html` directamente en el navegador.
 
 ## Contenido
 
-El contenido inicial cubre 24 módulos y 233 conceptos:
+El contenido inicial cubre 24 módulos y 233 conceptos. Las explicaciones de redes, HTTP, navegador, cookies y seguridad se ampliaron con detalles, ejemplos y casos prácticos (IP pública/privada, NAT, CIDR, DNS, puertos, TLS, CORS, XSS, JWT y más):
 
 1. Introducción al desarrollo web (incluye Internet, TCP/IP, TCP vs. UDP y paquetes de datos)
 2. HTML y estructura del contenido

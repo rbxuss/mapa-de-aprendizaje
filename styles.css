@@ -243,7 +243,10 @@ body.map-panning .node{cursor:grabbing}
 .topic-card.open .chev{transform:rotate(180deg)}
 .topic-body{padding:0 16px 16px 52px;display:none}
 .topic-card.open .topic-body{display:block}
-.desc{font-size:13px;line-height:1.72;color:#c4d3e3;margin:0 0 14px}
+.desc{font-size:13px;line-height:1.72;color:#c4d3e3;margin:0 0 12px}
+.desc-list{font-size:13px;line-height:1.7;color:#c4d3e3;margin:0 0 12px;padding-left:19px}
+.desc-list li{margin:0 0 5px}
+.desc-list li::marker{color:var(--accent)}
 .term{
   display:inline;padding:1px 3px;margin:0 -1px;border-radius:5px;color:#8cc6ff;
   border-bottom:1px dashed rgba(140,198,255,.55);font-size:inherit;font-weight:500;
