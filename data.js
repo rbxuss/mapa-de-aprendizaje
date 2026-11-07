@@ -1,6 +1,6 @@
 /* Contenido inicial: Nivel 1 · Fundamentos de desarrollo web.
    La app guarda tus cambios en localStorage; este archivo solo es la semilla. */
-window.SEED_VERSION = 5;
+window.SEED_VERSION = 6;
 window.SEED = {
   "version": 1,
   "modules": [
@@ -164,6 +164,13 @@ window.SEED = {
       "title": "Seguridad web básica",
       "priority": "alta",
       "desc": "Autenticación, autorización, tokens y los ataques más comunes."
+    },
+    {
+      "id": "m24",
+      "order": 24,
+      "title": "Conceptos clave para entrevistas",
+      "priority": "alta",
+      "desc": "Preguntas que aparecen una y otra vez en entrevistas de desarrollo web, con la respuesta corta y los enlaces para profundizar."
     }
   ],
   "topics": [
@@ -2276,6 +2283,291 @@ window.SEED = {
         "t14-7",
         "t14-8",
         "t14-9"
+      ]
+    },
+    {
+      "id": "t24-1",
+      "m": "m24",
+      "order": 1,
+      "title": "Event loop, call stack y microtareas",
+      "desc": "El event loop es el mecanismo que permite a JavaScript ser asíncrono con un solo hilo. Ejecuta el call stack hasta vaciarlo, luego procesa las microtareas (promesas) y después una macrotarea (temporizadores, eventos). Por eso una promesa se resuelve antes que un setTimeout de 0 ms. Entenderlo explica por qué el código pesado bloquea la interfaz.",
+      "req": [
+        "t17-8",
+        "t17-9"
+      ]
+    },
+    {
+      "id": "t24-2",
+      "m": "m24",
+      "order": 2,
+      "title": "Closures (clausuras)",
+      "desc": "Un closure o clausura es una función que recuerda el ámbito donde fue creada, incluso después de que ese ámbito termine. Permite encapsular estado privado, crear fábricas de funciones y conservar valores entre llamadas. En entrevistas suele aparecer con bucles y var, donde todas las funciones comparten la misma variable. Con let cada iteración crea su propio ámbito.",
+      "req": [
+        "t17-4"
+      ]
+    },
+    {
+      "id": "t24-3",
+      "m": "m24",
+      "order": 3,
+      "title": "Hoisting y this",
+      "desc": "Hoisting es la elevación de declaraciones al inicio de su ámbito: las funciones se pueden llamar antes de declararse y las variables existen pero valen undefined hasta su inicialización. this depende de cómo se invoca la función: en un método apunta al objeto, en una función suelta es undefined en modo estricto y las funciones flecha heredan el this externo. No es lo mismo scope que contexto.",
+      "req": [
+        "t17-2",
+        "t17-4"
+      ]
+    },
+    {
+      "id": "t24-4",
+      "m": "m24",
+      "order": 4,
+      "title": "Prototipos y herencia prototípica",
+      "desc": "JavaScript usa herencia prototípica: cada objeto tiene un prototipo del que hereda propiedades y métodos. Al buscar una propiedad, sube por la cadena de prototipos hasta encontrarla o llegar a null. Las clases son azúcar sintáctico sobre prototipos. Con Object.create o class puedes compartir comportamiento sin duplicar memoria. Es una pregunta clásica para distinguir de la herencia basada en clases.",
+      "req": [
+        "t17-5"
+      ]
+    },
+    {
+      "id": "t24-5",
+      "m": "m24",
+      "order": 5,
+      "title": "Debounce y throttle",
+      "desc": "Debounce retrasa la ejecución hasta que pasan X ms sin nuevos eventos; throttle garantiza como máximo una ejecución cada X ms. Se usan para búsquedas mientras se escribe, scroll, resize o validación. Debounce es ideal cuando solo importa el último evento; throttle, cuando quieres actualizar de forma regular. Ambos reducen trabajo y mejoran el rendimiento de la interfaz.",
+      "req": [
+        "t17-4",
+        "t17-7"
+      ]
+    },
+    {
+      "id": "t24-6",
+      "m": "m24",
+      "order": 6,
+      "title": "Bubbling, capturing y delegación de eventos",
+      "desc": "Un evento recorre el DOM en tres fases: captura desde la raíz hasta el objetivo, objetivo y burbujeo de vuelta. addEventListener puede escuchar en captura con true. La delegación aprovecha el burbujeo para poner un solo listener en un contenedor y detectar el hijo con closest. Ahorra listeners y funciona con elementos añadidos después. stopPropagation corta el recorrido.",
+      "req": [
+        "t17-7"
+      ]
+    },
+    {
+      "id": "t24-7",
+      "m": "m24",
+      "order": 7,
+      "title": "Copia superficial vs. copia profunda",
+      "desc": "Una copia superficial duplica solo el primer nivel: los objetos anidados siguen compartidos, así que modificar uno afecta a ambos. Se hace con Object.assign o spread. Una copia profunda duplica todos los niveles con structuredClone, JSON.parse(JSON.stringify()) o una librería. Cuidado con referencias circulares, fechas y funciones. En entrevistas preguntan la diferencia y sus riesgos.",
+      "req": [
+        "t17-5"
+      ]
+    },
+    {
+      "id": "t24-8",
+      "m": "m24",
+      "order": 8,
+      "title": "HTTP/1.1 vs. HTTP/2 vs. HTTP/3",
+      "desc": "HTTP/1.1 usa una conexión por petición o keep-alive y sufre bloqueo de cabeza de línea. HTTP/2 multiplexa varias peticiones sobre una conexión, comprime headers y prioriza recursos. HTTP/3 usa QUIC sobre UDP para reducir latencia y evitar el bloqueo por pérdida de paquetes. La elección afecta al rendimiento, no cambia la semántica de métodos y códigos.",
+      "req": [
+        "t5-1",
+        "t1-8"
+      ]
+    },
+    {
+      "id": "t24-9",
+      "m": "m24",
+      "order": 9,
+      "title": "Same-origin policy y preflight CORS",
+      "desc": "La same-origin policy impide que un script de un origen lea datos de otro origen distinto (esquema, dominio y puerto). CORS relaja esa regla mediante headers. Si la petición no es simple (usa PUT, JSON o headers personalizados), el navegador envía primero un preflight OPTIONS para preguntar al servidor qué permite. Sin la respuesta correcta, bloquea la lectura aunque la petición llegue.",
+      "req": [
+        "t14-6",
+        "t5-1"
+      ]
+    },
+    {
+      "id": "t24-10",
+      "m": "m24",
+      "order": 10,
+      "title": "Content Security Policy (CSP)",
+      "desc": "Content Security Policy es un header que indica al navegador qué fuentes de scripts, estilos, imágenes y conexiones puede cargar. Con directivas como default-src o script-src se reduce el impacto de XSS. Evita inline scripts o usa nonces y hashes. Una CSP mal configurada rompe la página; una ausente deja la puerta abierta. Es defensa en profundidad, no sustituye escapar la salida.",
+      "req": [
+        "t14-8",
+        "t5-9"
+      ]
+    },
+    {
+      "id": "t24-11",
+      "m": "m24",
+      "order": 11,
+      "title": "Inyección SQL",
+      "desc": "La inyección SQL ocurre cuando datos del usuario se concatenan en una consulta y alteran su lógica, por ejemplo con ' OR 1=1. Se evita con consultas parametrizadas o prepared statements, que separan código y datos, y con validación y permisos mínimos. Escapar comillas no es suficiente. Es una de las vulnerabilidades más graves y aparece mucho en entrevistas de backend.",
+      "req": [
+        "t19-5",
+        "t14-9"
+      ]
+    },
+    {
+      "id": "t24-12",
+      "m": "m24",
+      "order": 12,
+      "title": "Hash de contraseñas",
+      "desc": "En una base de datos, las contraseñas nunca se guardan en texto plano ni con cifrado reversible: se guardan con un hash lento y con sal, como bcrypt, scrypt o Argon2. La sal evita tablas precalculadas y el coste alto frena la fuerza bruta. Nunca se compara con ===; se usa la función de verificación. Si la base se filtra, el atacante aún debe romper cada hash.",
+      "req": [
+        "t14-1",
+        "t14-10"
+      ]
+    },
+    {
+      "id": "t24-13",
+      "m": "m24",
+      "order": 13,
+      "title": "OAuth 2.0 y OpenID Connect",
+      "desc": "OAuth 2.0 es un marco de autorización que permite a una aplicación acceder a recursos de otra sin pedir la contraseña. El usuario autoriza y la app recibe un access token. OpenID Connect añade una capa de identidad sobre OAuth con un ID token. No confundas autorización con autenticación. En entrevistas importan los flujos, los scopes y el manejo seguro de tokens.",
+      "req": [
+        "t14-1",
+        "t14-4"
+      ]
+    },
+    {
+      "id": "t24-14",
+      "m": "m24",
+      "order": 14,
+      "title": "Cookies: HttpOnly, Secure y SameSite",
+      "desc": "HttpOnly impide que JavaScript lea la cookie, lo que reduce el robo por XSS. Secure hace que solo viaje por HTTPS. SameSite controla si se envía en peticiones de otro sitio: Lax, Strict o None. Para sesión conviene HttpOnly, Secure y SameSite=Lax o Strict. Estos atributos son la primera defensa de una cookie y se preguntan mucho.",
+      "req": [
+        "t12-2",
+        "t5-2"
+      ]
+    },
+    {
+      "id": "t24-15",
+      "m": "m24",
+      "order": 15,
+      "title": "Sesiones vs. JWT",
+      "desc": "Una sesión guarda el estado en el servidor y el cliente solo lleva un identificador en una cookie. Un JWT lleva los datos firmados en el propio token y el servidor no consulta la sesión en cada petición. Las sesiones son fáciles de revocar; los JWT escalan mejor pero revocarlos exige listas o expiraciones cortas. No hay ganador absoluto: depende del sistema.",
+      "req": [
+        "t12-3",
+        "t14-5"
+      ]
+    },
+    {
+      "id": "t24-16",
+      "m": "m24",
+      "order": 16,
+      "title": "SSR, CSR, SSG e hidratación",
+      "desc": "CSR renderiza en el navegador con JavaScript; SSR genera el HTML en el servidor en cada petición; SSG lo genera en el build y lo sirve estático. La hidratación es el proceso de hacer interactivo ese HTML ya renderizado. SSR y SSG mejoran la primera carga y el SEO; CSR simplifica la interactividad. Muchos frameworks combinan varios modos por ruta.",
+      "req": [
+        "t1-7",
+        "t11-3",
+        "t17-1"
+      ]
+    },
+    {
+      "id": "t24-17",
+      "m": "m24",
+      "order": 17,
+      "title": "REST vs. GraphQL",
+      "desc": "REST expone recursos con URLs y métodos HTTP, y suele devolver estructuras fijas. GraphQL expone un esquema y permite pedir exactamente los campos necesarios en una sola consulta. REST es simple y cacheable; GraphQL reduce overfetching pero complica caché, autorización y consultas costosas. La elección depende del cliente y del equipo, no de moda.",
+      "req": [
+        "t4-9",
+        "t20-7"
+      ]
+    },
+    {
+      "id": "t24-18",
+      "m": "m24",
+      "order": 18,
+      "title": "Problema N+1 en bases de datos",
+      "desc": "El problema N+1 ocurre cuando se hace una consulta para obtener N registros y luego una consulta adicional por cada uno para traer su relación. Con 100 pedidos, se ejecutan 101 consultas en lugar de una o dos. Se resuelve con JOIN, eager loading del ORM o consultas por lotes. Es una causa clásica de lentitud y una pregunta frecuente de bases de datos.",
+      "req": [
+        "t19-6",
+        "t19-8"
+      ]
+    },
+    {
+      "id": "t24-19",
+      "m": "m24",
+      "order": 19,
+      "title": "Monolito vs. microservicios",
+      "desc": "Un monolito concentra la aplicación en un solo despliegue; es más simple de desarrollar, probar y desplegar al principio. Los microservicios dividen el sistema en servicios independientes que se comunican por red; escalan y se despliegan por separado, pero añaden latencia, observabilidad y consistencia distribuida. No empieces con microservicios sin necesidad. La modularidad importa más que el número de servicios.",
+      "req": [
+        "t4-5",
+        "t4-6"
+      ]
+    },
+    {
+      "id": "t24-20",
+      "m": "m24",
+      "order": 20,
+      "title": "Escalado horizontal, vertical y balanceador de carga",
+      "desc": "El escalado vertical aumenta los recursos de una máquina; el horizontal añade más máquinas. El horizontal suele ser más flexible y tolerante a fallos, pero exige que la aplicación no guarde estado local. Un balanceador de carga reparte las peticiones entre instancias y comprueba su salud. También hay que pensar en sesiones, caché y base de datos compartida.",
+      "req": [
+        "t3-5",
+        "t3-6"
+      ]
+    },
+    {
+      "id": "t24-21",
+      "m": "m24",
+      "order": 21,
+      "title": "Proxy inverso",
+      "desc": "Un proxy inverso se coloca delante de los servidores y recibe las peticiones de los clientes. Puede terminar TLS, servir archivos estáticos, comprimir, cachear, limitar peticiones y repartir tráfico. Nginx y Caddy son ejemplos habituales. El cliente solo ve el proxy, no los servicios internos. Mejora seguridad y rendimiento sin cambiar la aplicación.",
+      "req": [
+        "t3-5",
+        "t5-8"
+      ]
+    },
+    {
+      "id": "t24-22",
+      "m": "m24",
+      "order": 22,
+      "title": "Pirámide de testing",
+      "desc": "La pirámide de testing propone muchas pruebas unitarias rápidas, menos de integración y muy pocas end-to-end. Las unitarias aíslan la lógica; las de integración comprueban contratos entre piezas; las E2E validan flujos reales. La forma evita una suite lenta y frágil. En entrevistas importa explicar qué probar en cada nivel y no perseguir el 100% de cobertura.",
+      "req": [
+        "t22-2",
+        "t22-3",
+        "t22-4"
+      ]
+    },
+    {
+      "id": "t24-23",
+      "m": "m24",
+      "order": 23,
+      "title": "Semver y gestores de paquetes",
+      "desc": "Semver usa MAJOR.MINOR.PATCH: MAJOR rompe compatibilidad, MINOR añade funciones compatibles y PATCH corrige errores. Los gestores de paquetes como npm, yarn o pnpm descargan dependencias, resuelven versiones y ejecutan scripts. package.json declara dependencias y package-lock.json fija el árbol exacto en el repositorio. Entender rangos como ^ y ~ evita actualizaciones inesperadas en producción.",
+      "req": [
+        "t18-2",
+        "t22-6"
+      ]
+    },
+    {
+      "id": "t24-24",
+      "m": "m24",
+      "order": 24,
+      "title": "CAP, replicación y sharding",
+      "desc": "El teorema CAP dice que ante una partición de red un sistema distribuido debe elegir entre consistencia y disponibilidad. La replicación copia los datos de una base de datos en varios nodos para tolerar fallos y repartir lecturas; el sharding divide los datos por una clave para escalar escrituras. Ambos añaden complejidad de consistencia. En entrevistas se pregunta cuándo priorizar cada trade-off.",
+      "req": [
+        "t19-2",
+        "t19-9"
+      ]
+    },
+    {
+      "id": "t24-25",
+      "m": "m24",
+      "order": 25,
+      "title": "Complejidad algorítmica (Big O)",
+      "desc": "La notación Big O describe cómo crece el tiempo o la memoria de un algoritmo cuando crece la entrada. O(1) es constante, O(log n) crece muy lento, O(n) es lineal y O(n²) se dispara. Un índice de base de datos cambia una búsqueda lineal por una logarítmica. No hace falta memorizar todos los casos, pero sí reconocer los patrones y justificar la elección.",
+      "req": [
+        "t17-6",
+        "t19-8"
+      ]
+    },
+    {
+      "id": "t24-26",
+      "m": "m24",
+      "order": 26,
+      "title": "Virtual DOM y React",
+      "desc": "El Virtual DOM es una representación en memoria de la interfaz que una librería compara con la anterior para calcular los cambios mínimos y aplicarlos al DOM real. React lo popularizó junto con componentes y estado declarativo. No es automáticamente más rápido: evita manipulaciones innecesarias y facilita razonar sobre la UI. Entender el DOM real ayuda a explicar por qué existe.",
+      "req": [
+        "t11-4",
+        "t17-7",
+        "t2-8"
       ]
     }
   ],

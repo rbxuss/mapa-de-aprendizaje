@@ -224,7 +224,34 @@ const ALIASES = {
   't23-1': ['despliegue', 'deploy'], 't23-2': ['build'],
   't23-3': ['variables de entorno', '.env'], 't23-4': ['CI/CD', 'integración continua'],
   't23-5': ['Docker', 'contenedor', 'contenedores'], 't23-6': ['logs', 'monitoreo'],
-  't23-7': ['certificado TLS'], 't23-8': ['rollback'], 't23-9': ['serverless', 'cloud']
+  't23-7': ['certificado TLS'], 't23-8': ['rollback'], 't23-9': ['serverless', 'cloud'],
+  /* Entrevistas */
+  't24-1': ['event loop', 'call stack', 'microtareas', 'bucle de eventos'],
+  't24-2': ['closure', 'closures', 'clausura', 'clausuras'],
+  't24-3': ['hoisting', 'this'],
+  't24-4': ['prototipo', 'prototipos', 'herencia prototípica'],
+  't24-5': ['debounce', 'throttle'],
+  't24-6': ['bubbling', 'capturing', 'delegación de eventos', 'event delegation'],
+  't24-7': ['copia superficial', 'copia profunda', 'shallow copy', 'deep copy'],
+  't24-8': ['HTTP/2', 'HTTP/3', 'QUIC', 'HTTP/1.1'],
+  't24-9': ['same-origin policy', 'política de mismo origen', 'preflight'],
+  't24-10': ['CSP', 'Content Security Policy'],
+  't24-11': ['inyección SQL', 'SQL injection'],
+  't24-12': ['hash de contraseñas', 'bcrypt', 'argon2', 'hashing'],
+  't24-13': ['OAuth', 'OAuth 2.0', 'OpenID Connect', 'OIDC'],
+  't24-14': ['HttpOnly', 'SameSite', 'Secure'],
+  't24-15': ['sesiones vs. JWT', 'sesión vs. token'],
+  't24-16': ['SSR', 'CSR', 'SSG', 'hidratación', 'hydration'],
+  't24-17': ['REST vs. GraphQL'],
+  't24-18': ['N+1', 'problema N+1'],
+  't24-19': ['monolito', 'microservicios', 'microservicio'],
+  't24-20': ['escalado horizontal', 'escalado vertical', 'balanceador de carga', 'load balancer'],
+  't24-21': ['proxy inverso', 'reverse proxy', 'Nginx'],
+  't24-22': ['pirámide de testing', 'pirámide de pruebas'],
+  't24-23': ['semver', 'versionado semántico', 'npm', 'package.json'],
+  't24-24': ['CAP', 'teorema CAP', 'replicación', 'sharding', 'fragmentación'],
+  't24-25': ['Big O', 'complejidad algorítmica', 'notación Big O'],
+  't24-26': ['Virtual DOM', 'React']
 };
 
 function cleanPart(s) {

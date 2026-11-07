@@ -6,7 +6,7 @@ No necesita instalación, dependencias ni proceso de build: es HTML, CSS y JavaS
 
 ## Características
 
-- **Ruta principal** con 23 módulos y 207 conceptos ordenados.
+- **Ruta principal** con 24 módulos y 233 conceptos ordenados.
 - **Explicaciones completas** para cada concepto, con términos enlazados automáticamente.
 - **Navegación entre conceptos** sin perder el punto de partida: cada enlace interno permite volver.
 - **Prerrequisitos**: avisa cuando falta dominar un concepto anterior y muestra qué desbloquea cada uno.
@@ -46,7 +46,7 @@ También puedes abrir `index.html` directamente en el navegador.
 
 ## Contenido
 
-El contenido inicial cubre 23 módulos y 207 conceptos:
+El contenido inicial cubre 24 módulos y 233 conceptos:
 
 1. Introducción al desarrollo web (incluye Internet, TCP/IP, TCP vs. UDP y paquetes de datos)
 2. HTML y estructura del contenido
@@ -71,6 +71,7 @@ El contenido inicial cubre 23 módulos y 207 conceptos:
 21. Testing y calidad
 22. Despliegue y DevOps básico
 23. Seguridad web básica
+24. Conceptos clave para entrevistas (event loop, closures, HTTP/2 y HTTP/3, CSP, OAuth, N+1, microservicios, Big O y más)
 
 ## Datos y persistencia
 
